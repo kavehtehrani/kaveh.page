@@ -17,7 +17,7 @@ import { remarkCodeBlockTitle } from './remark-code-block-title'
 import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
 import type { MdxPageLayout } from '~/types'
-import { ReadingTime } from '~/types'
+import { type ReadingTime } from '~/types'
 
 export async function getFileBySlug(
   type: string,
