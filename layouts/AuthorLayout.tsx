@@ -61,7 +61,9 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
       </div>
       <div className="items-start pt-8 ">
         {/*<ProfileCard />*/}
-        <div className="prose prose-lg max-w-none pb-8 dark:prose-dark ">{children}</div>
+        <div className="prose prose-lg text-justify max-w-none pb-8 dark:prose-dark ">
+          {children}
+        </div>
       </div>
     </>
   )

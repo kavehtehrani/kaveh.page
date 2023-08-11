@@ -12,7 +12,8 @@ Please feel free to leave a comment or hit me up directly to chat!
 
 ## Tech stack
 
-This blog is hosted on [Vercel](https://vercel.com/?ref=kaveh.page), and was absolutely overengineered with [Next.js](https://nextjs.org/?ref=kaveh.page), 
+This blog is hosted on [Vercel](https://vercel.com/?ref=kaveh.page), and was absolutely overengineered with 
+[Next.js](https://nextjs.org/?ref=kaveh.page), 
 [Tailwind](https://tailwindcss.com/?ref=kaveh.page), [TypeScript](https://www.typescriptlang.org/?ref=kaveh.page), and uses 
 [Umami](https://umami.is/?ref=kaveh.page) Cloud for analytics.  
 
