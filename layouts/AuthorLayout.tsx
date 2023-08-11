@@ -30,7 +30,7 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
               </div>
               <div className="text-lg leading-8 space-y-3 text-gray-700 dark:text-stone-200">
                 <p>
-                  I work a quantitative portfolio manager focused mostly on digital assets while
+                  I work as a quantitative portfolio manager focused mostly on digital assets while
                   living full time as a<Link href={'/blog/digital-nomadness/'}> digital nomad</Link>
                   .
                 </p>
