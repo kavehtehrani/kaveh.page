@@ -21,12 +21,6 @@ export function BlogLinks() {
           What have I built?
         </span>
       </Link>
-      <Link href="/about">
-        <span>&#x1F4D3;</span>
-        <span data-umami-event="home-link-about" className="ml-1.5">
-          About me
-        </span>
-      </Link>
     </div>
   )
 }
