@@ -16,8 +16,30 @@ import { formatSlug, getAllFilesRecursively } from './files'
 import { remarkCodeBlockTitle } from './remark-code-block-title'
 import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
+import type { MdxPageLayout } from '~/types'
 
-export async function getFileBySlug(type: string, slug: string): Promise<MdxFileData> {
+export async function getFileBySlug(
+  type: string,
+  slug: string
+): Promise<{
+  mdxSource: string
+  toc: TOC[]
+  frontMatter: {
+    date: string
+    summary: string
+    fileName: string
+    images?: string[] | string
+    title: string
+    tags: string[]
+    layout?: MdxPageLayout
+    readingTime: string
+    draft?: boolean
+    name?: string
+    slug: string
+    lastmod?: string
+    authors?: string[]
+  }
+}> {
   let root = process.cwd()
   let mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   let mdPath = path.join(root, 'data', type, `${slug}.md`)

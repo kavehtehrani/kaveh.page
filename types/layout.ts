@@ -30,8 +30,3 @@ export interface SnippetLayoutProps {
   snippets: SnippetFrontMatter[]
   description: string
 }
-
-export interface ResumeLayoutProps {
-  children: React.ReactNode
-  frontMatter: MdxFrontMatter
-}

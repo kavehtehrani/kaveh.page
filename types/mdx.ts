@@ -1,12 +1,7 @@
 import type readingTime from 'reading-time'
 import type { DevIconsMap } from '~/components/DevIcon'
 
-export type MdxPageLayout =
-  | 'AuthorLayout'
-  | 'ListLayout'
-  | 'PostSimple'
-  | 'ResumeLayout'
-  | 'SnippetLayout'
+export type MdxPageLayout = 'AuthorLayout' | 'ListLayout' | 'PostSimple' | 'SnippetLayout'
 
 export interface MdxFrontMatter {
   layout?: MdxPageLayout
@@ -20,13 +15,12 @@ export interface MdxFrontMatter {
   images?: string[] | string
   authors?: string[]
   slug: string
-  readingTime: string
+  readingTime: typeof readingTime
 }
 
 export type ReadingTime = ReturnType<typeof readingTime>
 
 export interface BlogFrontMatter extends MdxFrontMatter {
-  readingTime: ReadingTime & string
   fileName: string
 }
 
