@@ -27,12 +27,6 @@ export interface SocialButtonsProps {
   title: string
   fileName: string
 }
-
-export interface UnsplashPhotoProps {
-  photoURL: string
-  author: string
-}
-
 export interface ViewCounterProps {
   slug: string
   className?: string

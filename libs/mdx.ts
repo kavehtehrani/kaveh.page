@@ -17,6 +17,7 @@ import { remarkCodeBlockTitle } from './remark-code-block-title'
 import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
 import type { MdxPageLayout } from '~/types'
+import { ReadingTime } from '~/types'
 
 export async function getFileBySlug(
   type: string,
@@ -32,7 +33,7 @@ export async function getFileBySlug(
     title: string
     tags: string[]
     layout?: MdxPageLayout
-    readingTime: string
+    readingTime: ReadingTime
     draft?: boolean
     name?: string
     slug: string
