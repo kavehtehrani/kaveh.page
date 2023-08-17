@@ -15,6 +15,7 @@ import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
 import Ubuntu from '~/icons/ubuntu.svg'
 import RSS from '~/icons/rss.svg'
+import Chrome from '~/icons/chrome.svg'
 
 export let DevIconsMap = {
   React,
@@ -34,6 +35,7 @@ export let DevIconsMap = {
   Railway,
   Spotify,
   RSS,
+  Chrome,
 }
 
 export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {

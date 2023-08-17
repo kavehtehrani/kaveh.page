@@ -114,6 +114,9 @@ module.exports = {
             'h4,h5,h6': {
               color: theme('colors.gray.900'),
             },
+            'code-line': {
+              color: theme('colors.orange.900'),
+            },
             code: {
               color: theme('colors.gray.500'),
               fontWeight: '200',

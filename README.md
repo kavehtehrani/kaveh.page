@@ -15,7 +15,10 @@ Please feel free to leave a comment or hit me up directly to chat!
 This blog is hosted on [Vercel](https://vercel.com/?ref=kaveh.page), and was absolutely overengineered with 
 [Next.js](https://nextjs.org/?ref=kaveh.page), 
 [Tailwind](https://tailwindcss.com/?ref=kaveh.page), [TypeScript](https://www.typescriptlang.org/?ref=kaveh.page), and uses 
-[Umami](https://umami.is/?ref=kaveh.page) Cloud for analytics.  
+[Umami](https://umami.is/?ref=kaveh.page) Cloud for analytics. Before you flame me for using Next.js for a static
+blog that could've been done with plain HTML/CSS, I would say that this is more of a playground for learning. The
+website is rendered server-side, served statically, and has high
+[Lighthouse score](https://pagespeed.web.dev/analysis/https-kaveh-page/1z9i14443f?form_factor=desktop).  
 
 A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the original starter blog
 and [Tuan Anh Huynh](https://www.leohuynh.dev/) for the updated version!

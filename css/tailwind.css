@@ -11,7 +11,7 @@
 }
 
 .code-line {
-  @apply -mx-4 border-l-4 border-gray-800 px-4;
+  @apply text-xs -mx-4 border-l-4 border-gray-800 px-4;
 }
 
 .highlight-line {
@@ -49,7 +49,7 @@
 }
 
 .prose blockquote p {
-  margin: 16px 0px;
+  margin: 16px;
 }
 
 .prose blockquote {
@@ -126,7 +126,7 @@ html.lightbox-loading * {
   background-color: transparent !important;
 }
 
-.prose .code-line {
+.prose {
   font-size: 16px;
 }
 
