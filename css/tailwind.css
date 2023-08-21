@@ -31,9 +31,7 @@
   margin-top: 1em;
   background-color: #222;
 }
-.prose pre code {
-  font-weight: 500 !important;
-}
+
 .prose pre .code-line {
   border-color: #222;
 }
@@ -127,7 +125,7 @@ html.lightbox-loading * {
 }
 
 .prose {
-  font-size: 16px;
+  /*font-size: 16px;*/
 }
 
 .prose hr {
