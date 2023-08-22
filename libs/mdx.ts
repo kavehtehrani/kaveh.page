@@ -145,6 +145,7 @@ export function getAllFilesFrontMatter(...folderNames: string[]) {
       let grayMatterData = matter(source)
       let data = grayMatterData.data as BlogFrontMatter
       data.readingTime = readingTime(grayMatterData.content)
+      data.folderName = folder
       if (data.draft !== true) {
         allFrontMatter.push({ ...data, slug: formatSlug(fileName) })
       }

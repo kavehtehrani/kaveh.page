@@ -1,9 +1,9 @@
-import type { MdxFrontMatter } from '~/types'
+import type { BlogFrontMatter, MdxFrontMatter } from '~/types'
 import { formatDate } from '~/utils/date'
 import { Link } from './Link'
 import { Tag } from './Tag'
 
-export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
+export function PostListItem({ frontMatter }: { frontMatter: BlogFrontMatter }) {
   let { slug, date, title, summary, tags, readingTime } = frontMatter
   return (
     <li key={slug}>
@@ -27,7 +27,10 @@ export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
         <div className="space-y-3 xl:col-span-3">
           <div>
             <h3 className="text-2xl font-bold leading-8 tracking-tight">
-              <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+              <Link
+                href={`/${frontMatter.folderName}/${slug}`}
+                className="text-gray-900 dark:text-gray-100"
+              >
                 <span data-umami-event="blog-title">{title}</span>
               </Link>
             </h3>

@@ -2,13 +2,13 @@ import { escape } from '~/utils/html-escaper'
 import { siteMetadata } from '~/data/siteMetadata'
 import type { BlogFrontMatter } from '~/types'
 
-// TODO: generate RSS avialable with icon
+// TODO: generate RSS available with icon
 function generateRssItem(post: BlogFrontMatter) {
   return `
   <item>
-    <guid>${siteMetadata.siteUrl}/blog/${post.slug}</guid>
+    <guid>${siteMetadata.siteUrl}/${post.folderName}/${post.slug}</guid>
     <title>${escape(post.title)}</title>
-    <link>${siteMetadata.siteUrl}/blog/${post.slug}</link>
+    <link>${siteMetadata.siteUrl}/${post.folderName}/${post.slug}</link>
     ${post.summary && `<description>${escape(post.summary)}</description>`}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${siteMetadata.email} (${siteMetadata.author})</author>

@@ -21,6 +21,7 @@ export interface MdxFrontMatter {
 
 export interface BlogFrontMatter extends MdxFrontMatter {
   fileName: string
+  folderName: string
 }
 
 export interface SnippetFrontMatter extends BlogFrontMatter {
