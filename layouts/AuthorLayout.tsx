@@ -52,7 +52,6 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
             <div className="hidden pl-8 pt-24 md:block">
               <ProfileCard />
             </div>
-            {/*  TODO: insert subscribe email */}
             {/* TODO: Make a map*/}
             {/*Countries visited:\*/}
             {/*🇨🇦 🇺🇸 🇮🇷 🇧🇸 🇵🇪 🇨🇴 🇬🇹 🇲🇽 🇧🇷 🇨🇷 🇸🇬 🇦🇿 🇦🇹 🇫🇷 🇵🇹 🇪🇸 🇧🇪 🇵🇱 🇩🇪 🇮🇹 🇭🇺 🇨🇿 🇨🇾 🇬🇷 🇭🇷 🇹🇷 🇶🇦 🇦🇪 🇲🇦 🇹🇯*/}

@@ -2,7 +2,6 @@ import { escape } from '~/utils/html-escaper'
 import { siteMetadata } from '~/data/siteMetadata'
 import type { BlogFrontMatter } from '~/types'
 
-// TODO: generate RSS available with icon
 function generateRssItem(post: BlogFrontMatter) {
   return `
   <item>

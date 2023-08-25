@@ -20,6 +20,7 @@ export let siteMetadata = {
   instagram: 'https://instagram.com/_kaveh/',
   medium: 'https://kavehtehrani.medium.com/',
   nomadlist: 'https://nomadlist.com/@kwar13',
+  buttondown: 'kaveh',
   locale: 'en-US',
   analyticsURL: '',
   analytics: {
