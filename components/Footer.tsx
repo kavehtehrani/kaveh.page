@@ -11,7 +11,9 @@ export function Footer() {
           <SocialAccounts />
         </div>
         <ButtonDown />
-        <BuiltWith />
+        <div className="mt-2">
+          <BuiltWith />
+        </div>
         <div
           className="text-neutral-400 dark:text-neutral-500 gap-x-2 text-sm
           text-center items-center justify-center sm:flex"

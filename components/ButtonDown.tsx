@@ -18,7 +18,7 @@ export default function ButtonDown() {
         <input type="hidden" value="1" name="embed" />
         <button
           className="text-sm rounded-r-xl mr-2 focus:shadow-outline-blue inline border border-transparent
-              bg-stone-600 px-4 py-2 text-md font-medium text-white shadow transition-colors
+              bg-stone-600 px-4 py-2 text-white shadow transition-colors
               duration-150 hover:bg-blue-700 focus:outline-none dark:hover:bg-blue-500"
           type="submit"
           value="Subscribe"
