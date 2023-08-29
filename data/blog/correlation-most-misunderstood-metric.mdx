@@ -16,7 +16,7 @@ import { CorrChart } from '~/data/charts/2023_08_correlation'
 	crossOrigin="anonymous"
 />
 
-Let's start out with a simple test. In the image below, do you think Series 1 is
+Let's start out with a simple test. In the image below, is Series 1
 correlated with Series 2 positively or negatively? You can think of them as stock prices.
 
 <CorrChart />
@@ -37,8 +37,8 @@ That is abjectly false, and unfortunately an all-too-common belief that misses a
 You cannot generally tell the correlation of two time-series by looking at a chart.
 
 In the chart above, Series 1 and Series 2 are both increasing every day **together** in the same direction, yet they
-are perfectly negatively correlated. How can this be then? You can see the values here in this
-[Google Sheets](https://docs.google.com/spreadsheets/d/1Ehpx_qv5WS2hmp3Y7mkVLzDlbizI-MCSQfCTHTyIKmk/edit#gid=0).
+are perfectly negatively correlated. You can see the values here in this
+[Google Sheets](https://docs.google.com/spreadsheets/d/1Ehpx_qv5WS2hmp3Y7mkVLzDlbizI-MCSQfCTHTyIKmk/edit#gid=0). How can this be then?
 
 It is because correlations are calculated **around the mean**, and do not indicate direction whatsoever. If you look
 at the correlation formula below, you can see that the mean of each series in deducted in the numerator. That means
