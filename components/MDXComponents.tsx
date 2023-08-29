@@ -4,11 +4,13 @@ import type { MdxLayoutRendererProps } from '~/types'
 import { Image } from './Image'
 import { Link } from './Link'
 import { Pre } from './Pre'
+import CorrChart from '~/components/correlationChart'
 
 let MDXComponents = {
   Image,
   a: Link,
   pre: Pre,
+  CorrChart: CorrChart,
   wrapper: ({ components, layout, ...rest }) => {
     let Layout = require(`../layouts/${layout}`).default
     return <Layout {...rest} />
