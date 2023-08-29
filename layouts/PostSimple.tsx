@@ -66,7 +66,7 @@ export function PostSimple(props: PostSimpleLayoutProps) {
                     Previous Article
                   </h2>
                   <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                    <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                    <Link href={`/${prev.folderName}/${prev.slug}`}>{prev.title}</Link>
                   </div>
                 </div>
               )}
@@ -76,7 +76,7 @@ export function PostSimple(props: PostSimpleLayoutProps) {
                     Next Article
                   </h2>
                   <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                    <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                    <Link href={`/${next.folderName}/${next.slug}`}>{next.title}</Link>
                   </div>
                 </div>
               )}

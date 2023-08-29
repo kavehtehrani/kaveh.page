@@ -1,4 +1,4 @@
-import { MDXLayoutRenderer } from 'components/MDXComponents'
+import { MDXLayoutRenderer } from '~/components/MDXComponents'
 import { PageTitle } from '~/components/PageTitle'
 import { getCommentConfigs } from '~/libs/comment'
 import { formatSlug, getFiles } from '~/libs/files'

@@ -1,4 +1,4 @@
-import { PageSeo } from 'components/SEO'
+import { PageSeo } from '~/components/SEO'
 import { siteMetadata } from '~/data/siteMetadata'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import type { BlogFrontMatter, TagsCount } from '~/types'

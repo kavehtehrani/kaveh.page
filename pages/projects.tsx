@@ -1,4 +1,4 @@
-import { PageSeo } from 'components/SEO'
+import { PageSeo } from '~/components/SEO'
 import { ProjectCard } from '~/components/ProjectCard'
 import { projectsData } from '~/data/projectsData'
 import { siteMetadata } from '~/data/siteMetadata'

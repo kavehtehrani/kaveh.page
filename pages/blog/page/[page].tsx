@@ -1,4 +1,4 @@
-import { PageSeo } from 'components/SEO'
+import { PageSeo } from '~/components/SEO'
 import BlogListLayout from '~/layouts/BlogListLayout'
 import { POSTS_PER_PAGE } from '~/constant'
 import { siteMetadata } from '~/data/siteMetadata'

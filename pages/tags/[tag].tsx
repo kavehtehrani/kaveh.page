@@ -1,4 +1,4 @@
-import { PageSeo } from 'components/SEO'
+import { PageSeo } from '~/components/SEO'
 import fs from 'fs'
 import path from 'path'
 import { siteMetadata } from '~/data/siteMetadata'

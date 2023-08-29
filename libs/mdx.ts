@@ -18,6 +18,8 @@ import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
 import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 
 export async function getFileBySlug(
   type: string,
@@ -90,12 +92,14 @@ export async function getFileBySlug(
         ...(options.remarkPlugins || []),
         [remarkTocHeading, { exportRef: toc }],
         remarkGFM,
+        remarkMath,
         remarkCodeBlockTitle,
         remarkImgToJsx,
       ]
       options.rehypePlugins = [
         ...(options.rehypePlugins || []),
         rehypeSlug,
+        rehypeKatex,
         rehypeAutolinkHeadings,
         [rehypePrismPlus, { ignoreMissing: true }],
         rehypePresetMinify,
