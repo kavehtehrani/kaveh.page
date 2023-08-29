@@ -10,7 +10,6 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
-// Chart.defaults.global.defaultFontColor
 ChartJS.defaults.color = '#9ca3af'
 ChartJS.defaults.borderColor = '#6b7280'
 
@@ -25,12 +24,10 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      color: '#9ca3af',
       text: 'Correlation - More than meets the eye' as const,
     },
     legend: {
       position: 'bottom' as const,
-      color: '#9ca3af',
     },
     annotation: {
       annotations: {
@@ -49,14 +46,12 @@ export const options = {
       title: {
         display: true,
         text: 'Value',
-        color: '#9ca3af',
       },
     },
     x: {
       title: {
         display: true,
         text: 'Time',
-        color: '#9ca3af',
       },
     },
   },
