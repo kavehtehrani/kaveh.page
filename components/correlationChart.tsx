@@ -24,7 +24,7 @@ export const options = {
       text: 'Correlation - More than meets the eye',
     },
     legend: {
-      position: 'bottom',
+      position: 'bottom' as const,
     },
     annotation: {
       annotations: {
