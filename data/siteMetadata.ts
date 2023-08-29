@@ -1,9 +1,9 @@
 export let siteMetadata = {
-  title: "Kaveh's Blog - Journey into web3 and digital nomadness",
+  title: "Kaveh's Blog",
   author: 'Kaveh',
   fullName: 'Kaveh Tehrani',
-  headerTitle: "Kaveh's Blog - Journey into web3 and digital nomadness",
-  footerTitle: 'Journey into web3 and digital nomadness',
+  headerTitle: "Kaveh's Blog",
+  footerTitle: "Kaveh's Blog",
   description: "Kaveh Tehrani's Blog - leaving tradfi and diving fully into web3",
   language: 'en-us',
   siteUrl: 'https://kaveh.page/',
