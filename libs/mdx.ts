@@ -122,7 +122,7 @@ export async function getFileBySlug(
     toc,
     mdxSource: code,
     frontMatter: {
-      readingTime: readingTime(code),
+      readingTime: readingTime(source),
       slug: slug || null,
       fileName: fs.existsSync(mdxPath) ? `${slug}.mdx` : `${slug}.md`,
       ...frontmatter,
@@ -148,7 +148,7 @@ export function getAllFilesFrontMatter(...folderNames: string[]) {
       let source = fs.readFileSync(file, 'utf8')
       let grayMatterData = matter(source)
       let data = grayMatterData.data as BlogFrontMatter
-      data.readingTime = readingTime(grayMatterData.content)
+      data.readingTime = readingTime(source)
       data.folderName = folder
       if (data.draft !== true) {
         allFrontMatter.push({ ...data, slug: formatSlug(fileName) })
