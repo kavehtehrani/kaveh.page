@@ -6,7 +6,7 @@ draft: false
 summary: 'Positive correlation between two time-series does NOT mean they are moving the same direction.'
 authors: ['default']
 ---
-import CorrChart from './correlationChart.tsx'
+import CorrChart from './charts/CorrelationChart.tsx'
 
 <link
 	rel="stylesheet"
@@ -15,8 +15,8 @@ import CorrChart from './correlationChart.tsx'
 	crossOrigin="anonymous"
 />
 
-Let's start out with a simple test. In the image below, is Series 1
-correlated with Series 2 positively or negatively? You can think of them as stock prices.
+Let's start out with a simple test. In the image below, is Series 1 (cyan)
+correlated with Series 2 (green) positively or negatively? You can think of them as stock prices.
 
 <CorrChart />
 

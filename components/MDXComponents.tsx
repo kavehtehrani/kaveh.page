@@ -4,7 +4,7 @@ import type { MdxLayoutRendererProps } from '~/types'
 import { Image } from './Image'
 import { Link } from './Link'
 import { Pre } from './Pre'
-import CorrChart from '~/components/correlationChart'
+import CorrChart from '~/components/charts/CorrelationChart'
 
 let MDXComponents = {
   Image,
