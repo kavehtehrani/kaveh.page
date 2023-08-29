@@ -15,13 +15,14 @@ import CorrChart from './charts/CorrelationChart.tsx'
 	crossOrigin="anonymous"
 />
 
-Let's start out with a simple test. In the image below, is Stock 1 (cyan)
-correlated with Stock 2 (green) positively or negatively?
+Let's start out with a simple test. In the image below, are returns of the Stock 1 (cyan)
+correlated with the returns of Stock 2 (green) positively or negatively?
 
 <CorrChart />
 
 If you answered postively, you are hardly alone. In fact, Stock 1 and Stock 2 have a
-**perfect correlation of negative one**. Even though they are both increasing, and start and end **at the same value**.
+**perfect correlation of negative one** in their returns. Even though they are both increasing, and start and end **at
+the same value**.
 
 A common misconception is that if two series are moving the same direction that means they are positively correlated.
 There are plenty of articles in financial literature that claim exactly this. See
