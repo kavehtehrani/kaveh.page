@@ -28,6 +28,7 @@ export function BuiltWith() {
         <span data-umami-event="view-source">View source</span>
       </Link>
       <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
+      <p className="text-gray-500 hover:underline underline-offset-4 dark:text-gray-400">RSS</p>
       <a href={`/feed.xml`} className="pl-px">
         <DevIcon type="RSS" className="h-4 w-4" />
       </a>
