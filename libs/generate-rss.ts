@@ -2,6 +2,8 @@ import { escape } from '~/utils/html-escaper'
 import { siteMetadata } from '~/data/siteMetadata'
 import type { BlogFrontMatter } from '~/types'
 
+// <author>${siteMetadata.email} (${siteMetadata.author})</author>
+
 function generateRssItem(post: BlogFrontMatter) {
   return `
   <item>
@@ -10,7 +12,6 @@ function generateRssItem(post: BlogFrontMatter) {
     <link>${siteMetadata.siteUrl}/${post.folderName}/${post.slug}</link>
     ${post.summary && `<description>${escape(post.summary)}</description>`}
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
-    <author>${siteMetadata.email} (${siteMetadata.author})</author>
     ${post.tags && post.tags.map((t) => `<category>${t}</category>`).join('')}
   </item>
 `

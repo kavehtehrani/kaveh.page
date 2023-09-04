@@ -4,7 +4,7 @@ export let siteMetadata = {
   fullName: 'Kaveh Tehrani',
   headerTitle: "Kaveh's Blog",
   footerTitle: "Kaveh's Blog",
-  description: "Kaveh Tehrani's Blog - leaving tradfi and diving fully into web3",
+  description: "Kaveh Tehrani's Blog - leaving tradfi for web3",
   language: 'en-us',
   siteUrl: 'https://kaveh.page/',
   shortUrl: 'kaveh.page',
