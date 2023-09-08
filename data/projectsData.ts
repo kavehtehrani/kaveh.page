@@ -22,6 +22,17 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'Hacker News - Saved You A Click!',
+    description: `A learning project in developing browser extensions.
+    
+    On Hacker News pages it adds a link to open both the article link and comments page, saving a click. Tabs open by default in the background but this can be toggled.`,
+    imgSrc: '/static/images/hnsavedyouaclick.png',
+    url: 'https://chrome.google.com/webstore/detail/hacker-news-saved-you-a-c/ckjnampgbgchgbpmllianpgdgaemdijk',
+    repo: 'hackernews-savedyouaclick',
+    builtWith: ['JavaScript'],
+  },
+  {
+    type: 'work',
     title: 'Traffic Signal',
     description: `My very first web app! Traffic control for shared spaces.  Wrote this during pandemic lockdown to coordinate with my roommates when it's OK to enter their space, especially people who are working in areas without a door such as the living room.
 
