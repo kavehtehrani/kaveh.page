@@ -33,4 +33,30 @@ module.exports = withBundleAnalyzer({
 
     return config
   },
+
+  // old redirect from kaveh.page
+  async redirects() {
+    return [
+      {
+        source: '/digital_nomad',
+        destination: '/blog/digital-nomadness',
+        permanent: true,
+      },
+      {
+        source: '/lessons_solo_travelling',
+        destination: '/blog/18-lessons-learned-solo-travelling',
+        permanent: true,
+      },
+      {
+        source: '/life_is_short',
+        destination: '/blog/life-is-short',
+        permanent: true,
+      },
+      {
+        source: '/medellin',
+        destination: '/blog/medellin',
+        permanent: true,
+      },
+    ]
+  },
 })
