@@ -43,7 +43,7 @@ module.exports = withBundleAnalyzer({
         permanent: true,
       },
       {
-        source: '/lessons_solo_travelling',
+        source: '/lessons_solo_traveling',
         destination: '/blog/18-lessons-learned-solo-travelling',
         permanent: true,
       },
