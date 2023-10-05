@@ -6,7 +6,7 @@ export const config = {
 
 export async function middleware(req: NextRequest) {
   try {
-    const isInMaintenanceMode = process.env.MAINTENANCE_MODE
+    const isInMaintenanceMode = process.env.NEXT_PUBLIC_MAINTENANCE_MODE
 
     if (isInMaintenanceMode) {
       req.nextUrl.pathname = `/maintenance`
