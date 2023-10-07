@@ -70,15 +70,15 @@ export default function SocialAccounts() {
           <span className="sr-only">Medium</span>
           <MediumLogo className={logoClassName} />
         </a>
-        <a
-          href={siteMetadata.nomadlist}
-          target="_blank"
-          data-umami-event="contact-nomadlist"
-          rel="noopener noreferrer"
-        >
-          <span className="sr-only">NomadList</span>
-          <NomadlistLogo className={logoClassName} />
-        </a>
+        {/*<a*/}
+        {/*  href={siteMetadata.nomadlist}*/}
+        {/*  target="_blank"*/}
+        {/*  data-umami-event="contact-nomadlist"*/}
+        {/*  rel="noopener noreferrer"*/}
+        {/*>*/}
+        {/*  <span className="sr-only">NomadList</span>*/}
+        {/*  <NomadlistLogo className={logoClassName} />*/}
+        {/*</a>*/}
       </div>
     </div>
   )
