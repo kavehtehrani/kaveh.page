@@ -73,10 +73,9 @@ ${template0 System}
 ${template1 Hostname}                                                       ${template3}${nodename}
 ${template1 ${sysname}}                                                     ${template3}${kernel}-${machine}
 ${template1 Uptime}                                                         ${template3}${uptime_short}
-${template1 CPU}                                                            ${template3}${freq_g}GHz
-${template1 CPU\ Temperature}                                               ${template3}${acpitemp}°C
 
 ${template0 Processors}
+${template1 CPU Load/Temp}                                                  ${template3}${freq_g}GHz - ${acpitemp}°C
 ${template1 Load}               ${template2}${loadavg 1}                    ${template3}${cpugraph}
 ${template1 Core\ 1}            ${template2}${cpu cpu1}%                    ${template3}${cpubar cpu1}
 ${template1 Core\ 2}            ${template2}${cpu cpu2}%                    ${template3}${cpubar cpu2}
@@ -105,7 +104,7 @@ ${template1 Top3}               ${template2}${top_io name 3}                ${te
 
 ${template0 Networking}
 ${if_existing /proc/net/route wlp2s0}\
-${template1 IP}                                                             ${template3}${addr wlp2s0}
+${template1 IP pub/pri}                                                     ${template3}${execi 600 curl ipinfo.io/ip} | ${addr wlp2s0}
 ${template1 AP}                                                             ${template3}${wireless_essid wlp2s0}
 ${template1 Signal}             ${template2}${wireless_link_qual_perc wlp2s0} ${template3}${wireless_link_bar wlp2s0}
 ${template1 Download}           ${template2}${downspeed wlp2s0}             ${template3}${downspeedgraph wlp2s0}
@@ -118,6 +117,12 @@ ${template1 Upload}             ${template2}${upspeed eth0}                 ${te
 ${template1 Total Down/Up}                                                  ${template3}${totaldown eth0}↓/${totalup eth0}↑
 ${endif}${endif}\
  ]];
+```
+
+If you have an AMD, you might have to replace the line above to show your temperature with below:
+
+```
+${template1 CPU\ Load/Temp}                                                 ${template3}${freq_g}GHz - ${hwmon 3 temp 1}°C
 ```
 
 ## Run on Startup
