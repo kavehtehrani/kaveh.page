@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const config = {
   // matcher: ['/', '/blog/:path*', '/about'],
-  matcher: ['/about'],
+  matcher: ['/none'],
 }
 
 export async function middleware(req: NextRequest) {

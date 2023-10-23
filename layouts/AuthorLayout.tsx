@@ -29,11 +29,11 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
                 Hi, I'm Kaveh! &#128075;
               </div>
               <div className="text-lg leading-8 space-y-3 text-gray-700 dark:text-stone-200">
-                {/*<p>*/}
-                {/*  I work as a quantitative portfolio manager focused mostly on digital assets while*/}
-                {/*  living full time as a<Link href={'/blog/digital-nomadness/'}> digital nomad</Link>*/}
-                {/*  .*/}
-                {/*</p>*/}
+                <p>
+                  I work as a quantitative portfolio manager focused mostly on digital assets while
+                  living full time as a<Link href={'/blog/digital-nomadness/'}> digital nomad</Link>
+                  .
+                </p>
                 <p>
                   {' '}
                   I am a recovering tradfi banker. I worked in traditional finance for +10 years as
@@ -43,7 +43,7 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
                 <p>
                   I grew up with computers and fell in love with programming in my teenage years.
                 </p>
-                {/*<p> I am currently living in Latin America. Habla español conmigo! </p>*/}
+                <p> I am currently learning Spanish. Habla español conmigo! </p>
               </div>
               <div className="text-lg leading-8 mt-4">
                 <BlogLinks />
@@ -59,7 +59,6 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
         </div>
       </div>
       <div className="items-start pt-8 ">
-        {/*<ProfileCard />*/}
         <div className="prose prose-lg text-justify max-w-none pb-8 dark:prose-dark ">
           {children}
         </div>
