@@ -18,7 +18,7 @@ This blog is hosted on [Vercel](https://vercel.com/?ref=kaveh.page), and was abs
 [Umami](https://umami.is/?ref=kaveh.page) Cloud for analytics. Before you flame me for using Next.js for a static
 blog that could've been done with plain HTML/CSS, I would say that this is more of a playground for learning. The
 website is rendered server-side, served statically, and has high
-[Lighthouse score](https://pagespeed.web.dev/analysis/https-kaveh-page/3qrdt5ykfq?form_factor=desktop).  
+[Lighthouse score](https://pagespeed.web.dev/analysis/https-kaveh-page/a39b0xp5d0?form_factor=desktop).  
 
 A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the original starter blog
 and [Tuan Anh Huynh](https://www.leohuynh.dev/) for the updated version!
