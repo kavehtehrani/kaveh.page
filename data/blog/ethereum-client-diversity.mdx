@@ -20,14 +20,15 @@ absolutely a risk and needs to be addressed.
 
 ![eth_client_diversity](/static/images/2024_01_eth_client_diversity.png)
 
-When spinning up my validator, I specifically chose [Nethermind](https://www.nethermind.io/nethermind-client), a
+When spinning up my validator, I chose [Nethermind](https://www.nethermind.io/nethermind-client), a
 minority client, as my execution layer to help diversity away from Geth. Yesterday I woke up to see my validator is
 offline. A quick check of the logs made it clear that the issue lies with the client and a trip to EthStaker
 and Nethermind's discord channel confirmed what was going on. A [hotfix](https://github.com/NethermindEth/nethermind/releases/tag/1.25.2) was
-released in a few hours and everything else was up and running.
+released in a few hours and everything was up and running again.
 
 A postmortem is not available yet at the time
-of this writing, so I do not know how this escaped testnet and impacted the mainnet directly. Nonetheless, kudos to the
+of this writing, so I do not know how this escaped the testnet and impacted the mainnet directly. Nonetheless, kudos
+to the
 Nethermind team for promptly addressing the issue. And a sincere thank you to all the fellow stakers who run minority
 clients.
 
@@ -40,7 +41,7 @@ diversity is a feature of Ethereum and helps bolster the network's decentralizat
 The main reason for Geth's popularity is the heavy usage by [pooled / centralized solutions](https://execution-diversity.info/) running staking as a service. Aside from
 having the longest track record, Geth is also a bit lighter on [hardware requirements](https://docs.rocketpool.net/guides/node/eth-clients) vs
 other clients.
-Nonetheless, staking on Ethereum was designed to be accessible for solo stakers and plenty of inexpansive consumer
+Nonetheless, staking on Ethereum was designed to be accessible for solo stakers and plenty of inexpensive consumer
 grade hardware
 can run a full node.
 
@@ -72,15 +73,15 @@ Murphy's law. Anything that can go wrong, will go wrong.
 ## What You Can Do
 
 The above sound pretty scary, but here are a few things that mitigate a prolonged blackout (measured in days)
-of Ethereum that you can do right now to protect yourself and help the network along the way.
+that you can do right now to protect yourself and help the network along the way.
 
 * **Switch Clients** - Nethermind, Besu, and Erigon are tried and tested execution clients that can be switched over
-**right now**.
+to **right now**.
 Syncing normally takes a few hours with a fast internet connection. In the case of a blackout with other validators
 offline there will be
 fewer peer nodes to connect to, but the mechanism is in place. **This is the best mitigator** and if you run an
 ethereum node you should diversify away from Geth as soon as possible. In non-centralized staking solutions such as
-Dappnode, Rocket Pool, or your own hardware switching client is as easy as clicking a few buttons or running a few
+Dappnode, Rocket Pool, or your own hardware, switching client is as easy as clicking a few buttons or running a few
 command lines.
 
 * **Solo Staking** - The best way to help the network is running a [solo staking validator](https://ethereum.org/staking/solo). The hardware
@@ -95,7 +96,7 @@ use a tool such as [beaconcha.in](https://beaconcha.in/tools/broadcast) and exit
 network finalize faster and stop your penalties. The queue will surely swell if there is a rush to the gate, but
 nonetheless an important mechanism in place.
 
-* **Running 2 Ethereum Nodes** - This one is more suited to professional setups or if you are running more than one
+* **Running 2 Ethereum Nodes** - This is more suited to professional setups or if you are running more than one
 validator. That said, you can run two full nodes and switch your validator over to the functional one, should one go
 out.
 
