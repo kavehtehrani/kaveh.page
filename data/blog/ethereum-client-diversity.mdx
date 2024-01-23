@@ -1,0 +1,110 @@
+---
+title: 'Ethereum Client Diversity is at "Stake"'
+date: '2024-01-22'
+tags: ['crypto', 'blockchain', 'ethereum']
+draft: false
+summary: 'Geth having supermajority status is a serious issue. The solution is at hand, easy, and any staker can help'
+authors: ['default']
+---
+
+Last year I spun an Ethereum validator after having used pooled staking for a while. What prompted the
+action was the desire to contribute to Ethereum network's decentralization and robustness given that I had the
+hardware and required eth to run a solo staking validator.
+
+## Client Diversity
+
+It is no secret that Ethereum has a [client diversity](https://ethereum.org/en/developers/docs/nodes-and-clients/client-diversity) problem.
+While the consensus layer diversity has
+improved over the last year to bring Prysm under acceptable limits, [Geth's +80% share](https://clientdiversity.org/#distribution) as an execution client is
+absolutely a risk and needs to be addressed.
+
+![eth_client_diversity](/static/images/2024_01_eth_client_diversity.png)
+
+When spinning up my validator, I specifically chose [Nethermind](https://www.nethermind.io/nethermind-client), a
+minority client, as my execution layer to help diversity away from Geth. Yesterday I woke up to see my validator is
+offline. A quick check of the logs made it clear that the issue lies with the client and a trip to EthStaker
+and Nethermind's discord channel confirmed what was going on. A [hotfix](https://github.com/NethermindEth/nethermind/releases/tag/1.25.2) was
+released in a few hours and everything else was up and running.
+
+A postmortem is not available yet at the time
+of this writing, so I do not know how this escaped testnet and impacted the mainnet directly. Nonetheless, kudos to the
+Nethermind team for promptly addressing the issue. And a sincere thank you to all the fellow stakers who run minority
+clients.
+
+This experience sent me looking deeper what could have happened if the same had happened to Geth. To be clear, this
+is not throwing shade at Geth at all. They are an amazing team of engineers and have done a stellar job. Client
+diversity is a feature of Ethereum and helps bolster the network's decentralization in one more dimension.
+
+## Why is Geth so Popular?
+
+The main reason for Geth's popularity is the heavy usage by [pooled / centralized solutions](https://execution-diversity.info/) running staking as a service. Aside from
+having the longest track record, Geth is also a bit lighter on [hardware requirements](https://docs.rocketpool.net/guides/node/eth-clients) vs
+other clients.
+Nonetheless, staking on Ethereum was designed to be accessible for solo stakers and plenty of inexpansive consumer
+grade hardware
+can run a full node.
+
+## Risks to the Network
+
+Running an Ethereum validator comes with [rewards and penalties](https://ethereum.org/developers/docs/consensus-mechanisms/pos/rewards-and-penalties)
+and while being offline for a few hours wouldn't normally be a big deal, if 1/3 of the validators are offline then the
+chain
+wouldn't be able to reach finality and enters an emergency protocol called ["inactivity leak"](https://ethereum.org/developers/docs/consensus-mechanisms/pos/rewards-and-penalties#inactivity-leak).
+If what happened to Nethermind had happened to Geth, then Ethereum would have entered the emergency protocol and
+depending on how fast the network recovers, potentially millions of eth could've been wiped out given the quadratic
+nature of
+penalties during a majority blackout. While extremely unlikely, a few days of blackout on Geth has the potential to
+wipe out the entire 32 eth stake of each validator!
+
+[Dankard Feist](https://dankradfeist.de/ethereum/2022/03/24/run-the-majority-client-at-your-own-peril.html) has a great write-up that digs deep into this scenario.
+
+## Cost of Being Offline
+
+Normally a validator that goes offline accrues a penalty equal to the amount it would have earned instead. With
+validator reward hovering around 2.5% at the time of writing, this is nothing to sweat about for a few days. However,
+if 1/3 of validators go offline, then the chain cannot finalize and quadratic penalties kick in. Other factors such
+as being in a [sync committee](https://eth2book.info/capella/part2/building_blocks/committees/) might exacerbate the
+penalty.
+
+It is worth emphasizing that while a full blackout of the network is extremely unlikely, none of us is above
+Murphy's law. Anything that can go wrong, will go wrong.
+
+## What You Can Do
+
+The above sound pretty scary, but here are a few things that mitigate a prolonged blackout (measured in days)
+of Ethereum that you can do right now to protect yourself and help the network along the way.
+
+* **Switch Clients** - Nethermind, Besu, and Erigon are tried and tested execution clients that can be switched over
+**right now**.
+Syncing normally takes a few hours with a fast internet connection. In the case of a blackout with other validators
+offline there will be
+fewer peer nodes to connect to, but the mechanism is in place. **This is the best mitigator** and if you run an
+ethereum node you should diversify away from Geth as soon as possible. In non-centralized staking solutions such as
+Dappnode, Rocket Pool, or your own hardware switching client is as easy as clicking a few buttons or running a few
+command lines.
+
+* **Solo Staking** - The best way to help the network is running a [solo staking validator](https://ethereum.org/staking/solo). The hardware
+requirements are accessible and while 32 eth is a substantial sum, there are a variety of pooled staking such as
+Rocket Pool you could consider. Staking on centralized exchanges however, while might be the "easy" option is
+generally not a good idea. As always, not your keys, not your coin.
+
+* **Exiting Validators** - The [exit queue](https://www.validatorqueue.com/) has been a few hours long at most for a
+while now, but you do **not** need your own node to be running to be able to exit your validator. As long as you
+have set an exit address (which should have happened when you generated your validator keys), then you can simply
+use a tool such as [beaconcha.in](https://beaconcha.in/tools/broadcast) and exit your validator. This helps the
+network finalize faster and stop your penalties. The queue will surely swell if there is a rush to the gate, but
+nonetheless an important mechanism in place.
+
+* **Running 2 Ethereum Nodes** - This one is more suited to professional setups or if you are running more than one
+validator. That said, you can run two full nodes and switch your validator over to the functional one, should one go
+out.
+
+## Final Words
+
+As the saying goes, any decentralized network is only as decentralized as its most centralized part. Geth's
+supermajority status is a risk to the network that while extremely unlikely can have an effect similar to [the DAO](https://www.gemini.com/cryptopedia/the-dao-hack-makerdao) fiasco
+that I think few of us would want to live through again.
+
+If you have the time and the means to run a solo staking validator, consider running a minority client. Not
+only it is a hugely educational undertaking, it will help bolster the overall network's health, and you will collect
+financial rewards on your validator as well. Who knows, might even get a juicy MEV-charged block too!
