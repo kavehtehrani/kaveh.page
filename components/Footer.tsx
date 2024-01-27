@@ -3,6 +3,7 @@ import { BuiltWith } from './BuiltWith'
 import SocialAccounts from '~/components/SocialAccounts'
 import ButtonDown from '~/components/ButtonDown'
 import { Link } from '~/components/Link'
+
 export function Footer() {
   return (
     <footer>
