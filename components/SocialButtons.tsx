@@ -16,10 +16,10 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
         <Link href={createDiscussonTwitterUrl(postUrl)} rel="nofollow" className="hover:underline">
           {'Discuss on Twitter'}
         </Link>
-        {` • `}
-        <Link href={creatEditOnGithubUrl(fileName)} className="hover:underline">
-          {'View on GitHub'}
-        </Link>
+        {/*{` • `}*/}
+        {/*<Link href={creatEditOnGithubUrl(fileName)} className="hover:underline">*/}
+        {/*  {'View on GitHub'}*/}
+        {/*</Link>*/}
       </div>
       <div className="flex items-center">
         <TwitterShareButton
