@@ -15,6 +15,7 @@ export let siteMetadata = {
   email: '',
   github: 'https://github.com/kavehtehrani',
   mastodon: 'https://mastodon.social/@ktehrani/',
+  farcaster: 'https://warpcast.com/kwar13/',
   twitter: 'https://twitter.com/kavehtehrani',
   linkedin: 'https://linkedin.com/in/kavehtehrani/',
   instagram: 'https://instagram.com/_kaveh/',

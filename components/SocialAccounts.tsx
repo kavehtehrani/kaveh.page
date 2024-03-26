@@ -5,7 +5,7 @@ import LinkedinLogo from '~/icons/linkedin.svg'
 import InstagramLogo from '~/icons/instagram.svg'
 import MediumLogo from '~/icons/medium.svg'
 import NomadlistLogo from '~/icons/nomadlist.svg'
-import MastodonLogo from '~/icons/mastodon.svg'
+import FarcasterLogo from '~/icons/farcaster.svg'
 
 export default function SocialAccounts() {
   let logoClassName =
@@ -25,15 +25,23 @@ export default function SocialAccounts() {
           <GithubLogo className={logoClassName} />
         </a>
         <a
-          href={siteMetadata.mastodon}
+          href={siteMetadata.linkedin}
+          target="_blank"
+          data-umami-event="contact-linkedin"
+          rel="noopener noreferrer"
+        >
+          <span className="sr-only">Linkedin</span>
+          <LinkedinLogo className={logoClassName} />
+        </a>
+        <a
+          href={siteMetadata.farcaster}
           target="_blank"
           data-umami-event="contact-mastodon"
           rel="noopener noreferrer"
         >
-          <span className="sr-only">Mastodon</span>
-          <MastodonLogo className={logoClassName} />
+          <span className="sr-only">Farcaster</span>
+          <FarcasterLogo className={logoClassName} />
         </a>
-
         <a
           href={siteMetadata.twitter}
           target="_blank"
@@ -42,15 +50,6 @@ export default function SocialAccounts() {
         >
           <span className="sr-only">Twitter</span>
           <TwitterLogo className={logoClassName} />
-        </a>
-        <a
-          href={siteMetadata.linkedin}
-          target="_blank"
-          data-umami-event="contact-linkedin"
-          rel="noopener noreferrer"
-        >
-          <span className="sr-only">Linkedin</span>
-          <LinkedinLogo className={logoClassName} />
         </a>
         <a
           href={siteMetadata.instagram}
