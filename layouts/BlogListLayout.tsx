@@ -9,7 +9,10 @@ export function BlogListLayout(props: ListLayoutProps) {
   let [searchValue, setSearchValue] = useState('')
   let filteredBlogPosts = posts.filter((frontMatter) => {
     let searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
-    return searchContent.toLowerCase().includes(searchValue.toLowerCase())
+    return (
+      frontMatter.blogIndexInclude !== false &&
+      searchContent.toLowerCase().includes(searchValue.toLowerCase())
+    )
   })
 
   // If initialDisplayPosts exist, display it if no searchValue is specified

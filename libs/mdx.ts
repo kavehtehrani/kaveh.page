@@ -37,6 +37,7 @@ export async function getFileBySlug(
     layout?: MdxPageLayout
     readingTime: ReadingTime
     draft?: boolean
+    blogIndexInclude?: boolean // not draft but also not include in blog index
     name?: string
     slug: string
     lastmod?: string
