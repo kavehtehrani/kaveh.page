@@ -28,7 +28,7 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
               >
                 Hi, I'm Kaveh! &#128075;
               </div>
-              <div className="text-lg leading-8 space-y-3 text-gray-700 dark:text-stone-200">
+              <div className="prose prose-xl leading-8 space-y-3 text-gray-700 dark:text-stone-200">
                 <p>
                   I work as a quantitative portfolio manager focused mostly on digital assets while
                   living sometimes as a<Link href={'/blog/digital-nomadness/'}> digital nomad</Link>
@@ -45,7 +45,7 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
                 </p>
                 <p> I am currently learning Spanish. Habla español conmigo! </p>
               </div>
-              <div className="text-lg leading-8 mt-4">
+              <div className="prose prose-xl leading-8 mt-4">
                 <BlogLinks />
               </div>
             </div>
@@ -59,7 +59,7 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
         </div>
       </div>
       <div className="items-start pt-8 ">
-        <div className="prose prose-lg text-justify max-w-none pb-8 dark:prose-dark ">
+        <div className="prose prose-xl text-justify max-w-none pb-8 dark:prose-dark ">
           {children}
         </div>
       </div>
