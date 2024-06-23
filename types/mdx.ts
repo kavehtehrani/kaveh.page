@@ -12,6 +12,7 @@ export interface MdxFrontMatter {
   lastmod?: string
   tags: string[]
   draft?: boolean
+  blogIndexInclude?: boolean
   summary: string
   images?: string[] | string
   authors?: string[]
