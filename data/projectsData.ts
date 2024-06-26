@@ -47,6 +47,6 @@ export let projectsData: Project[] = [
     title: 'Ethereum Staking',
     description: `Consulting project in anticipation of Ethereum's transition to proof of stake in late 2021. Commissioned in May 2021 as part of a hedge fund pitch in offering staking as a service.`,
     imgSrc: '/static/images/ethereum.png',
-    url: '/static/documents/Eth2 - Staking.pdf',
+    url: 'https://github.com/kavehtehrani/kaveh.page/blob/master/public/static/documents/Eth2%20-%20Staking.pdf',
   },
 ]
