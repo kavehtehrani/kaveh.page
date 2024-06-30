@@ -37,7 +37,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
           </div>
         </div>
         <div className="flex items-center text-base leading-5">
-          <div className="hidden space-x-2 sm:block">
+          <div className="hidden space-x-1 lg:block">
             {headerNavLinks.map((link) => {
               return (
                 <Link key={link.title} href={link.href}>
@@ -57,10 +57,9 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
               )
             })}
           </div>
-          {/*<AnalyticsLink />*/}
           <ThemeSwitcher />
           <button
-            className="ml-2 mr-1 h-8 w-8 rounded sm:hidden"
+            className="ml-2 mr-1 h-8 w-8 rounded lg:hidden"
             type="button"
             aria-label="Toggle Menu"
             onClick={onToggleNav}

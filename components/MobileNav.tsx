@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 export function MobileNav({ navShow, onToggleNav }) {
   let className = clsx(
-    `sm:hidden fixed h-full w-full inset-0 bg-stone-200 dark:bg-stone-700 
+    `lg:hidden fixed h-full w-full inset-0 bg-stone-200 dark:bg-stone-700 
     opacity-95 z-50 transition-transform transform ease-in-out duration-300`,
     navShow ? 'translate-x-0' : 'translate-x-full'
   )
