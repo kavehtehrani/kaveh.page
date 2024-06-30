@@ -35,6 +35,10 @@ module.exports = {
           '35.7%': { height: '0%' },
           '85.7%': { height: '70%' },
         },
+        fadeOut: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
       },
       animation: {
         wiggle: 'wiggle 7s linear infinite',
@@ -42,6 +46,7 @@ module.exports = {
         'music-bar-2': 'music-bar-2 .8s linear infinite',
         'music-bar-3': 'music-bar-3 .8s linear infinite',
         'music-bar-4': 'music-bar-4 .8s linear infinite',
+        fade: 'fadeOut .5s ease-in-out',
       },
       spacing: {
         '9/16': '56.25%',

@@ -1,6 +1,7 @@
 import type { ImageProps as NextImageProps } from 'next/image'
 import type React from 'react'
 import type { projectsData } from '~/data/projectsData'
+import type { donateData } from '~/data/donateData'
 import type { commentConfig } from '~/data/siteMetadata'
 import type { MdxFrontMatter, ReadingTime } from './mdx'
 
@@ -17,9 +18,14 @@ export interface ImageProps extends NextImageProps {
 }
 
 export type ProjectDataType = (typeof projectsData)[0]
+export type DonateDataType = (typeof donateData)[0]
 
 export interface ProjectCardProps {
   project: ProjectDataType
+}
+
+export interface DonateCardProps {
+  donate: DonateDataType
 }
 
 export interface SocialButtonsProps {

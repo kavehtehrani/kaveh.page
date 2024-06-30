@@ -22,6 +22,7 @@ export let siteMetadata = {
   medium: 'https://kavehtehrani.medium.com/',
   nomadlist: 'https://nomadlist.com/@kwar13',
   buttondown: 'kaveh',
+  buymeacoffee: 'https://buymeacoffee.com/kavehtehrani',
   locale: 'en-US',
   analyticsURL: '',
   analytics: {
