@@ -1,4 +1,4 @@
-import type { BlogFrontMatter, MdxFrontMatter } from '~/types'
+import type { BlogFrontMatter } from '~/types'
 import { formatDate } from '~/utils/date'
 import { Link } from './Link'
 import { Tag } from './Tag'
@@ -20,7 +20,6 @@ export function PostListItem({ frontMatter }: { frontMatter: BlogFrontMatter }) 
               {String.fromCodePoint(0x2615).repeat(Math.ceil(readingTime['minutes'] / 5))}
               {`  `}
               {readingTime['text'].replace('min', 'mins')}
-              {/*  TODO: reading time is different on actual page and the list*/}
             </span>
           </dd>
         </dl>
