@@ -35,8 +35,8 @@ export function BlogSeo(props: BlogSeoProps) {
     images.length === 0
       ? [siteMetadata.socialBanner]
       : typeof images === 'string'
-      ? [images]
-      : images
+        ? [images]
+        : images
 
   let featuredImages = imagesArr.map((img) => {
     return {
@@ -45,7 +45,7 @@ export function BlogSeo(props: BlogSeoProps) {
     }
   })
 
-  let authorList: AuthorSEO | AuthorSEO[] = []
+  let authorList: AuthorSEO | AuthorSEO[]
   if (authorDetails) {
     authorList = authorDetails.map((author) => {
       return {
