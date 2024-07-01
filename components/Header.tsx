@@ -68,7 +68,7 @@ export function Header({
             className=""
             aria-label="Toggle Menu"
             onClick={onToggleSub}
-            data-umami-event="mobile-nav-toggle"
+            data-umami-event="subscribe-button"
           >
             Subscribe ✉️
           </button>
