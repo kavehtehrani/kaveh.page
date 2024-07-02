@@ -65,12 +65,12 @@ export function Header({
             })}
           </div>
           <button
-            className=""
+            className="ml-2"
             aria-label="Toggle Menu"
             onClick={onToggleSub}
             data-umami-event="subscribe-button"
           >
-            <span className="hidden md:inline">Subscribe ✉️</span>
+            <span className="hidden md:inline">✉️ Subscribe </span>
             <span className="md:hidden">✉️</span>
           </button>
           <ThemeSwitcher />
