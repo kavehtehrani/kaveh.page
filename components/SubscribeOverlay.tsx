@@ -38,7 +38,7 @@ export function SubscribeOverlay({ subShow, onToggleSub }) {
         </button>
         <div
           className="flex flex-row my-12 justify-center items-center
-        rounded-2xl transform scale-150"
+        rounded-2xl lg:transform lg:scale-150"
         >
           <ButtonDown />
         </div>

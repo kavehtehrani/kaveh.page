@@ -35,8 +35,8 @@ export function Header({
               </div>
             </div>
           </Link>
-          <div>
-            <p>Personal blog by</p>
+          <div className="">
+            <p>Personal blog</p>
             <Link href="/about" className="text-blue-600 dark:text-blue-400 hover:underline">
               {' '}
               Kaveh Tehrani
@@ -70,7 +70,8 @@ export function Header({
             onClick={onToggleSub}
             data-umami-event="subscribe-button"
           >
-            Subscribe ✉️
+            <span className="hidden md:inline">Subscribe ✉️</span>
+            <span className="md:hidden">✉️</span>
           </button>
           <ThemeSwitcher />
           <button
