@@ -35,8 +35,12 @@ export function DonateCard({ donate }: DonateCardProps) {
           <div className="space-y-3">
             <h2 className="text-2xl font-bold leading-8 tracking-tight">
               {url ? (
-                <Link href={url} aria-label={`Link to ${title}`}>
-                  <span data-umami-event="donate-title-link">{title}</span>
+                <Link
+                  href={url}
+                  aria-label={`Link to ${title}`}
+                  data-umami-event="donate-title-link"
+                >
+                  {title}
                 </Link>
               ) : (
                 title
@@ -50,8 +54,9 @@ export function DonateCard({ donate }: DonateCardProps) {
                 <button
                   className={`ml-2 inline cursor-pointer transition duration-100 ${clicked ? 'animate-ping' : ''}`}
                   onClick={handleCopy}
+                  data-umami-event={`${title}-clipboard-click`}
                 >
-                  <span data-umami-event={`${title}-clipboard-click`}></span> 📋
+                  📋
                 </button>
               ) : null}
             </div>
