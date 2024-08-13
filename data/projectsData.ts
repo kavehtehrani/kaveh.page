@@ -22,6 +22,13 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'Ethereum Staking',
+    description: `Consulting project in anticipation of Ethereum's transition to proof of stake in late 2021. Commissioned in May 2021 as part of a hedge fund pitch in offering staking as a service.`,
+    imgSrc: '/static/images/ethereum.png',
+    url: 'https://github.com/kavehtehrani/kaveh.page/blob/master/public/static/documents/Eth2%20-%20Staking.pdf',
+  },
+  {
+    type: 'work',
     title: 'Hacker News - Saved You A Click!',
     description: `A learning project in developing browser extensions.
     
@@ -41,12 +48,5 @@ export let projectsData: Project[] = [
     url: 'https://traffic-signal.cyclic.app/',
     repo: 'traffic_signal',
     builtWith: ['JavaScript', 'Node.js', 'Express', 'MongoDB'],
-  },
-  {
-    type: 'work',
-    title: 'Ethereum Staking',
-    description: `Consulting project in anticipation of Ethereum's transition to proof of stake in late 2021. Commissioned in May 2021 as part of a hedge fund pitch in offering staking as a service.`,
-    imgSrc: '/static/images/ethereum.png',
-    url: 'https://github.com/kavehtehrani/kaveh.page/blob/master/public/static/documents/Eth2%20-%20Staking.pdf',
   },
 ]
