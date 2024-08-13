@@ -1,0 +1,22 @@
+---
+heading: 'A More Readable Terminal'
+title: 'A More Readable Terminal'
+date: '2024-08-13'
+type: 'Bash'
+draft: false
+summary: 'Add separator lines for a more legible bash terminal'
+tags: [linux, ubuntu]
+---
+
+I find the default terminal layout a bit hard to read between where the previous command ran and ended its output.
+Adding this line to your `.bashrc` file puts a horizontal line before
+[each primary prompt](https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html)
+making it a lot more readable for me to locate the sequence of outputs.
+
+```
+PROMPT_COMMAND=$'printf %"$COLUMNS"s |tr " " "_"'
+```
+
+Obligatory corny screenshot below, courtesy of [icanhazdadjoke](https://icanhazdadjoke.com/).
+<img src="/static/images/2024-08-terminal.png" alt="terminal_screenshot" />
+
