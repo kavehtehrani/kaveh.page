@@ -41,11 +41,18 @@ export let projectsData: Project[] = [
   {
     type: 'work',
     title: 'One-Click Image Saver',
-    description: `A learning project in developing browser extensions.
-    
-    Save any image in your browser with one click via shortcut or contextual menu.`,
+    description: 'Save any image in your browser with one click via shortcut or contextual menu.',
     imgSrc: '/static/images/one_click_image_saver_context_menu.png',
     url: 'https://chromewebstore.google.com/detail/one-click-image-saver/ajpjioafnelcifjpgeekhbcjpphhfmgg',
+    repo: 'new_tab_url',
+    builtWith: ['JavaScript'],
+  },
+  {
+    type: 'work',
+    title: 'New Tab URL',
+    description: 'Customize default URL for new tabs in Chrome.',
+    imgSrc: '/static/images/new_tab_url_screenshot.png',
+    url: 'https://chromewebstore.google.com/detail/new-tab-url/hbdaejckmapgepjalpmllggildmbgdhl',
     repo: 'one_click_image_save',
     builtWith: ['JavaScript'],
   },
