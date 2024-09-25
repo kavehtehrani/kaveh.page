@@ -65,7 +65,7 @@
     "globby": "^13.2.2",
     "husky": "^8.0.3",
     "inquirer": "^9.2.7",
-    "lint-staged": "^13.2.3",
+    "lint-staged": "^13.3.0",
     "next-remote-watch": "^2.0.0",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.3.0",
