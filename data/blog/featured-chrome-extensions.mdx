@@ -1,0 +1,53 @@
+---
+title: '"Featured" Chrome Extensions: Not Quite Featured'
+date: '2024-09-27'
+tags: ['chrome']
+draft: false
+summary: '"Featured" implies some sort of curation or editorial pick. It should just be called "Verified".'
+authors: ['default']
+---
+
+
+### Google's Definition
+
+When browsing through the Chrome Web Store, you’ve likely come across extensions marked with "Featured" badges. At first glance, these badges seem to suggest that Google has curated these extensions, much like how some app stores might feature top-quality apps after editorial evaluation.
+
+This is how the Chrome Web Store
+[defines that tag](https://support.google.com/chrome_webstore/answer/1050673?hl=en#zippy=%2Cunderstand-chrome-web-store-badges):
+
+>Featured extensions follow our technical best practices and meet a high standard of user experience and design.
+Before it receives a Featured badge, the Chrome Web Store team must review each extension. The team checks for
+adherence to CWS best practices, an intuitive user experience, and use of the latest platform APIs, among other
+things.
+
+### The Problem with "Featured"
+
+When I see the word "Featured" to me, it implies some form of promotion or curation. I wasn't expecting to see
+mere technical compliance with Google's policies. After all, I have 3 extensions of my own which between them have less
+than 30 users by now.
+
+[Hacker News - Saved You a Click](https://chromewebstore.google.com/detail/hacker-news-saved-you-a-c/ckjnampgbgchgbpmllianpgdgaemdijk?authuser=2&hl=en). A simple extension for HN to
+open the linked page and the comments page together in new tabs since I found myself clicking both all the time.
+
+
+[New Tab URL](https://chromewebstore.google.com/detail/new-tab-url/hbdaejckmapgepjalpmllggildmbgdhl?authuser=2&hl=en)
+. Customizes new tabs from the default Google search page to a custom URL.
+
+
+[One-Click Image Saver](https://chromewebstore.google.com/detail/one-click-image-saver/ajpjioafnelcifjpgeekhbcjpphhfmgg?authuser=2&hl=en). Saves images with a single customizable mouse + keyboard shortcut.
+
+They all have Featured badges and hardly any real users. I wrote them since to me they're useful and I wanted to
+learn how to write browser extensions. Looking through the existing extensions for saving images faster, I found most
+of the popular ones to be bloated with code I didn't understand. So I wrote my own.
+
+Seriously though, this is [the code](https://crxviewer.com/?crx=https://chrome.google.com/webstore/detail/djcobamaplcmhmaocomnkfdbcoiggepo) for the top image saving extension on Chrome. Well over +2,000
+lines of code and I have no idea why.
+
+I have found the Chrome store to be full of suspicious extensions. More worryingly, since I published these extensions
+I've received all sorts of email from people trying to get me to pay them to "promote" the extension, all the way to
+people asking me to sell the extension to them. Many of the extensions I reviewed run remote code which I find
+*highly suspect*.
+
+Remember that you can always [see the source code for any extension](http://localhost:3434/snippets/chrome-extensions-source-code).
+
+Stay safe out there!
