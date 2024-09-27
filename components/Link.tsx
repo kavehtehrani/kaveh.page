@@ -7,7 +7,7 @@ export function Link({ href, ...rest }: AnchorHTMLAttributes<HTMLAnchorElement>)
   let isAnchorLink = href && href.startsWith('#')
   let className = 'text-primary-600 no-underline hover:underline dark:text-primary-400'
 
-  if (isInternalLink) {
+  if (isInternalLink && href) {
     return <NextLink className={className} href={href} {...rest} />
   }
 
