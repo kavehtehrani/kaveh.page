@@ -9,7 +9,7 @@ export let siteMetadata = {
   siteUrl: 'https://kaveh.page/',
   shortUrl: 'kaveh.page',
   siteRepo: 'https://github.com/kavehtehrani/kaveh.page',
-  siteLogo: '',
+  siteLogo: '/static/images/logo.png',
   image: '/static/images/logo.png',
   socialBanner: '/static/images/logo.png',
   email: '',
