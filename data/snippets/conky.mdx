@@ -16,7 +16,7 @@ my second screen, so I can quickly keep an eye on most system's resources.
 
 ## Config File
 Here's my config file below which displays what I need with minimal overhead. Feel free to take it and use it for
-your needs by editing the configuration file: `etc/conky/conky.conf`
+your needs by editing the configuration file: `/etc/conky/conky.conf`
 
 The documentation for conky is excellent and be found [here](https://conky.cc/).
 
@@ -44,6 +44,7 @@ conky.config = {
     alignment = 'top_right',
     gap_x = 5,
     gap_y = 25,
+		xinerama_head = 0,
 
     -- default drawing
     draw_shades = false,
