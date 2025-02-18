@@ -12,14 +12,14 @@
     "upgrade": "rimraf package-lock.json && npx taze major -w && ni"
   },
   "dependencies": {
-    "@octokit/graphql": "^7.0.0",
+    "@octokit/graphql": "^8.2.1",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
     "@vercel/edge-config": "^0.4.1",
     "autoprefixer": "^10.4.14",
     "clsx": "^1.2.1",
-    "contentlayer": "^0.3.4",
-    "esbuild": "^0.18.11",
+    "contentlayer": "^0.0.0",
+    "esbuild": "^0.25.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "image-size": "^1.0.2",
@@ -73,7 +73,7 @@
     "remark-frontmatter": "^4.0.1",
     "remark-parse": "^10.0.2",
     "remark-stringify": "^10.0.3",
-    "tsx": "^4.7.1",
+    "tsx": "^3.12.10",
     "typescript": "5.1.6",
     "unified": "^10.1.2",
     "unist-util-visit": "^5.0.0"
