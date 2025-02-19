@@ -16,7 +16,6 @@ import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import type { PluggableList } from 'unified'
 
 export async function getFileBySlug(
   type: string,
@@ -86,24 +85,25 @@ export async function getFileBySlug(
        * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
-      const remarkPluginsList: PluggableList = [
+      const remarkPlugins = [
         [remarkTocHeading, {}],
         [remarkGFM, {}],
         [remarkMath, {}],
       ]
 
-      options.remarkPlugins = [
-        ...((options.remarkPlugins || []) as PluggableList),
-        ...remarkPluginsList,
-      ]
-      options.rehypePlugins = [
-        ...((options.rehypePlugins || []) as PluggableList),
+      const rehypePlugins = [
         rehypeSlug,
         rehypeKatex,
         [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
         [rehypePrismPlus, { ignoreMissing: true }],
         rehypePresetMinify,
-      ] as PluggableList
+      ]
+
+      // Safely merge plugins without type assertions
+      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPlugins]
+
+      options.rehypePlugins = [...(options.rehypePlugins || []), ...rehypePlugins]
+
       return options
     },
   })
@@ -153,20 +153,19 @@ export async function getMDXComponent(source: string) {
   const { code } = await bundleMDX({
     source,
     mdxOptions(options) {
-      options.remarkPlugins = [
-        ...((options.remarkPlugins || []) as PluggableList),
-        remarkGFM,
-        remarkMath,
-      ]
+      const remarkPlugins = [remarkGFM, remarkMath]
 
-      options.rehypePlugins = [
-        ...((options.rehypePlugins || []) as PluggableList),
+      const rehypePlugins = [
         rehypeSlug,
         rehypeKatex,
         [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
         [rehypePrismPlus, { ignoreMissing: true }],
         rehypePresetMinify,
-      ] as PluggableList
+      ]
+
+      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPlugins]
+
+      options.rehypePlugins = [...(options.rehypePlugins || []), ...rehypePlugins]
 
       return options
     },
