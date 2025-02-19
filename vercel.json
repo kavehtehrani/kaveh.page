@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "NODEJS_VERSION": "20.11.0"
+    }
+  }
+}
