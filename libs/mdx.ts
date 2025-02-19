@@ -8,9 +8,7 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeSlug from 'rehype-slug'
 import remarkGFM from 'remark-gfm'
-import { visit } from 'unist-util-visit'
-import { TOKEN_CLASSNAME_MAP } from '~/constant'
-import type { BlogFrontMatter, MdxFrontMatter, TOC, UnistNodeType } from '~/types'
+import type { BlogFrontMatter, MdxFrontMatter, TOC } from '~/types'
 import { dateSortDesc } from '~/utils/date'
 import { formatSlug, getAllFilesRecursively } from './files'
 import { remarkCodeBlockTitle } from './remark-code-block-title'
@@ -20,7 +18,9 @@ import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import type { Pluggable } from 'unified'
+import type { Plugin } from 'unified'
+
+type PluggableList = (Plugin | [Plugin, Record<string, unknown>])[]
 
 export async function getFileBySlug(
   type: string,
@@ -91,31 +91,21 @@ export async function getFileBySlug(
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
       options.remarkPlugins = [
-        ...((options.remarkPlugins ?? []) as Pluggable[]),
+        ...((options.remarkPlugins || []) as PluggableList),
         remarkTocHeading,
         remarkGFM,
         remarkMath,
-        remarkCodeBlockTitle,
         remarkImgToJsx,
+        remarkCodeBlockTitle,
       ]
       options.rehypePlugins = [
-        ...((options.rehypePlugins ?? []) as Pluggable[]),
+        ...((options.rehypePlugins || []) as PluggableList),
         rehypeSlug,
         rehypeKatex,
         [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
         [rehypePrismPlus, { ignoreMissing: true }],
         rehypePresetMinify,
-        () => {
-          return (tree) => {
-            visit(tree, 'element', (node: UnistNodeType) => {
-              let [token, type] = node.properties.className || []
-              if (token === 'token') {
-                node.properties.className = [TOKEN_CLASSNAME_MAP[type]]
-              }
-            })
-          }
-        },
-      ] as Pluggable[]
+      ] as PluggableList
       return options
     },
   })
@@ -166,19 +156,19 @@ export async function getMDXComponent(source: string) {
     source,
     mdxOptions(options) {
       options.remarkPlugins = [
-        ...((options.remarkPlugins ?? []) as Pluggable[]),
+        ...((options.remarkPlugins || []) as PluggableList),
         remarkGFM,
         remarkMath,
       ]
 
       options.rehypePlugins = [
-        ...((options.rehypePlugins ?? []) as Pluggable[]),
+        ...((options.rehypePlugins || []) as PluggableList),
         rehypeSlug,
         rehypeKatex,
         [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
         [rehypePrismPlus, { ignoreMissing: true }],
         rehypePresetMinify,
-      ] as Pluggable[]
+      ] as PluggableList
 
       return options
     },
