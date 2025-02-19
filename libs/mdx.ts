@@ -11,14 +11,12 @@ import remarkGFM from 'remark-gfm'
 import type { BlogFrontMatter, MdxFrontMatter, TOC } from '~/types'
 import { dateSortDesc } from '~/utils/date'
 import { formatSlug, getAllFilesRecursively } from './files'
-import { remarkCodeBlockTitle } from './remark-code-block-title'
-import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
 import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import type { Plugin } from 'unified'
+import type { Plugin, Pluggable } from 'unified'
 
 type PluggableList = (Plugin | [Plugin, Record<string, unknown>])[]
 
@@ -90,14 +88,13 @@ export async function getFileBySlug(
        * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
-      options.remarkPlugins = [
-        ...((options.remarkPlugins || []) as PluggableList),
-        remarkTocHeading,
-        remarkGFM,
-        remarkMath,
-        remarkImgToJsx,
-        remarkCodeBlockTitle,
+      const remarkPluginsList: Pluggable[] = [
+        [remarkTocHeading, {}],
+        [remarkGFM, {}],
+        [remarkMath, {}],
       ]
+
+      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPluginsList]
       options.rehypePlugins = [
         ...((options.rehypePlugins || []) as PluggableList),
         rehypeSlug,
