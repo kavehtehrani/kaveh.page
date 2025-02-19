@@ -20,7 +20,7 @@ import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import { Pluggable } from 'unified'
+import type { Pluggable } from 'unified'
 
 export async function getFileBySlug(
   type: string,
