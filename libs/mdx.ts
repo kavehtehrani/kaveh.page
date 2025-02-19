@@ -16,9 +16,9 @@ import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import type { Plugin, Pluggable } from 'unified'
+import type { Pluggable, Plugin } from 'mdx-bundler/dist/types'
 
-type PluggableList = (Plugin | [Plugin, Record<string, unknown>])[]
+type PluggableList = Pluggable[]
 
 export async function getFileBySlug(
   type: string,
@@ -88,13 +88,16 @@ export async function getFileBySlug(
        * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
-      const remarkPluginsList: Pluggable[] = [
+      const remarkPluginsList: PluggableList = [
         [remarkTocHeading, {}],
         [remarkGFM, {}],
         [remarkMath, {}],
       ]
 
-      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPluginsList]
+      options.remarkPlugins = [
+        ...((options.remarkPlugins || []) as PluggableList),
+        ...remarkPluginsList,
+      ]
       options.rehypePlugins = [
         ...((options.rehypePlugins || []) as PluggableList),
         rehypeSlug,
