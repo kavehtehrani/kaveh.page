@@ -20,6 +20,7 @@ import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
+import { Pluggable } from 'unified'
 
 export async function getFileBySlug(
   type: string,
@@ -90,18 +91,18 @@ export async function getFileBySlug(
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
       options.remarkPlugins = [
-        ...(options.remarkPlugins || []),
-        [remarkTocHeading, { exportRef: toc }],
+        ...((options.remarkPlugins ?? []) as Pluggable[]),
+        remarkTocHeading,
         remarkGFM,
         remarkMath,
         remarkCodeBlockTitle,
         remarkImgToJsx,
       ]
       options.rehypePlugins = [
-        ...(options.rehypePlugins || []),
+        ...((options.rehypePlugins ?? []) as Pluggable[]),
         rehypeSlug,
         rehypeKatex,
-        rehypeAutolinkHeadings,
+        [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
         [rehypePrismPlus, { ignoreMissing: true }],
         rehypePresetMinify,
         () => {
@@ -114,7 +115,7 @@ export async function getFileBySlug(
             })
           }
         },
-      ]
+      ] as Pluggable[]
       return options
     },
   })
@@ -158,4 +159,30 @@ export function getAllFilesFrontMatter(...folderNames: string[]) {
   }
 
   return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date))
+}
+
+export async function getMDXComponent(source: string) {
+  const { code } = await bundleMDX({
+    source,
+    mdxOptions(options) {
+      options.remarkPlugins = [
+        ...((options.remarkPlugins ?? []) as Pluggable[]),
+        remarkGFM,
+        remarkMath,
+      ]
+
+      options.rehypePlugins = [
+        ...((options.rehypePlugins ?? []) as Pluggable[]),
+        rehypeSlug,
+        rehypeKatex,
+        [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
+        [rehypePrismPlus, { ignoreMissing: true }],
+        rehypePresetMinify,
+      ] as Pluggable[]
+
+      return options
+    },
+  })
+
+  return code
 }

@@ -45,7 +45,10 @@
     "smoothscroll-polyfill": "^0.4.4",
     "swr": "^2.2.4",
     "tailwindcss": "^3.4.1",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "unified": "^11.0.4",
+    "vfile": "^6.0.1",
+    "mdast": "^3.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.1",
@@ -75,7 +78,6 @@
     "remark-stringify": "^11.0.0",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
-    "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0"
   },
   "lint-staged": {
