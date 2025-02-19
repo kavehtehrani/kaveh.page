@@ -18,8 +18,6 @@ import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import type { PluggableList } from 'unified'
 
-type PluggableList = PluggableList[]
-
 export async function getFileBySlug(
   type: string,
   slug: string
