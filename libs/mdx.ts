@@ -16,7 +16,9 @@ import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import type { PluggableList } from '@mdx-js/mdx'
+import type { Pluggable } from 'unified'
+
+type PluggableList = Array<Pluggable>
 
 export async function getFileBySlug(
   type: string,
