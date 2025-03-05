@@ -3,7 +3,7 @@
   "scripts": {
     "start": "PORT=3434 next-remote-watch ./data",
     "dev": "PORT=3434 next dev",
-    "build": "next build && node ./scripts/generate-sitemap.js",
+    "build": "next build",
     "serve": "PORT=3435 next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts --dir pages",
