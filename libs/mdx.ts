@@ -8,10 +8,9 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeSlug from 'rehype-slug'
 import remarkGFM from 'remark-gfm'
-import type { BlogFrontMatter, MdxFrontMatter, TOC } from '~/types'
+import type { BlogFrontMatter, MdxFrontMatter } from '~/types'
 import { dateSortDesc } from '~/utils/date'
 import { formatSlug, getAllFilesRecursively } from './files'
-import { remarkTocHeading } from './remark-toc-heading'
 import type { MdxPageLayout } from '~/types'
 import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
@@ -25,7 +24,6 @@ export async function getFileBySlug(
   slug: string
 ): Promise<{
   mdxSource: string
-  toc: TOC[]
   frontMatter: {
     date: string
     summary: string
@@ -36,7 +34,7 @@ export async function getFileBySlug(
     layout?: MdxPageLayout
     readingTime: ReadingTime
     draft?: boolean
-    blogIndexInclude?: boolean // not draft but also not include in blog index
+    blogIndexInclude?: boolean
     name?: string
     slug: string
     lastmod?: string
@@ -71,7 +69,6 @@ export async function getFileBySlug(
     )
   }
 
-  let toc: TOC[] = []
   let { frontmatter, code } = await bundleMDX<MdxFrontMatter>({
     source,
     cwd: path.join(process.cwd(), 'components'),
@@ -88,7 +85,7 @@ export async function getFileBySlug(
        * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
-      const remarkPlugins: PluggableList = [remarkGFM, remarkMath, remarkTocHeading]
+      const remarkPlugins: PluggableList = [remarkGFM, remarkMath]
 
       const rehypePlugins: PluggableList = [
         rehypeSlug,
@@ -113,10 +110,7 @@ export async function getFileBySlug(
     },
   })
 
-  toc = frontmatter.toc || []
-
   return {
-    toc,
     mdxSource: code,
     frontMatter: {
       readingTime: readingTime(source),

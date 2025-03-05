@@ -45,7 +45,6 @@ export interface AuthorFrontMatter extends MdxFrontMatter {
 export interface MdxFileData {
   mdxSource: string
   frontMatter: BlogFrontMatter
-  toc: unknown[]
 }
 
 export interface MdxLayoutRendererProps {
