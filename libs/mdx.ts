@@ -7,8 +7,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeSlug from 'rehype-slug'
-import remarkGFM from 'remark-gfm'
-import type { BlogFrontMatter, MdxFrontMatter, TOC } from '~/types'
+import type { BlogFrontMatter, MdxFrontMatter } from '~/types'
 import { dateSortDesc } from '~/utils/date'
 import { formatSlug, getAllFilesRecursively } from './files'
 import type { MdxPageLayout } from '~/types'
@@ -24,7 +23,6 @@ export async function getFileBySlug(
   slug: string
 ): Promise<{
   mdxSource: string
-  toc: TOC[]
   frontMatter: {
     date: string
     summary: string
@@ -70,7 +68,6 @@ export async function getFileBySlug(
     )
   }
 
-  let toc: TOC[] = []
   let { frontmatter, code } = await bundleMDX<MdxFrontMatter>({
     source,
     cwd: path.join(process.cwd(), 'components'),
@@ -112,10 +109,7 @@ export async function getFileBySlug(
     },
   })
 
-  toc = frontmatter.toc || []
-
   return {
-    toc,
     mdxSource: code,
     frontMatter: {
       readingTime: readingTime(source),
