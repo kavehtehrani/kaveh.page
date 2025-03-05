@@ -8,7 +8,7 @@ import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeSlug from 'rehype-slug'
 import remarkGFM from 'remark-gfm'
-import type { BlogFrontMatter, MdxFrontMatter } from '~/types'
+import type { BlogFrontMatter, MdxFrontMatter, TOC } from '~/types'
 import { dateSortDesc } from '~/utils/date'
 import { formatSlug, getAllFilesRecursively } from './files'
 import type { MdxPageLayout } from '~/types'
@@ -24,6 +24,7 @@ export async function getFileBySlug(
   slug: string
 ): Promise<{
   mdxSource: string
+  toc: TOC[]
   frontMatter: {
     date: string
     summary: string
@@ -34,7 +35,7 @@ export async function getFileBySlug(
     layout?: MdxPageLayout
     readingTime: ReadingTime
     draft?: boolean
-    blogIndexInclude?: boolean
+    blogIndexInclude?: boolean // not draft but also not include in blog index
     name?: string
     slug: string
     lastmod?: string
@@ -69,6 +70,7 @@ export async function getFileBySlug(
     )
   }
 
+  let toc: TOC[] = []
   let { frontmatter, code } = await bundleMDX<MdxFrontMatter>({
     source,
     cwd: path.join(process.cwd(), 'components'),
@@ -85,7 +87,7 @@ export async function getFileBySlug(
        * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
-      const remarkPlugins: PluggableList = [remarkGFM, remarkMath]
+      const remarkPlugins: PluggableList = [remarkMath]
 
       const rehypePlugins: PluggableList = [
         rehypeSlug,
@@ -110,7 +112,10 @@ export async function getFileBySlug(
     },
   })
 
+  toc = frontmatter.toc || []
+
   return {
+    toc,
     mdxSource: code,
     frontMatter: {
       readingTime: readingTime(source),
@@ -154,7 +159,7 @@ export async function getMDXComponent(source: string) {
   const { code } = await bundleMDX({
     source,
     mdxOptions(options) {
-      const remarkPlugins: PluggableList = [remarkGFM, remarkMath]
+      const remarkPlugins: PluggableList = [remarkMath]
 
       const rehypePlugins: PluggableList = [
         rehypeSlug,
