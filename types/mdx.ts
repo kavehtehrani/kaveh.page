@@ -5,6 +5,12 @@ import type { PluggableList } from 'unified'
 export type MdxPageLayout = 'AuthorLayout' | 'ListLayout' | 'PostSimple' | 'SnippetLayout'
 export type ReadingTime = ReturnType<typeof readingTime>
 
+export interface MDXLayout {
+  layout: MdxPageLayout
+  mdxSource?: string
+  [key: string]: any
+}
+
 export interface MdxFrontMatter {
   layout?: MdxPageLayout
   title: string
