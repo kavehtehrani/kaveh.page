@@ -1,23 +1,32 @@
 import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
-import type { MdxLayoutRendererProps } from '~/types'
-import { Image } from './Image'
-import { Link } from './Link'
+import type { MdxLayoutRendererProps, MDXLayout } from '~/types'
 import { Pre } from './Pre'
 import CorrChart from '~/components/charts/CorrelationChart'
+import AuthorLayout from '~/layouts/AuthorLayout'
+import PostSimple from '~/layouts/PostSimple'
+import { Link } from './Link'
+import { Image } from './Image'
 
-let MDXComponents = {
+const Wrapper = ({ layout, ...rest }: MDXLayout) => {
+  const Layout =
+    {
+      AuthorLayout,
+      PostSimple,
+    }[layout] || PostSimple
+
+  return <Layout {...rest} />
+}
+
+export const MDXComponents = {
   Image,
   a: Link,
   pre: Pre,
+  wrapper: Wrapper,
   CorrChart: CorrChart,
-  wrapper: ({ components, layout, ...rest }) => {
-    let Layout = require(`../layouts/${layout}`).default
-    return <Layout {...rest} />
-  },
 }
 
 export function MDXLayoutRenderer({ layout, mdxSource, ...rest }: MdxLayoutRendererProps) {
-  let MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
+  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
   return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
 }

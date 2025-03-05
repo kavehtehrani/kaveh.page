@@ -1,16 +1,23 @@
 import { visit } from 'unist-util-visit'
 import { slug } from 'github-slugger'
 import { toString } from 'mdast-util-to-string'
-import type { RemarkTocHeadingOptions, UnistNodeType, UnistTreeType } from '~/types'
+import type { TOC } from '~/types'
 
-export function remarkTocHeading(options: RemarkTocHeadingOptions) {
-  return (tree: UnistTreeType) =>
-    visit(tree, 'heading', (node: UnistNodeType) => {
+export function remarkTocHeading() {
+  return (tree: any, file: any) => {
+    const toc: TOC[] = []
+
+    visit(tree, 'heading', (node: any) => {
       let textContent = toString(node)
-      options.exportRef.push({
+
+      toc.push({
         value: textContent,
         url: '#' + slug(textContent),
         depth: node.depth,
       })
     })
+
+    // Store the TOC data in the file.data object
+    file.data.toc = toc
+  }
 }

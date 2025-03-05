@@ -17,6 +17,7 @@ import { type ReadingTime } from '~/types'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import type { Pluggable } from 'unified'
+import type { CompatiblePluggableList } from '../types/mdx'
 
 type PluggableList = Array<Pluggable>
 
@@ -88,11 +89,7 @@ export async function getFileBySlug(
        * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
        * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
        */
-      const remarkPlugins: PluggableList = [
-        [remarkTocHeading, {}],
-        [remarkGFM, {}],
-        [remarkMath, {}],
-      ]
+      const remarkPlugins: PluggableList = [remarkGFM, remarkMath, remarkTocHeading]
 
       const rehypePlugins: PluggableList = [
         rehypeSlug,
@@ -106,16 +103,18 @@ export async function getFileBySlug(
       options.remarkPlugins = [
         ...(Array.isArray(options.remarkPlugins) ? options.remarkPlugins : []),
         ...remarkPlugins,
-      ] as PluggableList
+      ] as CompatiblePluggableList
 
       options.rehypePlugins = [
         ...(Array.isArray(options.rehypePlugins) ? options.rehypePlugins : []),
         ...rehypePlugins,
-      ] as PluggableList
+      ]
 
       return options
     },
   })
+
+  toc = frontmatter.toc || []
 
   return {
     toc,
@@ -175,12 +174,12 @@ export async function getMDXComponent(source: string) {
       options.remarkPlugins = [
         ...(Array.isArray(options.remarkPlugins) ? options.remarkPlugins : []),
         ...remarkPlugins,
-      ] as PluggableList
+      ]
 
       options.rehypePlugins = [
         ...(Array.isArray(options.rehypePlugins) ? options.rehypePlugins : []),
         ...rehypePlugins,
-      ] as PluggableList
+      ]
 
       return options
     },

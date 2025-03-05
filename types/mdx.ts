@@ -1,5 +1,6 @@
 import type readingTime from 'reading-time'
 import type { DevIconsMap } from '~/components/DevIcon'
+import type { PluggableList } from 'unified'
 
 export type MdxPageLayout = 'AuthorLayout' | 'ListLayout' | 'PostSimple' | 'SnippetLayout'
 export type ReadingTime = ReturnType<typeof readingTime>
@@ -48,3 +49,6 @@ export interface MdxLayoutRendererProps {
 
   [key: string]: any
 }
+
+// Create a more flexible type definition that can accommodate both versions
+export type CompatiblePluggableList = any[] | PluggableList
