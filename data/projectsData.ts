@@ -58,6 +58,15 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'Send to archive.today',
+    description: 'Convenience extension to send pages to archive.today.',
+    imgSrc: '/static/images/archive_today_context_menu.png',
+    url: 'https://chromewebstore.google.com/detail/send-to-archiveis/jjakjpmanihepppmececomchibehkjgi',
+    repo: 'archive.today.extension',
+    builtWith: ['JavaScript'],
+  },
+  {
+    type: 'work',
     title: 'Traffic Signal',
     description: `My very first web app! Traffic control for shared spaces.  Wrote this during pandemic lockdown to coordinate with my roommates when it's OK to enter their space, especially people who are working in areas without a door such as the living room.
 
