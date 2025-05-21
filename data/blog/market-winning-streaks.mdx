@@ -11,67 +11,112 @@ We know that market returns are hardly i.i.d. Still, after the market turmoil fo
 to recover and starting on 2025-04-17 the SPX went on a 9-day winning streak. Let's see how rare this is historically.
 
 I ran a simple using the historical SPX data from 1928 to date (courtesy of Yahoo Finance) to count the number of consecutive up and down days.
-One important choice is to make sure we don't count overlapping streaks, e.g. a 4-day streak counts only as a 4-day streak, and not toward 2 or 3-day streaks.
+One important model choice is to make sure we don't count overlapping streaks, e.g. a 4-day streak counts only as a 4-day streak, and not toward 2 or 3-day streaks.
 
 ### Overall Market Direction
-- The market shows a slight upward bias, with 52.4% of days being positive
+- The market unsurprisingly shows a slight upward bias, with 52.4% of days being positive
 - This translates to approximately 5.24 up days for every 4.76 down days
 
 ### Maximum Streaks
-- The longest observed up streak was 14 consecutive days
-- The longest observed down streak was 12 consecutive days
+- The longest observed up streak was 14 consecutive days (1971-04-15).
+- The longest observed down streak was 12 consecutive days (1966-05-09).
+- Interestingly both streaks occurred a decade known for its high volatility and wacky monetary policy.
 
-### Frequency of Streaks
-The data reveals an interesting pattern in how streaks of different lengths occur:
-
-1. **Short Streaks (2-3 days)**
-- 2-day streaks are very common, occurring about 1,490 times for up days and 1,498 times for down days
-- 3-day streaks are also frequent, with 866 up streaks and 804 down streaks
-
-2. **Medium Streaks (4-7 days)**
-- The frequency drops significantly but remains notable
-- 4-day streaks: 441 up vs 352 down
-- 5-day streaks: 213 up vs 181 down
-- 6-day streaks: 125 up vs 82 down
-- 7-day streaks: 65 up vs 40 down
-
-3. **Long Streaks (8+ days)**
-- Become increasingly rare
-- 8-day streaks: 36 up vs 13 down
-- 9-day streaks: 14 up vs 8 down
-- 10-day streaks: 8 up vs 3 down
-- 11+ day streaks: Very rare, with only a handful of occurrences
-
-## Historical Data
+## Historical Streaks
 
 Here's the complete breakdown of consecutive days in the S&P 500:
 
-| Length | Up Days | Down Days |
-|--------|---------|-----------|
-| 2      | 1,490   | 1,498     |
-| 3      | 866     | 804       |
-| 4      | 441     | 352       |
-| 5      | 213     | 181       |
-| 6      | 125     | 82        |
-| 7      | 65      | 40        |
-| 8      | 36      | 13        |
-| 9      | 14      | 8         |
-| 10     | 8       | 3         |
-| 11     | 3       | 3         |
-| 12     | 5       | 2         |
-| 13     | 0       | 0         |
-| 14     | 1       | 0         |
+<table className="min-w-full divide-y divide-gray-200 border border-gray-200">
+  <thead>
+  <tr>
+    <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Length</th>
+    <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Up Days</th>
+    <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Down Days</th>
+  </tr>
+  </thead>
+  <tbody className="divide-y divide-gray-200">
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">2</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">1,490</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">1,498</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">866</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">804</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">4</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">441</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">352</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">5</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">213</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">181</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">6</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">125</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">82</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">7</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">65</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">40</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">8</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">36</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">13</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">9</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">14</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">8</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">10</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">8</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">11</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">12</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">5</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">2</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">13</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">0</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">0</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">14</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">1</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">0</td>
+  </tr>
+  </tbody>
+</table>
+
+![Market Streaks](/static/images/2025-05-consecutive_days_analysis.png)
 
 ## Conclusion
 
 The analysis reveals that while the market can maintain momentum in either direction, there's a natural limit to how long these
 streaks can persist. The frequency of streaks decreases exponentially with length, suggesting that
-the market has a built-in mechanism that prevents trends from continuing indefinitely. This finding has important implications for both
-short-term traders and long-term investors in terms of position sizing, risk management, and strategy development.
+the market has a built-in mechanism that prevents trends from continuing indefinitely. This is not surprising, as we know that
+equity markets show both volatility clustering and mean-reversion around trend. It is also worth nothing that conditional probability of
+continuing the streak one more day is basically the same as the unconditional probability of the market going up or down.
+
 
 ## Code Snippet
 
-SPX Historical Returns since 1928 (courtesy of Yahoo Finance) can be found here.
+SPX Historical Returns since 1928 (courtesy of Yahoo Finance) can be found [here](https://github.com/kavehtehrani/kaveh.page/blob/master/public/data/%5ESPX_historical_data.csv).
 
 ```Python
 import pandas as pd
