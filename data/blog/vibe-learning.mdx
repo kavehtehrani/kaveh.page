@@ -1,0 +1,45 @@
+---
+title: 'Vibe Learning to Fearlessly Explore Unfamiliar Tech '
+date: '2025-06-05'
+tags: ['ubuntu', 'vibe-coding']
+draft: false
+summary: 'I vibe-learned and vibe-coded a Speech2Text GNOME extension in a weekend. It was an eye-opening experience.'
+authors: ['default']
+---
+
+Having used ChatGPT for a while, I have gotten used to the "dictate" feature which allows me to speak and transcribe my words into text.
+Given that I've become a fairly heavy user of Cursor AI I wanted to replicate this experience on my Ubuntu desktop, surprisingly I was
+not able to find any native or readily available speech-to-text- solution. So I decided to create a GNOME extension that would allow me to do just that.
+
+Since the advent or AI programming, I've found myself far more open to exploring unfamiliar technologies and programming languages.
+It's made me far more likely to just dive into an unfamiliar tech stack, knowing that I can ask for help and get guidance along the way,
+at least in the early stages of learning.
+
+My plan was to use this opportunity to learn how to create a GNOME extension, which I had never done before. Since Linux is written primarily in C,
+I was ready to brush up on my C skills.
+
+## Getting Started
+
+I took a look at the [GNOME extension documentation](https://gjs.guide/extensions/development/creating.html) and found it a bit dry.
+So I headed over to ChatGPT and asked it to walk me through the process of creating a GNOME extension.
+
+![chatgpt-gnome-extension](/static/images/2025-06-chatgpt-gnome-extension.png)
+
+JavaScript? What? I was expecting to use C, but it turns out GNOME extensions are primarily written in JavaScript.
+Obviously had to ask ChatGPT why that's the case.
+
+![chatgpt-gnome-extension](/static/images/2025-06-gnome-js-1.png)
+![chatgpt-gnome-extension](/static/images/2025-06-gnome-js-2.png)
+
+Alright! That makes sense. I know enough JavaScript to get started, so off we go. After some back and forth with ChatGPT,
+regarding best option to use for the speech-to-text functionality, I decided to use the
+[openai-whisper](https://github.com/openai/whisper). Gave it a try on my machine using English and Spanish and it seemed to work well and was fast enough.
+
+At this point I moved to Cursor, which has become my primary coding environment. I gave it the folder structure it needed
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <img src="/static/images/2025-06-recording-modal.png" alt="chatgpt-gnome-extension" />
+</div>
+
+![vibe-coding](/static/images/2025-06-vibecoding.png)
+
