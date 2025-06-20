@@ -29,6 +29,15 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'YouTube Video Controls',
+    description: `Rotate, Zoom, and Pan controls for YouTube videos.`,
+    imgSrc: '/static/images/youtube-video-controls.png',
+    url: 'https://chrome.google.com/webstore/detail/https://chromewebstore.google.com/detail/youtube-video-controls/cddjdndjpiepihbknbjkjghijabbikmh',
+    repo: 'youtube-video-controls',
+    builtWith: ['JavaScript'],
+  },
+  {
+    type: 'work',
     title: 'Hacker News - Saved You A Click!',
     description: `A learning project in developing browser extensions.
     
@@ -64,16 +73,5 @@ export let projectsData: Project[] = [
     url: 'https://chromewebstore.google.com/detail/send-to-archiveis/jjakjpmanihepppmececomchibehkjgi',
     repo: 'archive.today.extension',
     builtWith: ['JavaScript'],
-  },
-  {
-    type: 'work',
-    title: 'Traffic Signal',
-    description: `My very first web app! Traffic control for shared spaces.  Wrote this during pandemic lockdown to coordinate with my roommates when it's OK to enter their space, especially people who are working in areas without a door such as the living room.
-
-    Nothing special but it helped greatly in learning basics of interactive web design.`,
-    imgSrc: '/static/images/traffic_signal.png',
-    url: 'https://traffic-signal.cyclic.app/',
-    repo: 'traffic_signal',
-    builtWith: ['JavaScript', 'Node.js', 'Express', 'MongoDB'],
   },
 ]
