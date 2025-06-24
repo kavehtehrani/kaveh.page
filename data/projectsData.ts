@@ -29,6 +29,15 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'GNOME Speech2Text',
+    description: `GNOME Extension to convert speech to text in any text using openai-whisper`,
+    imgSrc: '/static/images/recording-modal.png',
+    url: 'https://github.com/kavehtehrani/gnome-speech2text',
+    repo: 'gnome-speech2text',
+    builtWith: ['JavaScript', 'Python'],
+  },
+  {
+    type: 'work',
     title: 'YouTube Video Controls',
     description: `Rotate, Zoom, and Pan controls for YouTube videos.`,
     imgSrc: '/static/images/youtube-video-controls.png',
