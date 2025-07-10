@@ -28,7 +28,7 @@ export let projectsData: Project[] = [
     url: 'https://github.com/kavehtehrani/kaveh.page/blob/master/public/static/documents/Eth2%20-%20Staking.pdf',
   },
   {
-    type: 'work',
+    type: 'hobby',
     title: 'GNOME Speech2Text',
     description: `GNOME Extension to convert speech to text in any text using openai-whisper`,
     imgSrc: '/static/images/recording-modal.png',
@@ -37,16 +37,25 @@ export let projectsData: Project[] = [
     builtWith: ['JavaScript', 'Python'],
   },
   {
-    type: 'work',
+    type: 'hobby',
+    title: 'World Flag Quiz',
+    description: `Test your knowledge of world flags!`,
+    imgSrc: '/static/images/danesh-app.png',
+    url: 'https://www.danesh.app/worldflags',
+    repo: '',
+    builtWith: ['TypeScript', 'Next.js'],
+  },
+  {
+    type: 'hobby',
     title: 'YouTube Video Controls',
     description: `Rotate, Zoom, and Pan controls for YouTube videos.`,
     imgSrc: '/static/images/youtube-video-controls.png',
-    url: 'https://chrome.google.com/webstore/detail/https://chromewebstore.google.com/detail/youtube-video-controls/cddjdndjpiepihbknbjkjghijabbikmh',
+    url: 'https://chromewebstore.google.com/detail/youtube-video-controls/cddjdndjpiepihbknbjkjghijabbikmh',
     repo: 'youtube-video-controls',
     builtWith: ['JavaScript'],
   },
   {
-    type: 'work',
+    type: 'hobby',
     title: 'Hacker News - Saved You A Click!',
     description: `A learning project in developing browser extensions.
     
@@ -57,7 +66,7 @@ export let projectsData: Project[] = [
     builtWith: ['JavaScript'],
   },
   {
-    type: 'work',
+    type: 'hobby',
     title: 'One-Click Image Saver',
     description: 'Save any image in your browser with one click via shortcut or contextual menu.',
     imgSrc: '/static/images/one_click_image_saver_context_menu.png',
@@ -66,7 +75,7 @@ export let projectsData: Project[] = [
     builtWith: ['JavaScript'],
   },
   {
-    type: 'work',
+    type: 'hobby',
     title: 'New Tab URL',
     description: 'Customize default URL for new tabs in Chrome.',
     imgSrc: '/static/images/new_tab_url_screenshot.png',
@@ -75,7 +84,7 @@ export let projectsData: Project[] = [
     builtWith: ['JavaScript'],
   },
   {
-    type: 'work',
+    type: 'hobby',
     title: 'Send to archive.today',
     description: 'Convenience extension to send pages to archive.today.',
     imgSrc: '/static/images/archive_today_context_menu.png',

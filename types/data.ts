@@ -1,5 +1,5 @@
 export interface Project {
-  type: 'work' | 'self'
+  type: 'work' | 'hobby'
   title: string
   description?: string
   imgSrc: string
