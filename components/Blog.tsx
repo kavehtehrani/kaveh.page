@@ -14,6 +14,10 @@ const Blog = ({ posts, tags }: { posts: BlogFrontMatter[]; tags: TagsCount }) =>
       </p>
       <Tags tags={tags} />
       <BlogListLayout posts={posts} title="" />
+      {/* Honeypot for bots */}
+      <a href="/hp" style={{ display: 'none' }} aria-hidden="true">
+        ban me
+      </a>
     </>
   )
 }

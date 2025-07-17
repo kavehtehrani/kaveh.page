@@ -9,5 +9,6 @@ Disallow: /
 
 User-agent: *
 Allow: /
+Disallow: /hp
 
 Sitemap: https://kaveh.page/sitemap.xml

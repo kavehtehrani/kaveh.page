@@ -11,7 +11,8 @@
     "postinstall": "husky",
     "typecheck": "npx tsc -b",
     "upgrade": "rimraf package-lock.json && npx taze major -w && ni",
-    "generate-sitemap": "node scripts/generate-sitemap.mjs"
+    "generate-sitemap": "node scripts/generate-sitemap.mjs",
+    "check-honeypot": "node scripts/check-honeypot.mjs"
   },
   "dependencies": {
     "@octokit/graphql": "^8.2.1",
