@@ -1,6 +1,6 @@
-import fs from 'fs'
+import * as fs from 'fs'
 import { globby } from 'globby'
-import prettier from 'prettier'
+import * as prettier from 'prettier'
 
 let SITE_URL = 'https://kaveh.page'
 
