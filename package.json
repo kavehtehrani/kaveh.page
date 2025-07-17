@@ -1,5 +1,6 @@
 {
   "private": true,
+
   "scripts": {
     "start": "PORT=3434 next-remote-watch ./data",
     "dev": "PORT=3434 next dev",
@@ -9,7 +10,8 @@
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts --dir pages",
     "postinstall": "husky",
     "typecheck": "npx tsc -b",
-    "upgrade": "rimraf package-lock.json && npx taze major -w && ni"
+    "upgrade": "rimraf package-lock.json && npx taze major -w && ni",
+    "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@octokit/graphql": "^8.2.1",
