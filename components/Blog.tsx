@@ -15,6 +15,7 @@ const Blog = ({ posts, tags }: { posts: BlogFrontMatter[]; tags: TagsCount }) =>
       <Tags tags={tags} />
       <BlogListLayout posts={posts} title="" />
       {/* Honeypot for bots */}
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a href="/hp" style={{ display: 'none' }} aria-hidden="true">
         ban me
       </a>
