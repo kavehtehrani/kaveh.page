@@ -31,7 +31,7 @@ export let projectsData: Project[] = [
     type: 'hobby',
     title: 'GNOME Speech2Text',
     description: `GNOME Extension to convert speech to text in any text using openai-whisper`,
-    imgSrc: '/static/images/recording-modal.png',
+    imgSrc: '/static/images/2025-06-recording-modal.png',
     url: 'https://github.com/kavehtehrani/gnome-speech2text',
     repo: 'gnome-speech2text',
     builtWith: ['JavaScript', 'Python'],
