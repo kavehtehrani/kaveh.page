@@ -170,7 +170,6 @@ S.useEffect(() => {
 3. **Platform Detection**: `const d = i === "win" ? r.windows : r.mac` selects the appropriate malicious command based on the user's platform
 4. **Clipboard Replacement**: `u.clipboardData.setData("text/plain", d)` replaces the clipboard content with the malicious command
 5. **Prevention**: `u.preventDefault()` prevents the original legitimate text from being copied
-6. **Cleanup**: The effect returns a cleanup function that removes the event listener
 
 **The Deception:**
 
