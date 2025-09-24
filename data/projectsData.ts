@@ -28,9 +28,16 @@ export let projectsData: Project[] = [
     url: 'https://github.com/kavehtehrani/kaveh.page/blob/master/public/static/documents/Eth2%20-%20Staking.pdf',
   },
   {
+    type: 'work',
+    title: 'Protein Math',
+    description: `Comparison shopping tool to rank protein powders by price per gram and macro ratios.`,
+    imgSrc: '/static/images/proteinmath.png',
+    url: 'https://www.proteinmath.app/',
+  },
+  {
     type: 'hobby',
     title: 'GNOME Speech2Text',
-    description: `GNOME Extension to convert speech to text in any text using openai-whisper`,
+    description: `GNOME Extension to convert speech to text in several languages using OpenAI's automated speech recognition Whisper`,
     imgSrc: '/static/images/2025-06-recording-modal.png',
     url: 'https://github.com/kavehtehrani/gnome-speech2text',
     repo: 'gnome-speech2text',
