@@ -1,0 +1,33 @@
+---
+title: 'proteinmath.app'
+date: '2025-09-25'
+tags: ['side-hustle']
+draft: true
+summary: 'Making an app out of a spreadsheet.'
+authors: ['default']
+---
+
+I aim to take somewhere between 150-200 of protein per day. Normally about 75g of those are supplemented via protein powders
+or protein bars. I've long had a spreadsheet of my favorite brands that I use to calculate my macros + order the cheapest
+one in bulk when I run out. There's at least 7-8 brands which I trust the quality (most importantly, not amino spiking) and
+whose taste I find enjoyable. Amongst those, then the deciding factor simply becomes the price. Normally I just go with my
+favorite brands (which is Myprotein, and no I am not getting paid for this) but I've noticed that the prices have been
+swinging quite noticeably the last couple of years.
+
+I figured if I am doing this, other people might be doing the same. For a weekend project, I decided to start scraping
+some prices from the retailers I use and automate this comparison. I was in for a few surprises.
+
+## Scraping
+
+Most retail websites do not allow scraping of their information. That's not terribly surprising. For instance this is Myprotein's
+[robot.txt](https://www.myprotein.com/robots.txt). What I did find surprising however is that almost none have
+any sort of API calls either. I looked at some of the ones I had used in the past, iHerb, GNC, etc. Even the ones
+that have affiliate program (e.g. [GNC](https://www.gnc.com/affiliate.html))do not really provide a method
+to programmatically pull in their information. Walmart does have an API, but the bar to get access is not worth pursuing
+for a side hobby of this scale.
+
+The only viable path I found was [Amazon Associate](https://associates.amazon.com/) program. The sign-up was fairly easy,
+but the access to their [API](https://webservices.amazon.com/paapi5/documentation/) requires approvals. You need to generate
+3 qualifying sales
+
+![proteinmath](/static/images/proteinmath.png)

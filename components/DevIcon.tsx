@@ -17,6 +17,7 @@ import Ubuntu from '~/icons/ubuntu.svg'
 import RSS from '~/icons/rss.svg'
 import Chrome from '~/icons/chrome.svg'
 import Close from '~/icons/close.svg'
+import Linux from '~/icons/linux.svg'
 
 export let DevIconsMap = {
   React,
@@ -38,6 +39,7 @@ export let DevIconsMap = {
   RSS,
   Chrome,
   Close,
+  Linux,
 }
 
 export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {
