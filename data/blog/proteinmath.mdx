@@ -16,8 +16,8 @@ whose taste I find enjoyable. Amongst those, then the deciding factor simply bec
 favorite brands (which is Myprotein, and no I am not getting paid for this) but I've noticed that the prices have been
 swinging quite noticeably the last couple of years.
 
-I figured if I am doing this, other people might be doing the same. For
-[a weekend project](https://www.proteinmath.app/), I decided to start scraping
+I figured if I am doing this, other people might be doing the same. For a
+[weekend project](https://www.proteinmath.app/), I decided to start scraping
 some prices from the retailers I use and automate this comparison. I was in for a few surprises.
 
 ![proteinmath](/static/images/proteinmath.png)
@@ -43,7 +43,7 @@ Signing up as an Amazon Associate was reasonably painless. You fill in the appli
 The PA API, however, is not automatically granted when you sign up as an associate. You need to generate 3 qualifying sales
 in 6 months and abide by the [program policies](https://affiliate-program.amazon.com/help/operating/policies).
 The only tool available to you in the beginning is generating links via
-[SiteStripe](https://associates.amazon.ca/help/node/topic/GJMMT7G4C8K4Y3AY)
+[SiteStripe](https://associates.amazon.ca/help/node/topic/GJMMT7G4C8K4Y3AY).
 
 A specially difficult one for me was this condition:
 
@@ -62,8 +62,8 @@ About 2 months later, I finally got approved for the program and got access to t
 
 ### PA API
 
-PA API is fairly easy to use. The [SDK](https://webservices.amazon.com/paapi5/documentation/quick-start/using-sdk.html) works
-quite well and the provided code basically got me going 90% of the way there. That said, I was surprised that the information
+PA API is easy to use. The [SDK](https://webservices.amazon.com/paapi5/documentation/quick-start/using-sdk.html) works
+quite well and the provided code basically got me 90% of the way there. That said, I was surprised that the information
 you can retrieve is a small amount of the information available on Amazon's website. Most notably, you cannot readily pull in the
 reviews or all pictures of a product.
 
@@ -78,14 +78,14 @@ separate program.
 
 ## Tech Stack
 
-I built the frontend with Next.js which I've found to be my favourable frontend framework. Fairly painless to get
+I built the frontend with Next.js which I've found to be my preferable frontend framework. Straightforward to get
 everything working especially with a lot of help for boilerplate code from Claude.
 
 The backend is python code given that I only need prices updated 1-2x a day and the SDK code was already in python. Aside
 from dealing with the regional quirks mentioned above that got me lost in the documentation, was fairly painless otherwise.
 As for database, Supabase was plenty good for this project.
 
-Right now it's automating this with cronjobs on my homelab, but I think I'll migrate to Airflow when I find the time.
+Right now the updates are automated with cron jobs on my homelab, but I think I'll migrate to Airflow when I find the time.
 
 ## Marketing
 
