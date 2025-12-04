@@ -74,8 +74,10 @@ const seriesGenerator = (len: number, sequence: number[]) => {
 
 const cumulativeSum = (arr: number[], initValue?: number) => {
   let sum = 0;
-  let retArr = Array.from(arr);
-  initValue && retArr.unshift(initValue);
+  const retArr = Array.from(arr);
+  if (initValue) {
+    retArr.unshift(initValue);
+  }
 
   return retArr.map((e) => (sum = sum + e));
 };

@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { formatSlug } from "./client-utils";
 
 // Server-only utility functions (uses Node.js fs module)
 

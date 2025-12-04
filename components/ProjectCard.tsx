@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Link } from "./Link";
 import { DevIcon } from "./DevIcon";
 import type { Project } from "@/data/projects";
-import { siteConfig } from "@/data/site";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { title, description, imgSrc, url, repo, builtWith } = project;

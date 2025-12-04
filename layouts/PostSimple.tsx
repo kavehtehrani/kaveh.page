@@ -53,6 +53,7 @@ export function PostSimple({
         <div className="pb-8" style={{ gridTemplateRows: "auto 1fr" }}>
           <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
             <div className="prose prose-lg max-w-none pb-8 text-justify dark:prose-dark md:prose-xl">
+              {/* eslint-disable-next-line react-hooks/static-components */}
               <MDXContent />
             </div>
             <div className="border-t border-gray-200 dark:border-gray-700 pt-4">

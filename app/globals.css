@@ -33,8 +33,8 @@
 
 .dark {
   --background: #1f1f1f;
-  --foreground: #ededed;
-}
+    --foreground: #ededed;
+  }
 
 html {
   scroll-behavior: smooth;
