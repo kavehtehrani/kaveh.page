@@ -1,19 +1,15 @@
 ---
-title: 'Correlation: A Misunderstood Concept in Finance'
-date: '2023-08-25'
-tags: ['statistics', 'finance']
+title: "Correlation: A Misunderstood Concept in Finance"
+date: "2023-08-25"
+tags: ["statistics", "finance"]
 draft: false
-summary: 'Positive correlation between two time-series does NOT mean they are moving the same direction.'
-authors: ['default']
+summary: "Positive correlation between two time-series does NOT mean they are moving the same direction."
+authors: ["default"]
 ---
-import CorrChart from './charts/CorrelationChart.tsx'
 
-<link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
-	integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
-	crossOrigin="anonymous"
-/>
+import CorrChart from "./charts/CorrelationChart.tsx";
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossOrigin="anonymous" />
 
 Let's start out with a simple test. In the image below, are returns of the Stock 1 (cyan)
 correlated with the returns of Stock 2 (green) positively or negatively?
@@ -30,8 +26,8 @@ There are plenty of articles in financial literature that claim exactly this. Se
 and [Robinhood](https://learn.robinhood.com/articles/5i1TXxjPdGJTnK6dpaH08X/what-is-positive-correlation/) here for
 instance:
 
->A positive correlation indicates that two variables have a relationship with each other and move in the same
-direction — when one rises or falls, so does the other.
+> A positive correlation indicates that two variables have a relationship with each other and move in the same
+> direction — when one rises or falls, so does the other.
 
 That is not true, and unfortunately an all-too-common belief that misses a crucial point about
 correlation. You cannot generally tell the correlation of two stocks, or any time-series for that matter, by looking
@@ -45,8 +41,9 @@ It is because correlations are calculated **around the mean**, and do not indica
 at the correlation formula below, you can see that the mean of each series in deducted in the numerator. That means
 that if two series are positively correlated, they are moving together **with respect to their own individual means**.
 
-
-![Correlation Formula](/static/images/corr.svg)
+$$
+\rho_{x,y} = \frac{E[(x - \bar{x})(y - \bar{y})]}{{\sigma_x \sigma_y} }
+$$
 
 Correlation on its own has no information about the direction of time-series. The only metric indicating long-term
 direction is the average.

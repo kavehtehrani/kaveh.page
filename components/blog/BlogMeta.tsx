@@ -1,4 +1,4 @@
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "@/lib/client-utils";
 
 interface BlogMetaProps {
   date: string

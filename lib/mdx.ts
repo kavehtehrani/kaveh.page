@@ -2,7 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
+import remarkMath from "remark-math";
 import remarkRehype from "remark-rehype";
+import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import readingTime from "reading-time";
@@ -71,7 +73,9 @@ export async function getAuthorData(): Promise<AuthorData> {
   const { data, content } = matter(fileContents);
 
   const processedContent = await remark()
+    .use(remarkMath)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeKatex)
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);
@@ -101,7 +105,9 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
   const { data, content } = matter(source);
 
   const processedContent = await remark()
+    .use(remarkMath)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeKatex)
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);

@@ -1,4 +1,4 @@
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "@/lib/client-utils";
 import { Link } from "./Link"
 import { Tag } from "./Tag"
 
