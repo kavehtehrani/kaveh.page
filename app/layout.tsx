@@ -19,11 +19,23 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
     icon: [
-      { url: "/static/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/static/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      {
+        url: "/static/favicons/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "/static/favicons/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
     ],
     apple: [
-      { url: "/static/favicons/favicon-32x32.png", sizes: "76x76", type: "image/png" },
+      {
+        url: "/static/favicons/favicon-32x32.png",
+        sizes: "76x76",
+        type: "image/png",
+      },
     ],
     shortcut: "/static/favicons/favicon-32x32.png",
   },
