@@ -1,13 +1,11 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
+import { bundleMDX } from "mdx-bundler";
+import readingTime from "reading-time";
 import remarkMath from "remark-math";
-import remarkRehype from "remark-rehype";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
-import rehypeStringify from "rehype-stringify";
-import readingTime from "reading-time";
 import { formatSlug, getAllFilesRecursively, dateSortDesc } from "./utils";
 
 export interface AuthorData {
@@ -69,20 +67,29 @@ export type Post = BlogPost | SnippetPost;
 
 export async function getAuthorData(): Promise<AuthorData> {
   const filePath = path.join(process.cwd(), "data", "authors", "default.mdx");
-  const fileContents = fs.readFileSync(filePath, "utf8");
-  const { data, content } = matter(fileContents);
+  const source = fs.readFileSync(filePath, "utf8");
 
-  const processedContent = await remark()
-    .use(remarkMath)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeKatex)
-    .use(rehypeHighlight)
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(content);
-  const contentHtml = processedContent.toString();
+  const { code } = await bundleMDX({
+    source,
+    cwd: path.join(process.cwd(), "components"),
+    mdxOptions(options) {
+      options.remarkPlugins = [
+        ...(Array.isArray(options.remarkPlugins) ? options.remarkPlugins : []),
+        remarkMath,
+      ];
+      options.rehypePlugins = [
+        ...(Array.isArray(options.rehypePlugins) ? options.rehypePlugins : []),
+        rehypeKatex,
+        rehypeHighlight,
+      ];
+      return options;
+    },
+  });
+
+  const { data } = matter(source);
 
   return {
-    content: contentHtml,
+    content: code,
     frontMatter: {
       layout: data.layout,
       name: data.name,
@@ -102,16 +109,31 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
   }
 
   const source = fs.readFileSync(filePath, "utf8");
-  const { data, content } = matter(source);
+  const { data } = matter(source);
 
-  const processedContent = await remark()
-    .use(remarkMath)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeKatex)
-    .use(rehypeHighlight)
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(content);
-  const contentHtml = processedContent.toString();
+  const { code } = await bundleMDX({
+    source,
+    cwd: path.join(process.cwd(), "data", type),
+    esbuildOptions(options) {
+      options.loader = {
+        ...options.loader,
+        ".js": "jsx",
+      };
+      return options;
+    },
+    mdxOptions(options) {
+      options.remarkPlugins = [
+        ...(Array.isArray(options.remarkPlugins) ? options.remarkPlugins : []),
+        remarkMath,
+      ];
+      options.rehypePlugins = [
+        ...(Array.isArray(options.rehypePlugins) ? options.rehypePlugins : []),
+        rehypeKatex,
+        rehypeHighlight,
+      ];
+      return options;
+    },
+  });
 
   const readingTimeData = readingTime(source);
 
@@ -128,7 +150,7 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
 
   if (type === "snippets") {
     return {
-      mdxSource: contentHtml,
+      mdxSource: code,
       frontMatter: {
         ...baseFrontMatter,
         title: data.title || data.heading,
@@ -138,7 +160,7 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
   }
 
   return {
-    mdxSource: contentHtml,
+    mdxSource: code,
     frontMatter: baseFrontMatter as BlogFrontMatter,
   };
 }

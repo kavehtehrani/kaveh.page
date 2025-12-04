@@ -1,16 +1,17 @@
-import { getAuthorData } from "@/lib/mdx"
-import { ProfileCard } from "@/components/ProfileCard"
-import { BlogLinks } from "@/components/BlogLinks"
-import { Link } from "@/components/Link"
-import { siteConfig } from "@/data/site"
+import { getAuthorData } from "@/lib/mdx";
+import { ProfileCard } from "@/components/ProfileCard";
+import { BlogLinks } from "@/components/BlogLinks";
+import { Link } from "@/components/Link";
+import { AuthorContent } from "@/components/AuthorContent";
+import { siteConfig } from "@/data/site";
 
 export const metadata = {
   title: `About - ${siteConfig.author} - ${siteConfig.title}`,
   description: `About - ${siteConfig.title} - More about me and this blog`,
-}
+};
 
 export default async function About() {
-  const authorData = await getAuthorData()
+  const authorData = await getAuthorData();
 
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -29,8 +30,8 @@ export default async function About() {
               <p>
                 I am a recovering tradfi banker. I worked in traditional finance
                 for +10 years as an investment banker, derivatives trader, and
-                quantitative portfolio manager before leaving for entrepreneurial
-                pursuits.
+                quantitative portfolio manager before leaving for
+                entrepreneurial pursuits.
               </p>
               <p>
                 I grew up with computers and fell in love with programming in my
@@ -48,12 +49,8 @@ export default async function About() {
         </div>
       </div>
       <div className="items-start pt-8">
-        <div
-          className="prose prose-xl max-w-none pb-8 text-justify dark:prose-dark"
-          dangerouslySetInnerHTML={{ __html: authorData.content }}
-        />
+        <AuthorContent content={authorData.content} />
       </div>
     </div>
-  )
+  );
 }
-
