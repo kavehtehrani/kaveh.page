@@ -2,7 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeHighlight from "rehype-highlight";
+import rehypeStringify from "rehype-stringify";
 import readingTime from "reading-time";
 import { formatSlug, getAllFilesRecursively, dateSortDesc } from "./utils";
 
@@ -68,7 +70,11 @@ export async function getAuthorData(): Promise<AuthorData> {
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
 
-  const processedContent = await remark().use(html).process(content);
+  const processedContent = await remark()
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeHighlight)
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(content);
   const contentHtml = processedContent.toString();
 
   return {
@@ -94,7 +100,11 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
   const source = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(source);
 
-  const processedContent = await remark().use(html).process(content);
+  const processedContent = await remark()
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeHighlight)
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(content);
   const contentHtml = processedContent.toString();
 
   const readingTimeData = readingTime(source);
