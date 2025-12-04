@@ -3,6 +3,8 @@ export const siteConfig = {
   author: "Kaveh Tehrani",
   description: "Personal blog - long DeFi, short JPM",
   url: "https://kaveh.page",
+  language: "en-us",
+  email: "",
   social: {
     github: "https://github.com/kavehtehrani",
     twitter: "https://twitter.com/kavehtehrani",
