@@ -230,25 +230,25 @@ body {
   opacity: 1;
 }
 
-/* GitHub icon styling to match ProfileCard - gray by default, primary orange on hover */
+/* GitHub icon styling to match ProfileCard - gray by default, primary on hover */
 a[aria-label="View on GitHub"] .dev-icon img {
   filter: brightness(0) saturate(100%);
   opacity: 0.5;
 }
 
 a[aria-label="View on GitHub"]:hover .dev-icon img {
-  filter: brightness(0) saturate(100%) invert(58%) sepia(93%) saturate(1352%)
-    hue-rotate(1deg) brightness(101%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(27%) sepia(95%) saturate(2598%)
+    hue-rotate(210deg) brightness(97%) contrast(92%);
   opacity: 1;
 }
 
 .dark a[aria-label="View on GitHub"] .dev-icon img {
-  filter: brightness(0) saturate(100%) invert(1) brightness(1.2);
+  filter: brightness(0) saturate(100%) invert(1) brightness(1.5);
   opacity: 0.7;
 }
 
 .dark a[aria-label="View on GitHub"]:hover .dev-icon img {
-  filter: brightness(0) saturate(100%) invert(58%) sepia(93%) saturate(1352%)
-    hue-rotate(1deg) brightness(101%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(27%) sepia(95%) saturate(2598%)
+    hue-rotate(210deg) brightness(97%) contrast(92%);
   opacity: 1;
 }
