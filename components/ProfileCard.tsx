@@ -3,7 +3,7 @@ import { siteConfig } from "@/data/site"
 
 export function ProfileCard() {
   const logoClassName =
-    "h-1/2 w-1/2 mx-auto fill-current text-gray-500 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 hover:scale-[1.1]"
+    "h-1/2 w-1/2 mx-auto fill-current text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-400 hover:scale-[1.1]"
 
   return (
     <div className="z-10 scale-100 rounded-lg border-2 bg-stone-100 shadow-lg shadow-stone-900/50 transition-all duration-200 ease-out hover:z-50 hover:scale-[1.05] dark:bg-neutral-800 dark:shadow-amber-300/50">

@@ -2,7 +2,7 @@ import { siteConfig } from "@/data/site"
 
 export function SocialAccounts() {
   const logoClassName =
-    "h-6 w-6 fill-current text-gray-700 hover:text-blue-500 hover:scale-[1.2] dark:text-gray-200 dark:hover:text-blue-400 ease-out duration-100"
+    "h-6 w-6 fill-current text-gray-700 hover:text-primary-500 hover:scale-[1.2] dark:text-gray-200 dark:hover:text-primary-400 ease-out duration-100"
 
   return (
     <div className="flex space-x-4">

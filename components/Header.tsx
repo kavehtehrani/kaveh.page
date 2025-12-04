@@ -16,7 +16,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-40 overflow-x-hidden bg-white/75 py-3 backdrop-blur dark:bg-gray-900/75 supports-backdrop-blur:bg-white/95">
+    <header className="sticky top-0 z-40 overflow-x-hidden bg-white/75 py-3 backdrop-blur dark:bg-[#292524]/75 supports-backdrop-blur:bg-white/95">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
         <div className="flex items-center justify-center">
           <Link href="/" aria-label="Kaveh's Blog">
@@ -36,7 +36,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
             <p className="text-sm">Personal blog</p>
             <Link
               href="/about"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-primary-600 dark:text-primary-400 hover:underline"
             >
               {siteConfig.author}
             </Link>

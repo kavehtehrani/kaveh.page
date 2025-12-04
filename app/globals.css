@@ -1,27 +1,140 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@theme {
+  --color-primary-*: initial;
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
+  
+  --color-dark: #292524;
+  
+  --font-sans: var(--font-geist-sans), 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'JetBrains Mono', ui-monospace, monospace;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #292524;
     --foreground: #ededed;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.dark body {
+  background: #292524;
+}
+
+.prose {
+  color: rgb(55 65 81);
+}
+
+.dark .prose {
+  color: rgb(209 213 219);
+}
+
+.prose a {
+  color: rgb(249 115 22);
+}
+
+.prose a:hover {
+  color: rgb(234 88 12);
+}
+
+.dark .prose a {
+  color: rgb(251 146 60);
+}
+
+.dark .prose a:hover {
+  color: rgb(253 186 116);
+}
+
+.prose h1,
+.prose h2 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: rgb(17 24 39);
+}
+
+.dark .prose h1,
+.dark .prose h2 {
+  color: rgb(243 244 246);
+}
+
+.prose h3 {
+  font-weight: 600;
+  color: rgb(17 24 39);
+}
+
+.dark .prose h3 {
+  color: rgb(243 244 246);
+}
+
+.prose code {
+  color: rgb(107 114 128);
+  font-weight: 200;
+  background-color: rgb(243 244 246);
+  padding: 2px 4px;
+  border-radius: 0.25rem;
+}
+
+.dark .prose code {
+  color: rgb(156 163 175);
+  background-color: rgb(31 41 55);
+}
+
+.prose blockquote {
+  color: rgb(17 24 39);
+  border-left-color: rgb(229 231 235);
+  background: #ebebeb;
+  padding: 8px 16px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.dark .prose blockquote {
+  color: rgb(243 244 246);
+  border-left-color: rgb(55 65 81);
+  background: #363535;
+}
+
+.prose hr {
+  border-color: rgb(229 231 235);
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.dark .prose hr {
+  border-color: rgb(55 65 81);
+}
+
+.prose strong {
+  color: rgb(75 85 99);
+}
+
+.dark .prose strong {
+  color: rgb(243 244 246);
 }
