@@ -1,0 +1,222 @@
+---
+title: 'S&P 500 Winning Streaks'
+date: '2025-05-15'
+tags: ['statistics', 'finance']
+draft: false
+summary: 'S&P500 recently went on a 9-day winning streak. I wanted to see how often this has happened historically.'
+authors: ['default']
+---
+
+We know that market returns are hardly i.i.d. Still, after the market turmoil following "Liberation Day" the markets finally started
+to recover and starting on 2025-04-17 the SPX went on a 9-day winning streak. Let's see how rare this has been historically.
+
+I ran a simple using the historical SPX data from 1928 to date to count the number of consecutive up and down days.
+One important model choice is to make sure we don't count overlapping streaks, e.g. a 4-day streak counts only as a 4-day streak, and not toward 2 or 3-day streaks.
+
+### Overall Market Direction
+- The market unsurprisingly shows a slight upward bias, with 52.4% of days being positive
+- This translates to approximately 5.24 up days for every 4.76 down days
+
+### Maximum Streaks
+- The longest observed up streak was 14 consecutive days (1971-04-15).
+- The longest observed down streak was 12 consecutive days (1966-05-09).
+- Interestingly both streaks occurred a decade known for its high volatility and wacky monetary policy.
+
+## Historical Streaks
+
+Here's the complete breakdown of consecutive days in the S&P 500:
+
+<table className="min-w-full divide-y divide-gray-200 border border-gray-200">
+  <thead>
+  <tr>
+    <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Length</th>
+    <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Up Days</th>
+    <th className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Down Days</th>
+  </tr>
+  </thead>
+  <tbody className="divide-y divide-gray-200">
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">2</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">1,490</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">1,498</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">866</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">804</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">4</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">441</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">352</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">5</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">213</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">181</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">6</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">125</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">82</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">7</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">65</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">40</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">8</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">36</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">13</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">9</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">14</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">8</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">10</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">8</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">11</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">3</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">12</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">5</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">2</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">13</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">0</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">0</td>
+  </tr>
+  <tr>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">14</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">1</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-center">0</td>
+  </tr>
+  </tbody>
+</table>
+
+![Market Streaks](/static/images/2025-05-consecutive_days_analysis.png)
+
+## Conclusion
+
+The analysis reveals that while the market can maintain momentum in either direction, there's a natural limit to how long these
+streaks can persist. This is not surprising, as we know that
+equity markets show both volatility clustering and mean-reversion around trend. It is also worth nothing that conditional probability of
+continuing the streak one more day is basically the same as the unconditional probability of the market going up or down.
+
+
+## Code Snippet
+
+SPX Historical Returns since 1928 (courtesy of Yahoo Finance) can be found [here](https://github.com/kavehtehrani/kaveh.page/blob/master/public/data/%5ESPX_historical_data.csv).
+
+```Python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read the data
+df = pd.read_csv('SPX_historical_data.csv')
+
+# Calculate daily returns and direction
+df['Return'] = df['Close'].pct_change()
+df['Direction'] = np.where(df['Return'] > 0, 1, -1)  # 1 for up, -1 for down
+
+# Calculate consecutive days
+df['Consecutive_Days'] = df['Direction']  # Initialize with direction (1 or -1)
+for i in range(1, len(df)):
+    if df.loc[i, 'Direction'] == df.loc[i-1, 'Direction']:
+        # If same direction, increment/decrement based on direction
+        df.loc[i, 'Consecutive_Days'] = df.loc[i-1, 'Consecutive_Days'] + df.loc[i, 'Direction']
+    else:
+        # If direction changes, reset to new direction
+        df.loc[i, 'Consecutive_Days'] = df.loc[i, 'Direction']
+
+# Calculate unconditional probabilities
+total_days = len(df)
+up_days = (df['Direction'] == 1).sum()
+down_days = (df['Direction'] == -1).sum()
+p_up = up_days / total_days
+p_down = down_days / total_days
+
+# Find maximum observed consecutive days
+max_up_streak = df[df['Direction'] == 1]['Consecutive_Days'].max()
+max_down_streak = abs(df[df['Direction'] == -1]['Consecutive_Days'].min())
+max_consecutive = max(max_up_streak, max_down_streak)
+
+print(f"\nUnconditional Probabilities:")
+print(f"Probability of Up Day: {p_up:.4f}")
+print(f"Probability of Down Day: {p_down:.4f}")
+print(f"\nMaximum Observed Streaks:")
+print(f"Longest Up Streak: {max_up_streak} days")
+print(f"Longest Down Streak: {max_down_streak} days")
+
+# Function to find maximal streaks
+def find_maximal_streaks(series, direction):
+    streaks = []
+    current_streak = 1
+
+    for i in range(1, len(series)):
+        if series.iloc[i] == direction and series.iloc[i-1] == direction:
+            current_streak += 1
+        else:
+            if current_streak > 1:
+                streaks.append(current_streak)
+            current_streak = 1
+
+    if current_streak > 1:
+        streaks.append(current_streak)
+
+    return streaks
+
+# Get all maximal streaks
+up_streaks = find_maximal_streaks(df['Direction'], 1)
+down_streaks = find_maximal_streaks(df['Direction'], -1)
+
+# Analyze patterns for different lengths
+results = []
+
+for n in range(2, max_consecutive + 1):
+    # Count streaks of exactly length n
+    up_count = up_streaks.count(n)
+    down_count = down_streaks.count(n)
+
+    results.append({
+        'n': n,
+        'up_count': up_count,
+        'down_count': down_count
+    })
+
+# Print results
+print("\nConsecutive Days Analysis:")
+print("=" * 50)
+print(f"{'Length':^6} | {'Up Days':^10} | {'Down Days':^10}")
+print("-" * 50)
+
+for r in results:
+    print(f"{r['n']:^6} | {r['up_count']:^10.0f} | {r['down_count']:^10.0f}")
+
+# Create visualization
+plt.figure(figsize=(12, 6))
+n_values = [r['n'] for r in results]
+up_actual = [r['up_count'] for r in results]
+down_actual = [r['down_count'] for r in results]
+
+plt.plot(n_values, up_actual, 'b-', label='Up Days', linewidth=2)
+plt.plot(n_values, down_actual, 'r-', label='Down Days', linewidth=2)
+
+plt.xlabel('Number of Consecutive Days')
+plt.ylabel('Count')
+plt.title('Historical Occurrences of Consecutive Days')
+plt.legend()
+plt.grid(True)
+plt.savefig('consecutive_days_analysis.png')
+plt.close()
+```

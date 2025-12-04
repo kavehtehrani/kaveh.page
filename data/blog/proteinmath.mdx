@@ -1,0 +1,106 @@
+---
+title: 'proteinmath.app'
+date: '2025-09-25'
+tags: ['side-hustle']
+draft: false
+summary: 'Making an app out of a spreadsheet.'
+authors: ['default']
+---
+
+I aim to take somewhere between 150-200 of protein per day. Normally about 75g of those are supplemented via protein powders
+or protein bars.
+
+I've long had a spreadsheet of my favorite brands that I use to calculate my macros + order the cheapest brand I like
+in bulk when I run out. There's at least 7-8 brands whose quality I trust (most importantly, not amino spiking) and
+whose taste I find enjoyable. Amongst those, then the deciding factor simply becomes the price. Normally I just go with my
+favorite brands (which is Myprotein, and no I am not getting paid for this) but I've noticed that the prices have been
+swinging quite noticeably the last couple of years.
+
+I figured if I am doing this, other people might be doing the same. For a
+[weekend project](https://www.proteinmath.app/), I decided to start scraping
+some prices from the retailers I use and automate this comparison. I was in for a few surprises.
+
+![proteinmath](/static/images/proteinmath.png)
+
+## Scraping
+
+Most retail websites do not allow scraping of their information. That's not terribly surprising. For instance this is Myprotein's
+[robot.txt](https://www.myprotein.com/robots.txt). What I did find surprising however is that almost none have
+any sort of API calls either. I looked at some of the ones I had used in the past, iHerb, GNC, etc. Even the ones
+that have affiliate program (e.g. [GNC](https://www.gnc.com/affiliate.html)) do not really provide a method
+to programmatically pull in their information. Walmart does have an API, but the bar to get access is not worth pursuing
+for a side hobby of this scale.
+
+The only viable path I found was [Amazon Associate](https://affiliate-program.amazon.com/) program. The sign-up was fairly easy,
+but the access to their [API](https://webservices.amazon.com/paapi5/documentation/) requires approval.
+
+Seeing that the path of least resistance was Amazon, I set the goal to qualify for Amazon's
+[Product Advertising API (PA API)](https://webservices.amazon.com/paapi5/documentation/).
+
+## Amazon Associate Program
+
+Signing up as an Amazon Associate was reasonably painless. You fill in the application and list your app, and you get conditional approval.
+The PA API, however, is not automatically granted when you sign up as an associate. You need to generate 3 qualifying sales
+in 6 months and abide by the [program policies](https://affiliate-program.amazon.com/help/operating/policies).
+The only tool available to you in the beginning is generating links via
+[SiteStripe](https://associates.amazon.ca/help/node/topic/GJMMT7G4C8K4Y3AY).
+
+A specially difficult one for me was this condition:
+
+>In addition, if you choose to display prices for any Product on your Site in any “comparison” format (including through
+the use of any price-comparison tool or engine) together with prices for the same or similar products offered through
+any website or other means other than an Amazon Site, you must display both the lowest “new” price and,
+if we provide it to you, the lowest “used” price at which the Product is available on the Amazon Site.
+
+Given that I was building a comparison shopping website, lack of access to PA API meant that I had to manually update the prices.
+Scraping also broke their policy. So I put a disclaimer at the bottom of the page that this is a demo website only,
+prices are manually updated, and should not be relied on.
+
+I listed about 40 protein powders that I was familiar with and started updating their prices once a day manually.
+
+About 2 months later, I finally got approved for the program and got access to the PA API.
+
+### PA API
+
+PA API is easy to use. The [SDK](https://webservices.amazon.com/paapi5/documentation/quick-start/using-sdk.html) works
+quite well and the provided code basically got me 90% of the way there. That said, I was surprised that the information
+you can retrieve is a small amount of the information available on Amazon's website. Most notably, you cannot readily pull in the
+reviews or all pictures of a product.
+
+That said, the thing that mattered to me the most was having up-to-date prices and the SDK does that just fine.
+
+I had to contact support a couple of times and found them to be responsive and generally knowledgeable. The documentation
+could use some improvement, however. When I wanted to expand the comparison to other regions, found out that you had to apply
+for each region to be approved separately and cannot use the same approved account for instance on amazon.co.uk. You can
+set your shop to be available in multiple regions through
+[OneLink](https://affiliate-program.amazon.com/resource-center/onelink-launch) but that's apparently a completely
+separate program.
+
+## Tech Stack
+
+I built the frontend with Next.js which I've found to be my preferable frontend framework. Straightforward to get
+everything working especially with a lot of help for boilerplate code from Claude.
+
+The backend is python code given that I only need prices updated 1-2x a day and the SDK code was already in python. Aside
+from dealing with the regional quirks mentioned above that got me lost in the documentation, was fairly painless otherwise.
+As for database, Supabase was plenty good for this project.
+
+Right now the updates are automated with cron jobs on my homelab, but I think I'll migrate to Airflow when I find the time.
+
+## Marketing
+
+I haven't done much marketing around the app. I've been replying to some comments on reddit where people have asked
+for a comparison of protein powder macros or prices with genuine attempt at helping and if appropriate, stating that I
+have built this tool that I personally use myself.
+
+I'm mostly relying on the SEO traffic which is slow to pick up but the initial start has been promising.
+
+## Further Work
+
+Since launching, I've added protein bars as well. If you think of other products you'd like see comparisons for, please
+do let me know! I might add other supplements I take, e.g. creatine, fish oils, etc., but since I don't think
+there's too many choices there not sure how useful that would be.
+
+It is making beer money at the time, but if it picks up I might sink more resources to it down the line.
+
+It was a really fun project to build and I learned quite a bit about what makes Amazon such a successful giant!

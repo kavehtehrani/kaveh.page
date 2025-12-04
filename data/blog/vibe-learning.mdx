@@ -1,0 +1,126 @@
+---
+title: 'Vibing a GNOME Extension When You Know Nothing About GNOME'
+date: '2025-06-05'
+tags: ['ubuntu', 'vibe-coding']
+draft: false
+summary: 'I vibe learned and vibe coded a Speech2Text GNOME extension in a weekend. It was an eye-opening experience.'
+authors: ['default']
+---
+
+Having used ChatGPT for a while, I have gotten used to the "dictate" feature which allows me to speak and transcribe my words into text.
+Given that I've become a fairly heavy user of Cursor AI, I wanted to replicate this experience on my Ubuntu desktop. Surprisingly, I was
+not able to find any native or readily available speech-to-text solution. So I decided to create a
+[GNOME extension](https://github.com/kavehtehrani/gnome-speech2text) that would allow me to do just that.
+
+Since the advent of AI programming, I've found myself far more open to exploring unfamiliar technologies and programming languages.
+It's made me far more likely to just dive into an unfamiliar tech stack, knowing that I can ask for help and get guidance along the way,
+at least in the early stages of learning.
+
+My plan was to use this opportunity to learn how to create a GNOME extension, which I had never done before. Since Linux is written primarily in C,
+I was ready to brush up on my C skills.
+
+## Getting Started
+
+I took a look at the [GNOME extension documentation](https://gjs.guide/extensions/development/creating.html) and found it a bit dry.
+So I headed over to ChatGPT and asked it to walk me through the process of creating a GNOME extension.
+
+![chatgpt-gnome-extension](/static/images/2025-06-chatgpt-gnome-extension.png)
+
+JavaScript? What? I was expecting to use C, but it turns out GNOME extensions are primarily written in JavaScript.
+I obviously had to ask ChatGPT why that's the case.
+
+![chatgpt-gnome-extension](/static/images/2025-06-gnome-js-1.png)
+![chatgpt-gnome-extension](/static/images/2025-06-gnome-js-2.png)
+
+Alright! That makes sense. I know enough JavaScript to get started, so off we go. After some back and forth with ChatGPT
+regarding the best option to use for the speech-to-text functionality, I decided to use
+[openai-whisper](https://github.com/openai/whisper). I gave it a try on my machine using English and Spanish, and it seemed to work well and was fast enough.
+
+At this point I moved to Cursor, which has become my primary coding environment. I rely mostly on Claude Sonnet 4, and find the
+"thinking" version to mostly be better at complex tasks than the regular version. I gave it the folder structure it needed
+for the GNOME extension, and it did a reasonable job of writing the python extension code to interface with the Whisper API.
+
+It also did a first pass at the JavaScript code to handle the UI and interaction with the GNOME shell, but that was not quite right.
+I have noticed that AI tends to struggle with versioning and compatibility issues, and despite telling it I was using GNOME Shell 46,
+it was using a mix of GNOME Shell 44 and 45 APIs. After some digging around in the
+[GNOME Shell 46 documentation](https://gjs.guide/extensions/review-guidelines/review-guidelines.html), I was able to correct the issues
+and get the extension working.
+
+## Implementing Features
+
+Initially, Claude went off the deep end using PyAudio for audio recording, which was not necessary since I could just use FFmpeg,
+which I'm more familiar with and openai-whisper relies on. I tried the python script on a few audio files in English and Spanish, and it worked quite well.
+
+The GNOME extension itself is fairly simple. It adds a microphone icon to the top panel, which you can click to start recording. I wanted to
+also add a keyboard shortcut I could use to toggle recording. This is where I ran into the most significant issues with vibe coding.
+
+I was entirely unfamiliar with the [GSetting interface](https://gjs.guide/extensions/development/preferences.html) for GNOME extensions, and it took me a while to figure out how to
+get it working. I had to feed the GSettings schema to Claude manually, one bit at a time, until it understood how to set up the preferences dialog.
+Then came the modal popup for the recording, which I also had to tweak a bit to get it working correctly with the GNOME Shell 46 APIs.
+
+I spent a few hours on a bug where if the user triggered the recording modal via clicking on the top panel icon, it would not close if the user
+used the keyboard shortcut to stop the recording, which was super weird. They were using the exact same code. Finally, I realized the issue was the focus
+being left on the top bar even though the modal was open. I pointed this out to Claude, and after a few trials I figured it was not able to restore the focus,
+so I wrote a decent amount of code to handle that manually.
+
+Most other issues Claude was able to nail down quickly if I just pointed out the issue. To list a few: redirecting output of the python script to the system journal
+so I could see the output in `journalctl`, handling keyboard events while the modals were open (after the focus issue was resolved), and
+almost all styling issues with the modal popups.
+
+Within a weekend I had the extension working well enough. I was also using it while developing it, which gave me a lot of insight into the user experience
+and was gratifying to see it work in real-time.
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="/static/images/2025-06-recording-modal.png" alt="Recording modal interface" />
+</div>
+
+## How Vibe Coding Helped
+
+Honestly, the vibe learning part was the best. I had to look up minimal documentation to get started and get at least the scaffolding in place.
+The vibe coding part was also smooth, but when I did hit roadblocks, AI was completely going off the rails or into a circular reasoning loop.
+This persisted no matter what model I was using, so especially when it came to fixing the focus + keyboard capture issue, I had
+to really get involved and fix the issue myself.
+
+Refactoring the code was also a breeze. I was able to get Claude to help me clean up the code and make it more modular and maintainable.
+I didn't even bother reading anything that was purely refactoring or styling. It just worked! Which is great, because dealing with
+styling issues is probably my least favorite part of coding.
+
+Now, the shell scripts to install the extensions were an absolute crutch with Claude. I haven't written many shell scripts in the past,
+let alone one [like this](https://github.com/kavehtehrani/gnome-speech2text/blob/main/scripts/install.sh) that installs the extension. I can
+certainly read it and adjust as needed, but I confidently think that Claude did a much better job than I could've done.
+
+I think the best part of vibe coding is the feeling that you're not entirely on your own in the process. I've found that in the past
+2 years I have become much more open to exploring unfamiliar technologies and programming languages. When GitHub Copilot was first released,
+I used it extensively to [learn Rust](/blog/polkadot-blockchain-academy) in a matter of weeks.
+
+Now I was able to vibe learn and vibe code a GNOME extension in a weekend, which I figure pre-AI would have taken me at least a week and a lot
+more frustration. It was a pretty magical moment to get an icon in the top panel on the first shot, so I had a visual cue that the extension was
+on its way.
+
+## Where Vibe-Coding Failed
+
+Vibe coding definitely comes with a few serious issues. As mentioned before, versioning is a huge issue and I had to feed it specific version guidelines to get
+it right for GNOME Shell 46. On some issues, particularly when it came to fixing errors, when it got stuck it would just keep repeating the same things
+repeatedly, and I had to manually point it in the right direction.
+
+Lastly, when I asked for some simple modularization of the code to break it into smaller chunks, it completely went off the rails and
+not only delivered a broken solution, but also added some really weird code such as a deepCopy() function that was literally just copying objects of strings.
+I had to manually rollback and fix all of that while explaining to Claude why it was wrong. What's more interesting is that even though in the prompt
+I had told it to "simply refactor and modularize the code" and "do not change any functionality," it still went off the rails and made breaking changes and was
+confident about it too!
+
+## Afterthoughts
+
+Honestly, I'm blown away by how much I was able to accomplish in such a short time. I had never written a GNOME extension before, and I was able to get
+something working within a weekend. I learned a lot about GNOME Shell and its extensions, and had to look up minimal documentation to get going.
+
+I think the key takeaway is that vibe learning and vibe coding can be a powerful combination. I've submitted the extension to
+https://extensions.gnome.org/ but it is still under review. In the meantime, I've installed it on two other machines and the installation
+script seems to be working well.
+
+## Try It Out
+
+The extension is available on [GitHub](https://github.com/kavehtehrani/gnome-speech2text) and you can install it using the provided setup instructions.
+
+If you have any suggestions or feedback, please feel free to reach out. I wrote the majority of this article just by talking
+to my computer and not typing, which kinda feels magical being able to just talk and not type anything...!
