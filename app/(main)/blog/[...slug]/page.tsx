@@ -2,7 +2,6 @@ import { getFileBySlug, getAllFilesFrontMatter } from "@/lib/mdx";
 import { PostSimple } from "@/layouts/PostSimple";
 import { PageTitle } from "@/components/PageTitle";
 import { siteConfig } from "@/data/site";
-import { formatSlug } from "@/lib/utils";
 
 export async function generateStaticParams() {
   const posts = getAllFilesFrontMatter("blog");

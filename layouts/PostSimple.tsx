@@ -1,21 +1,25 @@
-import { BlogTags } from "@/components/blog/BlogTags"
-import { BlogMeta } from "@/components/blog/BlogMeta"
-import { PageTitle } from "@/components/PageTitle"
-import { SectionContainer } from "@/components/SectionContainer"
-import { Link } from "@/components/Link"
-import { siteConfig } from "@/data/site"
-import type { BlogFrontMatter } from "@/components/PostListItem"
+import { BlogTags } from "@/components/blog/BlogTags";
+import { BlogMeta } from "@/components/blog/BlogMeta";
+import { PageTitle } from "@/components/PageTitle";
+import { SectionContainer } from "@/components/SectionContainer";
+import { Link } from "@/components/Link";
+import type { BlogFrontMatter } from "@/components/PostListItem";
 
 interface PostSimpleProps {
-  frontMatter: BlogFrontMatter
-  content: string
-  next?: BlogFrontMatter | null
-  prev?: BlogFrontMatter | null
+  frontMatter: BlogFrontMatter;
+  content: string;
+  next?: BlogFrontMatter | null;
+  prev?: BlogFrontMatter | null;
 }
 
-export function PostSimple({ frontMatter, content, next, prev }: PostSimpleProps) {
-  const { date, title, slug, tags, readingTime } = frontMatter
-  const postUrl = `${siteConfig.url}/blog/${slug}`
+export function PostSimple({
+  frontMatter,
+  content,
+  next,
+  prev,
+}: PostSimpleProps) {
+  const { date, title, tags, readingTime } = frontMatter;
+  // const postUrl = `${siteConfig.url}/blog/${frontMatter.slug}` // Reserved for future social sharing
 
   return (
     <SectionContainer>
@@ -79,6 +83,5 @@ export function PostSimple({ frontMatter, content, next, prev }: PostSimpleProps
         </div>
       </article>
     </SectionContainer>
-  )
+  );
 }
-

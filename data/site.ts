@@ -1,7 +1,7 @@
 export const siteConfig = {
   title: "Kaveh's Blog",
   author: "Kaveh Tehrani",
-  description: "Personal blog - leaving tradfi for web3",
+  description: "Personal blog - long DeFi, short JPM",
   url: "https://kaveh.page",
   social: {
     github: "https://github.com/kavehtehrani",
@@ -12,5 +12,4 @@ export const siteConfig = {
     farcaster: "https://warpcast.com/kwar13",
   },
   buttondown: "kaveh",
-}
-
+};

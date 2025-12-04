@@ -1,17 +1,20 @@
-"use client"
+"use client";
 
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    // Set mounted state after component mounts to avoid hydration mismatch
+    // This is a valid pattern for next-themes to prevent hydration mismatches
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
-  const isDark = theme === "dark" || resolvedTheme === "dark"
+  const isDark = theme === "dark" || resolvedTheme === "dark";
 
   if (!mounted) {
     return (
@@ -22,7 +25,7 @@ export function ThemeSwitcher() {
       >
         <div className="h-6 w-6" />
       </button>
-    )
+    );
   }
 
   return (
@@ -49,6 +52,5 @@ export function ThemeSwitcher() {
         )}
       </svg>
     </button>
-  )
+  );
 }
-

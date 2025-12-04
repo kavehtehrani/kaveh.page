@@ -1,5 +1,4 @@
-import { siteConfig } from "@/data/site"
-import { Link } from "./Link"
+import { Link } from "./Link";
 
 export function BuiltWith() {
   return (
@@ -49,6 +48,5 @@ export function BuiltWith() {
         RSS
       </Link>
     </div>
-  )
+  );
 }
-
