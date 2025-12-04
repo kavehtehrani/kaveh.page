@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     apple: [
       { url: "/static/favicons/favicon-32x32.png", sizes: "76x76", type: "image/png" },
     ],
+    shortcut: "/static/favicons/favicon-32x32.png",
   },
   manifest: "/static/favicons/site.webmanifest",
   other: {
