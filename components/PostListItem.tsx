@@ -22,34 +22,34 @@ export function PostListItem({ frontMatter }: { frontMatter: BlogFrontMatter }) 
   const { slug, date, title, summary, tags, readingTime, folderName = "blog" } = frontMatter
 
   return (
-    <li key={slug}>
-      <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-        <dl>
-          <dt className="sr-only">Published on</dt>
-          <dd className="flex flex-row whitespace-pre text-base font-medium leading-6 text-gray-500 dark:text-gray-400 xl:flex-col">
+    <li key={slug} className="py-4">
+      <article>
+        {/* Title and date/reading time - stacked on mobile, side by side on larger screens */}
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+          <h3 className="text-2xl font-bold leading-8 tracking-tight">
+            <Link href={`/${folderName}/${slug}`} className="text-gray-900 dark:text-gray-100">
+              {title}
+            </Link>
+          </h3>
+          <div className="flex items-baseline gap-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
             <time dateTime={date}>{formatDate(date)}</time>
-            <span className="flex xl:hidden">{`  •  `}</span>
-            <span className="text-sm xl:mt-2">
+            <span>•</span>
+            <span>
               {String.fromCodePoint(0x2615).repeat(Math.ceil(readingTime.minutes / 5))}
-              {`  `}
+              {` `}
               {readingTime.text.replace("min", "mins")}
             </span>
-          </dd>
-        </dl>
-        <div className="space-y-3 xl:col-span-3">
-          <div>
-            <h3 className="text-2xl font-bold leading-8 tracking-tight">
-              <Link href={`/${folderName}/${slug}`} className="text-gray-900 dark:text-gray-100">
-                {title}
-              </Link>
-            </h3>
-            <div className="mt-1 flex flex-wrap">
-              {tags.map((tag) => (
-                <Tag key={tag} text={tag} />
-              ))}
-            </div>
           </div>
-          <div className="prose max-w-none text-gray-500 dark:text-gray-400">{summary}</div>
+        </div>
+        {/* Summary */}
+        <div className="mt-2 prose max-w-none text-gray-500 dark:text-gray-400">
+          {summary}
+        </div>
+        {/* Tags on their own line */}
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <Tag key={tag} text={tag} />
+          ))}
         </div>
       </article>
     </li>
