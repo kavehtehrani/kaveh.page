@@ -16,11 +16,12 @@
   --color-primary-800: #9a3412;
   --color-primary-900: #7c2d12;
   --color-primary-950: #431407;
-  
+
   --color-dark: #292524;
-  
-  --font-sans: var(--font-geist-sans), 'Outfit', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), 'JetBrains Mono', ui-monospace, monospace;
+
+  --font-sans: var(--font-geist-sans), "Outfit", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
@@ -42,7 +43,16 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Ensure prose content has proper background */
+.prose {
+  background-color: transparent;
+}
+
+.dark .prose {
+  background-color: transparent;
 }
 
 .prose {
@@ -90,17 +100,52 @@ body {
   color: rgb(243 244 246);
 }
 
-.prose code {
+/* Inline code */
+.prose code:not(pre code) {
   color: rgb(107 114 128);
   font-weight: 200;
   background-color: rgb(243 244 246);
   padding: 2px 4px;
   border-radius: 0.25rem;
+  font-family: var(--font-mono);
 }
 
-.dark .prose code {
+.dark .prose code:not(pre code) {
   color: rgb(156 163 175);
   background-color: rgb(31 41 55);
+}
+
+/* Code blocks */
+.prose pre {
+  background-color: #1e1e2e;
+  color: #e4e4e7;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.dark .prose pre {
+  background-color: #1e1e2e;
+  color: #e4e4e7;
+}
+
+.prose pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-weight: 400;
+  font-size: inherit;
+}
+
+.dark .prose pre code {
+  background-color: transparent;
+  color: inherit;
 }
 
 .prose blockquote {
@@ -134,4 +179,32 @@ body {
 
 .dark .prose strong {
   color: rgb(243 244 246);
+}
+
+/* Images in prose */
+.prose img {
+  border-radius: 0.5rem;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.dark .prose img {
+  opacity: 0.9;
+}
+
+/* Lists in prose */
+.prose ul,
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.dark .prose li {
+  color: rgb(209 213 219);
 }

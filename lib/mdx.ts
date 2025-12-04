@@ -33,10 +33,35 @@ export interface BlogFrontMatter {
   folderName?: string;
 }
 
+export interface SnippetFrontMatter {
+  slug: string;
+  date: string;
+  title: string;
+  heading: string;
+  summary: string;
+  tags: string[];
+  type?: string;
+  readingTime: {
+    text: string;
+    minutes: number;
+  };
+  fileName: string;
+  draft?: boolean;
+  layout?: string;
+  folderName?: string;
+}
+
 export interface BlogPost {
   mdxSource: string;
   frontMatter: BlogFrontMatter;
 }
+
+export interface SnippetPost {
+  mdxSource: string;
+  frontMatter: SnippetFrontMatter;
+}
+
+export type Post = BlogPost | SnippetPost;
 
 export async function getAuthorData(): Promise<AuthorData> {
   const filePath = path.join(process.cwd(), "data", "authors", "default.mdx");
@@ -56,10 +81,7 @@ export async function getAuthorData(): Promise<AuthorData> {
   };
 }
 
-export async function getFileBySlug(
-  type: string,
-  slug: string
-): Promise<BlogPost> {
+export async function getFileBySlug(type: string, slug: string): Promise<Post> {
   const root = process.cwd();
   const mdxPath = path.join(root, "data", type, `${slug}.mdx`);
   const mdPath = path.join(root, "data", type, `${slug}.md`);
@@ -77,17 +99,31 @@ export async function getFileBySlug(
 
   const readingTimeData = readingTime(source);
 
+  const baseFrontMatter = {
+    ...data,
+    slug: slug || "",
+    fileName: fs.existsSync(mdxPath) ? `${slug}.mdx` : `${slug}.md`,
+    readingTime: {
+      text: readingTimeData.text,
+      minutes: readingTimeData.minutes,
+    },
+    folderName: type,
+  };
+
+  if (type === "snippets") {
+    return {
+      mdxSource: contentHtml,
+      frontMatter: {
+        ...baseFrontMatter,
+        title: data.title || data.heading,
+        heading: data.heading || data.title,
+      } as SnippetFrontMatter,
+    };
+  }
+
   return {
     mdxSource: contentHtml,
-    frontMatter: {
-      ...data,
-      slug: slug || "",
-      fileName: fs.existsSync(mdxPath) ? `${slug}.mdx` : `${slug}.md`,
-      readingTime: {
-        text: readingTimeData.text,
-        minutes: readingTimeData.minutes,
-      },
-    } as BlogFrontMatter,
+    frontMatter: baseFrontMatter as BlogFrontMatter,
   };
 }
 
@@ -119,11 +155,19 @@ export function getAllFilesFrontMatter(
         }
 
         // Validate required fields
-        if (!data.date || !data.title || !data.summary || !data.tags || !Array.isArray(data.tags)) {
+        if (
+          !data.date ||
+          !data.title ||
+          !data.summary ||
+          !data.tags ||
+          !Array.isArray(data.tags)
+        ) {
           console.warn(
             `Warning: Skipping file ${fileName} - missing required fields. ` +
-            `Required: date, title, summary, tags (array). ` +
-            `Found: date=${!!data.date}, title=${!!data.title}, summary=${!!data.summary}, tags=${!!data.tags && Array.isArray(data.tags)}`
+              `Required: date, title, summary, tags (array). ` +
+              `Found: date=${!!data.date}, title=${!!data.title}, summary=${!!data.summary}, tags=${
+                !!data.tags && Array.isArray(data.tags)
+              }`
           );
           return;
         }
@@ -141,6 +185,66 @@ export function getAllFilesFrontMatter(
       }
     });
   }
+
+  return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date));
+}
+
+export function getAllSnippetsFrontMatter(): SnippetFrontMatter[] {
+  const root = process.cwd();
+  const allFrontMatter: SnippetFrontMatter[] = [];
+  const prefixPaths = path.join(root, "data", "snippets");
+  const files = getAllFilesRecursively(prefixPaths);
+
+  files.forEach((file) => {
+    const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, "/");
+    if (!fileName.endsWith(".md") && !fileName.endsWith(".mdx")) {
+      return;
+    }
+
+    const source = fs.readFileSync(file, "utf8");
+    const { data } = matter(source);
+    const readingTimeData = readingTime(source);
+
+    if (data.draft !== true) {
+      const formattedSlug = formatSlug(fileName);
+      if (!formattedSlug) {
+        console.warn(`Warning: Empty slug for file: ${fileName}`);
+        return;
+      }
+
+      // Snippets require: date, title or heading, summary, tags
+      const hasTitle = data.title || data.heading;
+      if (
+        !data.date ||
+        !hasTitle ||
+        !data.summary ||
+        !data.tags ||
+        !Array.isArray(data.tags)
+      ) {
+        console.warn(
+          `Warning: Skipping snippet ${fileName} - missing required fields. ` +
+            `Required: date, title/heading, summary, tags (array). ` +
+            `Found: date=${!!data.date}, title/heading=${!!hasTitle}, summary=${!!data.summary}, tags=${
+              !!data.tags && Array.isArray(data.tags)
+            }`
+        );
+        return;
+      }
+
+      allFrontMatter.push({
+        ...data,
+        slug: formattedSlug,
+        title: data.title || data.heading, // Use title if available, otherwise heading
+        heading: data.heading || data.title, // Use heading if available, otherwise title
+        readingTime: {
+          text: readingTimeData.text,
+          minutes: readingTimeData.minutes,
+        },
+        folderName: "snippets",
+        fileName: fileName,
+      } as SnippetFrontMatter);
+    }
+  });
 
   return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date));
 }

@@ -1,0 +1,35 @@
+---
+heading:  'Pairing Airpods with Ubuntu'
+title: 'Automatic pairing of Airpods with Ubuntu'
+date: '2023-06-18'
+type: 'Ubuntu'
+draft: false
+summary: 'Automatic Pairing of Airpods with Ubuntu'
+tags: [linux, ubuntu]
+---
+
+Pairing Airpods with non-Apple devices is generally a bit tricky. With Linux, it's got a few minor quirks that I have
+had to manually sort out for optimal usage.
+
+### Making sure it pairs
+I have Airpods Pro 2nd Generation that I wanted to pair with my laptop running Ubuntu 20.04. First step is to edit
+`/etc/bluetooth/main.conf` and change set `ControllerMode` to `bredr`. You can change it to `dual`
+again after it pairs but otherwise seems like it wouldn't work.
+
+### Disable auto-reconnect
+I frequently change pairing between my phone and my laptop and by default Ubuntu will try to
+reconnect back to the device if the pairing changes, unless you manually turn off bluetooth which is
+less than ideal if you have other devices connected as well. You can disable this behaviour by
+setting reconnection attempt to zero but editing this line `ReconnectAttempts=0`.
+
+### Keyboard shortcut for paring AirPods
+This one is my favorite and saves time by pairing the ipod by just assigning a custom keyboard shortcut. First you
+need the MAC address of your AirPods by running `bluetoothctl devices`. Next, you can write a custom shell script
+that optionally activates your bluetooth and after a short 1 second connects to your AirPods.
+
+```
+rfkill unblock bluetooth && sleep 1s && bluetoothctl connect [insert bluetooth address here]
+```
+
+That's it 🤙 Then you can assign it a custom keyboard shortcut (I have Ctrl+Shift+Alt+A assigned) to automatically
+connect to your AirPods!

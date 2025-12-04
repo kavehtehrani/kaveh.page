@@ -1,0 +1,44 @@
+---
+heading: 'Chrome Extensions Source Code'
+title: 'Obtaining source code for Chrome extensions'
+date: '2023-08-16'
+type: 'Chrome'
+draft: false
+summary: 'Download source code for any Chrome extension without installation'
+tags: [chrome, bash]
+---
+
+It is always a good idea to read the code for an extension to see what it is actually doing. Especially if it's a
+less popular extension you are not so sure about.
+
+## Bash Script
+
+You can run this bash script and pass in the Chrome extension ID as a parameter. It will automatically download it
+and unzip the source code. To obtain the extension ID, just get it from the end of the URL while navigating the
+Chrome web store. For instance the ID for
+[Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb) is:
+_aapbdbdomjkkjkaonfhkkikfgjllcleb_.
+
+
+```
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+echo "Need to pass in the extension ID as a parameter"
+exit 1
+fi
+
+extension_id=$1   # ID of the chrome extension obtained from the chrome extension store
+curl -L -o "$extension_id.zip" "https://clients2.google.com/service/update2/crx?response=redirect&os=linux&arch=x64&os_arch=x86_64&nacl_arch=x86-64&prod=chromium&prodchannel=unknown&prodversion=91.0.4442.4&lang=en-US&acceptformat=crx2,crx3&x=id%3D$extension_id%26installsource%3Dondemand%26uc"
+unzip -d "$extension_id-source" "$extension_id.zip"
+rm "$extension_id.zip"
+```
+
+## Web Apps
+
+There are also a couple web apps that you can use. Here are a couple that I found useful:
+* [https://robwu.nl/crxviewer/](https://robwu.nl/crxviewer/)
+* [https://crxviewer.com/](https://crxviewer.com/)
+
+

@@ -1,0 +1,31 @@
+---
+heading: 'Comparing Folders'
+title: 'Comparing files between two folders in linux'
+date: '2025-10-06'
+type: 'Linux'
+draft: false
+summary: 'Comparing two folders by filenames only.'
+tags: [linux]
+---
+
+If you want to compare two folders completely there's a handy `diff` tool in linux that looks like this:
+`diff -rq folder1 folder2`. Unfortunately this does the comparison by content so if you're just trying to figure out
+which files are in one folder but not the other, then `diff` is way overkill.
+
+Here's a handy script to compare two folders on linux by filenames only.
+
+```bash
+#!/bin/bash
+# This script compares two directories recursively and lists all files and directories
+# that exist in one directory but not the other, ignoring file contents.
+# Usage: ./compare_folders.sh folder1 folder2
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <folder1> <folder2>"
+  exit 1
+fi
+
+comm -3 <(cd "$1" && find . -type f -o -type d | sort) \
+        <(cd "$2" && find . -type f -o -type d | sort) \
+  | sed "s|^\t|Only in $2: |; t; s|^|Only in $1: |"
+```

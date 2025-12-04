@@ -4,12 +4,15 @@ import { PageTitle } from "@/components/PageTitle";
 import { SectionContainer } from "@/components/SectionContainer";
 import { Link } from "@/components/Link";
 import type { BlogFrontMatter } from "@/components/PostListItem";
+import type { SnippetFrontMatter } from "@/lib/mdx";
+
+type FrontMatter = BlogFrontMatter | SnippetFrontMatter;
 
 interface PostSimpleProps {
-  frontMatter: BlogFrontMatter;
+  frontMatter: FrontMatter;
   content: string;
-  next?: BlogFrontMatter | null;
-  prev?: BlogFrontMatter | null;
+  next?: FrontMatter | null;
+  prev?: FrontMatter | null;
 }
 
 export function PostSimple({
@@ -18,8 +21,13 @@ export function PostSimple({
   next,
   prev,
 }: PostSimpleProps) {
-  const { date, title, tags, readingTime } = frontMatter;
-  // const postUrl = `${siteConfig.url}/blog/${frontMatter.slug}` // Reserved for future social sharing
+  const { date, tags, readingTime, folderName = "blog" } = frontMatter;
+  // Use heading for snippets, title for blog posts
+  const displayTitle =
+    "heading" in frontMatter && frontMatter.heading
+      ? frontMatter.heading
+      : frontMatter.title;
+  // const postUrl = `${siteConfig.url}/${folderName}/${frontMatter.slug}` // Reserved for future social sharing
 
   return (
     <SectionContainer>
@@ -27,7 +35,7 @@ export function PostSimple({
         <header className="py-6 xl:pb-16 xl:pt-16">
           <div className="space-y-4">
             <BlogTags tags={tags} />
-            <PageTitle>{title}</PageTitle>
+            <PageTitle>{displayTitle}</PageTitle>
             <dl>
               <div>
                 <dt className="sr-only">Published on</dt>
@@ -39,7 +47,7 @@ export function PostSimple({
         <div className="pb-8" style={{ gridTemplateRows: "auto 1fr" }}>
           <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
             <div
-              className="prose prose-lg max-w-none pb-8 text-justify dark:prose-dark md:prose-xl"
+              className="prose prose-lg max-w-none pb-8 text-justify md:prose-xl"
               dangerouslySetInnerHTML={{ __html: content }}
             />
             <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
@@ -61,20 +69,32 @@ export function PostSimple({
               {prev && (
                 <div>
                   <h2 className="text-xxs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                    Previous Article
+                    Previous {folderName === "snippets" ? "Snippet" : "Article"}
                   </h2>
                   <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                    <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                    <Link
+                      href={`/${prev.folderName || folderName}/${prev.slug}`}
+                    >
+                      {"heading" in prev && prev.heading
+                        ? prev.heading
+                        : prev.title}
+                    </Link>
                   </div>
                 </div>
               )}
               {next && (
                 <div>
                   <h2 className="text-xxs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                    Next Article
+                    Next {folderName === "snippets" ? "Snippet" : "Article"}
                   </h2>
                   <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                    <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                    <Link
+                      href={`/${next.folderName || folderName}/${next.slug}`}
+                    >
+                      {"heading" in next && next.heading
+                        ? next.heading
+                        : next.title}
+                    </Link>
                   </div>
                 </div>
               )}
