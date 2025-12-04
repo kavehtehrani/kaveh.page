@@ -118,7 +118,7 @@ body {
 
 /* Code blocks */
 .prose pre {
-  background-color: #1e1e2e;
+  background-color: #222 !important;
   color: #e4e4e7;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -131,8 +131,17 @@ body {
 }
 
 .dark .prose pre {
-  background-color: #1e1e2e;
+  background-color: #222 !important;
   color: #e4e4e7;
+}
+
+/* Override highlight.js theme background to match legacy */
+.prose pre code.hljs {
+  background-color: #222 !important;
+}
+
+.dark .prose pre code.hljs {
+  background-color: #222 !important;
 }
 
 .prose pre code {
@@ -208,4 +217,15 @@ body {
 
 .dark .prose li {
   color: rgb(209 213 219);
+}
+
+/* DevIcon styling for theme-aware SVGs */
+.dev-icon img {
+  filter: brightness(0) saturate(100%);
+  opacity: 0.7;
+}
+
+.dark .dev-icon img {
+  filter: brightness(0) saturate(100%) invert(1) brightness(1.2);
+  opacity: 1;
 }
