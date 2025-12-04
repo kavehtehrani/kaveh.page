@@ -40,10 +40,14 @@ export function DevIcon({
     );
   }
 
-  const defaultClass = "h-16 w-16 lg:h-14 lg:w-14 xl:h-24 xl:w-24 dev-icon";
+  const defaultClass = "h-16 w-16 lg:h-14 lg:w-14 xl:h-24 xl:w-24";
+  // Always include dev-icon class for theme-aware styling
+  const finalClassName = className 
+    ? `${className} dev-icon`
+    : `${defaultClass} dev-icon`;
 
   return (
-    <div className={className || defaultClass}>
+    <div className={finalClassName}>
       <Image
         src={iconSrc}
         alt={type}
