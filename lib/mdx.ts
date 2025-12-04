@@ -118,6 +118,16 @@ export function getAllFilesFrontMatter(
           return; // Skip files with empty slugs
         }
 
+        // Validate required fields
+        if (!data.date || !data.title || !data.summary || !data.tags || !Array.isArray(data.tags)) {
+          console.warn(
+            `Warning: Skipping file ${fileName} - missing required fields. ` +
+            `Required: date, title, summary, tags (array). ` +
+            `Found: date=${!!data.date}, title=${!!data.title}, summary=${!!data.summary}, tags=${!!data.tags && Array.isArray(data.tags)}`
+          );
+          return;
+        }
+
         allFrontMatter.push({
           ...data,
           slug: formattedSlug, // Ensure slug is set after spreading data

@@ -8,7 +8,7 @@ export const metadata = {
 }
 
 export default async function Home() {
-  const posts = getAllFilesFrontMatter("blog").slice(0, 10)
+  const posts = getAllFilesFrontMatter("blog")
 
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
