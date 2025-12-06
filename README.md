@@ -4,7 +4,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?logo=tailwind-css&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-GPLv3-blue)
 
 Personal blog built with Next.js 16, TypeScript, and MDX. I am very aware that this is an absolute overkill for a personal blog that is fully static. This blog started originally as a playground to learn Next.js and to experiment.
 
