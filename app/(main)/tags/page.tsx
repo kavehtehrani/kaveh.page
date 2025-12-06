@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default function Tags() {
-  const tags = getAllTags("blog");
+  const tags = getAllTags("blog", "snippets");
   const sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a]);
 
   return (
@@ -39,4 +39,3 @@ export default function Tags() {
     </div>
   );
 }
-

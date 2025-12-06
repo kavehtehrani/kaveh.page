@@ -12,20 +12,18 @@ export function HomepageTags({ tags }: { tags: TagsCount }) {
         {Object.keys(tags).length === 0 && "No tags found."}
         {sortedTags.map((tag) => {
           return (
-            <div
+            <Link
               key={tag}
-              className="flex rounded-lg border-2 text-center align-middle"
+              href={`/tags/${kebabCase(tag)}`}
+              className="flex rounded-lg border-2 text-center align-middle hover:border-primary-500 dark:hover:border-primary-400"
             >
               <div className="pl-2">
                 <TagText text={tag} />
               </div>
-              <Link
-                href={`/tags/${kebabCase(tag)}`}
-                className="rounded-r-lg border-l bg-stone-100 px-2 font-semibold text-gray-600 dark:bg-stone-700 dark:text-gray-300"
-              >
+              <div className="rounded-r-lg border-l bg-stone-100 px-2 font-semibold text-gray-600 dark:bg-stone-700 dark:text-gray-300">
                 {tags[tag]}
-              </Link>
-            </div>
+              </div>
+            </Link>
           );
         })}
       </div>

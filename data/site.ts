@@ -14,4 +14,9 @@ export const siteConfig = {
     farcaster: "https://warpcast.com/kwar13",
   },
   buttondown: "kaveh",
+  analytics: {
+    umamiWebsiteId: "f0842203-1bc2-4484-bb5c-1722a8e47ff5",
+    googleAnalyticsId: "",
+    simpleAnalytics: false,
+  },
 };
