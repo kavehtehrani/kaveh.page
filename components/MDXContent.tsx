@@ -4,9 +4,14 @@ import { useState, useEffect } from "react";
 import type { ComponentType } from "react";
 import { MDXComponents } from "./MDXComponents";
 
+type MDXComponentProps = {
+  components?: Record<string, ComponentType<Record<string, unknown>>>;
+};
+
 export function MDXContent({ content }: { content: string }) {
   const [mounted, setMounted] = useState(false);
-  const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
+  const [MDXComponent, setMDXComponent] =
+    useState<ComponentType<MDXComponentProps> | null>(null);
 
   useEffect(() => {
     setMounted(true);

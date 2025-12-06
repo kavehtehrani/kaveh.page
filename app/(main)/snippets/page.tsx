@@ -1,10 +1,20 @@
 import { getAllSnippetsFrontMatter } from "@/lib/mdx";
 import { SnippetCard } from "@/components/SnippetCard";
 import { siteConfig } from "@/data/site";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: `Snippets - ${siteConfig.title}`,
+export const metadata: Metadata = {
+  title: "Snippets",
   description: "Little code snippets / system config stuff I have found useful",
+  alternates: {
+    canonical: `${siteConfig.url}/snippets`,
+  },
+  openGraph: {
+    url: `${siteConfig.url}/snippets`,
+    title: `Snippets - ${siteConfig.title}`,
+    description:
+      "Little code snippets / system config stuff I have found useful",
+  },
 };
 
 export default async function SnippetsPage() {
@@ -28,4 +38,3 @@ export default async function SnippetsPage() {
     </div>
   );
 }
-

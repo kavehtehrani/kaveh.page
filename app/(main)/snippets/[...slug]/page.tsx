@@ -1,12 +1,18 @@
-import { getFileBySlug, getAllSnippetsFrontMatter, type SnippetFrontMatter } from "@/lib/mdx";
+import {
+  getFileBySlug,
+  getAllSnippetsFrontMatter,
+  type SnippetFrontMatter,
+} from "@/lib/mdx";
 import { PostSimple } from "@/layouts/PostSimple";
 import { PageTitle } from "@/components/PageTitle";
 import { siteConfig } from "@/data/site";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const snippets = getAllSnippetsFrontMatter();
   const validSnippets = snippets.filter(
-    (snippet) => snippet.slug && snippet.slug !== "undefined" && snippet.slug.trim() !== ""
+    (snippet) =>
+      snippet.slug && snippet.slug !== "undefined" && snippet.slug.trim() !== ""
   );
 
   return validSnippets.map((snippet) => {
@@ -23,7 +29,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
-}) {
+}): Promise<Metadata> {
   const resolvedParams = await params;
   const slug = Array.isArray(resolvedParams.slug)
     ? resolvedParams.slug.join("/")
@@ -34,16 +40,38 @@ export async function generateMetadata({
   }
 
   const snippet = await getFileBySlug("snippets", slug);
-  
+
   if (snippet.frontMatter.folderName !== "snippets") {
     throw new Error("Invalid snippet");
   }
 
   const snippetFrontMatter = snippet.frontMatter as SnippetFrontMatter;
+  const url = `${siteConfig.url}/snippets/${slug}`;
+  const title = snippetFrontMatter.heading || snippetFrontMatter.title;
 
   return {
-    title: `${snippetFrontMatter.heading || snippetFrontMatter.title} - ${siteConfig.title}`,
+    title,
     description: snippetFrontMatter.summary,
+    keywords: snippetFrontMatter.tags,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      url,
+      title,
+      description: snippetFrontMatter.summary,
+      type: "article",
+      tags: snippetFrontMatter.tags,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description: snippetFrontMatter.summary,
+    },
+    robots: {
+      index: !snippetFrontMatter.draft,
+      follow: !snippetFrontMatter.draft,
+    },
   };
 }
 
@@ -70,7 +98,7 @@ export default async function SnippetPost({
   }
 
   const snippet = await getFileBySlug("snippets", slug);
-  
+
   if (snippet.frontMatter.folderName !== "snippets") {
     throw new Error("Invalid snippet");
   }
@@ -104,4 +132,3 @@ export default async function SnippetPost({
     />
   );
 }
-

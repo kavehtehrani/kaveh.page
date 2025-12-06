@@ -20,6 +20,7 @@ export interface AuthorData {
 export interface BlogFrontMatter {
   slug: string;
   date: string;
+  lastmod?: string;
   title: string;
   summary: string;
   tags: string[];

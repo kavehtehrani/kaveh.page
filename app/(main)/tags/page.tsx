@@ -3,10 +3,19 @@ import { Tag } from "@/components/Tag";
 import { getAllTags } from "@/lib/tags";
 import { siteConfig } from "@/data/site";
 import { kebabCase } from "@/lib/client-utils";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: `Tags - ${siteConfig.author}`,
-  description: "Things I blog about",
+export const metadata: Metadata = {
+  title: "Tags",
+  description: "Browse blog posts and snippets by tags - Things I blog about",
+  alternates: {
+    canonical: `${siteConfig.url}/tags`,
+  },
+  openGraph: {
+    url: `${siteConfig.url}/tags`,
+    title: `Tags - ${siteConfig.title}`,
+    description: "Browse blog posts and snippets by tags",
+  },
 };
 
 export default function Tags() {

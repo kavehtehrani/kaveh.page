@@ -1,7 +1,17 @@
-import { getFileBySlug, getAllFilesFrontMatter } from "@/lib/mdx";
+import {
+  getFileBySlug,
+  getAllFilesFrontMatter,
+  getAuthorData,
+  type BlogPost,
+} from "@/lib/mdx";
 import { PostSimple } from "@/layouts/PostSimple";
 import { PageTitle } from "@/components/PageTitle";
 import { siteConfig } from "@/data/site";
+import {
+  ArticleStructuredData,
+  BreadcrumbStructuredData,
+} from "@/components/StructuredData";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const posts = getAllFilesFrontMatter("blog");
@@ -25,16 +35,78 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
-}) {
+}): Promise<Metadata> {
   const resolvedParams = await params;
   const slug = Array.isArray(resolvedParams.slug)
     ? resolvedParams.slug.join("/")
     : resolvedParams.slug;
-  const post = await getFileBySlug("blog", slug);
+  const post = (await getFileBySlug("blog", slug)) as BlogPost;
+  const frontMatter = post.frontMatter;
+  const author = await getAuthorData();
+
+  const url = `${siteConfig.url}/blog/${slug}`;
+  const publishedTime = new Date(frontMatter.date).toISOString();
+  const modifiedTime = frontMatter.lastmod
+    ? new Date(frontMatter.lastmod).toISOString()
+    : publishedTime;
+
+  // Handle images - support both string and array formats
+  const images = frontMatter.images
+    ? Array.isArray(frontMatter.images)
+      ? frontMatter.images
+      : [frontMatter.images]
+    : [];
+
+  // Use first image if available, otherwise fallback to default OG image
+  const ogImage =
+    images.length > 0
+      ? images[0].startsWith("http")
+        ? images[0]
+        : `${siteConfig.url}${images[0]}`
+      : `${siteConfig.url}/static/images/og-image.png`;
 
   return {
-    title: `${post.frontMatter.title} - ${siteConfig.title}`,
-    description: post.frontMatter.summary,
+    title: frontMatter.title,
+    description: frontMatter.summary,
+    keywords: frontMatter.tags,
+    authors: [{ name: author.frontMatter.name || siteConfig.author }],
+    creator: author.frontMatter.name || siteConfig.author,
+    publisher: author.frontMatter.name || siteConfig.author,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: "article",
+      url,
+      title: frontMatter.title,
+      description: frontMatter.summary,
+      publishedTime,
+      modifiedTime,
+      authors: [author.frontMatter.name || siteConfig.author],
+      tags: frontMatter.tags,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: frontMatter.title,
+        },
+      ],
+      siteName: siteConfig.title,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: frontMatter.title,
+      description: frontMatter.summary,
+      creator:
+        siteConfig.social.twitter?.replace("https://twitter.com/", "@") ||
+        undefined,
+      images: [ogImage],
+    },
+    robots: {
+      index: !frontMatter.draft,
+      follow: !frontMatter.draft,
+    },
   };
 }
 
@@ -60,9 +132,10 @@ export default async function BlogPost({
     throw new Error(`Invalid slug: ${slug}`);
   }
 
-  const post = await getFileBySlug("blog", slug);
+  const post = (await getFileBySlug("blog", slug)) as BlogPost;
+  const frontMatter = post.frontMatter;
 
-  if (post.frontMatter.draft) {
+  if (frontMatter.draft) {
     return (
       <div className="mt-24 text-center">
         <PageTitle>
@@ -80,12 +153,53 @@ export default async function BlogPost({
   const prev = allPosts[postIndex + 1] || null;
   const next = allPosts[postIndex - 1] || null;
 
+  const author = await getAuthorData();
+  const url = `${siteConfig.url}/blog/${slug}`;
+  const publishedTime = new Date(frontMatter.date).toISOString();
+  const modifiedTime = frontMatter.lastmod
+    ? new Date(frontMatter.lastmod).toISOString()
+    : publishedTime;
+
+  // Handle images - support both string and array formats
+  const images = frontMatter.images
+    ? Array.isArray(frontMatter.images)
+      ? frontMatter.images
+      : [frontMatter.images]
+    : [];
+
+  const ogImage =
+    images.length > 0
+      ? images[0].startsWith("http")
+        ? images[0]
+        : `${siteConfig.url}${images[0]}`
+      : `${siteConfig.url}/static/images/og-image.png`;
+
   return (
-    <PostSimple
-      frontMatter={post.frontMatter}
-      content={post.mdxSource}
-      next={next}
-      prev={prev}
-    />
+    <>
+      <ArticleStructuredData
+        title={frontMatter.title}
+        description={frontMatter.summary}
+        url={url}
+        publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
+        authorName={author.frontMatter.name || siteConfig.author}
+        authorUrl={siteConfig.url}
+        image={ogImage}
+        tags={frontMatter.tags}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Blog", url: `${siteConfig.url}/blog` },
+          { name: frontMatter.title, url },
+        ]}
+      />
+      <PostSimple
+        frontMatter={frontMatter}
+        content={post.mdxSource}
+        next={next}
+        prev={prev}
+      />
+    </>
   );
 }

@@ -4,6 +4,10 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import { Analytics } from "@/components/analytics";
+import {
+  OrganizationStructuredData,
+  WebsiteStructuredData,
+} from "@/components/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +20,65 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.title}`,
+  },
   description: siteConfig.description,
+  keywords: [
+    "blog",
+    "crypto",
+    "bitcoin",
+    "defi",
+    "finance",
+    "blockchain",
+    "web3",
+  ],
+  authors: [{ name: siteConfig.author }],
+  creator: siteConfig.author,
+  publisher: siteConfig.author,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    siteName: siteConfig.title,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [
+      {
+        url: `${siteConfig.url}/static/images/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.title,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    creator:
+      siteConfig.social.twitter?.replace("https://twitter.com/", "@") ||
+      undefined,
+    images: [`${siteConfig.url}/static/images/og-image.png`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       {
@@ -41,6 +102,14 @@ export const metadata: Metadata = {
     shortcut: "/static/favicons/favicon-32x32.png",
   },
   manifest: "/static/favicons/site.webmanifest",
+  alternates: {
+    canonical: siteConfig.url,
+    types: {
+      "application/rss+xml": [
+        { url: `${siteConfig.url}/feed.xml`, title: siteConfig.title },
+      ],
+    },
+  },
   other: {
     "msapplication-TileColor": "#000000",
     "theme-color": "#000000",
@@ -57,6 +126,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 dark:text-gray-100`}
       >
+        <OrganizationStructuredData />
+        <WebsiteStructuredData />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>

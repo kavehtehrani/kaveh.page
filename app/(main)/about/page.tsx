@@ -4,10 +4,20 @@ import { BlogLinks } from "@/components/BlogLinks";
 import { Link } from "@/components/Link";
 import { AuthorContent } from "@/components/AuthorContent";
 import { siteConfig } from "@/data/site";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: `About - ${siteConfig.author} - ${siteConfig.title}`,
-  description: `About - ${siteConfig.title} - More about me and this blog`,
+export const metadata: Metadata = {
+  title: `About - ${siteConfig.author}`,
+  description: `About ${siteConfig.author} - ${siteConfig.description}`,
+  alternates: {
+    canonical: `${siteConfig.url}/about`,
+  },
+  openGraph: {
+    url: `${siteConfig.url}/about`,
+    title: `About - ${siteConfig.author}`,
+    description: `About ${siteConfig.author} - ${siteConfig.description}`,
+    type: "profile",
+  },
 };
 
 export default async function About() {

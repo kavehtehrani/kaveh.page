@@ -1,6 +1,12 @@
 # kaveh.page
 
-Personal blog built with Next.js 16 App Router, TypeScript, and MDX. I am very aware that this is an absolute overkill for a personal blog that is fully static. This blog started originally as a playground to learn Next.js and to experiment.
+![Next.js](https://img.shields.io/badge/Next.js-16.0.7-black?logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?logo=tailwind-css&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+Personal blog built with Next.js 16, TypeScript, and MDX. I am very aware that this is an absolute overkill for a personal blog that is fully static. This blog started originally as a playground to learn Next.js and to experiment.
 
 ## Features
 
@@ -35,12 +41,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the blog.
 
-## Development
+## Contributions
 
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run start    # Start production server
-npm run lint     # Run ESLint
-```
-
+You are welcome to fork this repo and use it as a template for your own blog. Comments / suggestions are very much welcome!

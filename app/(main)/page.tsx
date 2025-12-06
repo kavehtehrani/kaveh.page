@@ -2,10 +2,19 @@ import { getAllFilesFrontMatter } from "@/lib/mdx";
 import { getAllTags } from "@/lib/tags";
 import { HomeClient } from "@/components/homepage/HomeClient";
 import { siteConfig } from "@/data/site";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: siteConfig.title,
   description: siteConfig.description,
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    url: siteConfig.url,
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
 };
 
 export default function Home() {
@@ -14,4 +23,3 @@ export default function Home() {
 
   return <HomeClient initialPosts={posts} tags={tags} />;
 }
-
