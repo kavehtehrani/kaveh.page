@@ -1,12 +1,9 @@
-"use client";
-
-import { useMemo } from "react";
-import { getMDXComponent } from "mdx-bundler/client";
 import { BlogTags } from "@/components/blog/BlogTags";
 import { BlogMeta } from "@/components/blog/BlogMeta";
 import { PageTitle } from "@/components/PageTitle";
 import { SectionContainer } from "@/components/SectionContainer";
 import { Link } from "@/components/Link";
+import { MDXContent } from "@/components/MDXContent";
 import type { BlogFrontMatter } from "@/components/PostListItem";
 import type { SnippetFrontMatter } from "@/lib/mdx";
 
@@ -26,14 +23,12 @@ export function PostSimple({
   prev,
 }: PostSimpleProps) {
   const { date, tags, readingTime, folderName = "blog" } = frontMatter;
+  
   // Use heading for snippets, title for blog posts
   const displayTitle =
     "heading" in frontMatter && frontMatter.heading
       ? frontMatter.heading
       : frontMatter.title;
-  // const postUrl = `${siteConfig.url}/${folderName}/${frontMatter.slug}` // Reserved for future social sharing
-
-  const MDXContent = useMemo(() => getMDXComponent(content), [content]);
 
   return (
     <SectionContainer>
@@ -53,8 +48,7 @@ export function PostSimple({
         <div className="pb-8" style={{ gridTemplateRows: "auto 1fr" }}>
           <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
             <div className="prose prose-lg max-w-none pb-8 text-justify dark:prose-dark md:prose-xl">
-              {/* eslint-disable-next-line react-hooks/static-components */}
-              <MDXContent />
+              <MDXContent content={content} />
             </div>
             <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
               {/* Social buttons can be added here later */}

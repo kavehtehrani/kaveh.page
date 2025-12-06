@@ -64,7 +64,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
             })}
           </div>
           <button
-            className="ml-2"
+            className="ml-2 cursor-pointer"
             aria-label="Toggle Menu"
             onClick={onToggleSub}
           >
