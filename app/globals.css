@@ -102,6 +102,19 @@ body {
   color: rgb(243 244 246);
 }
 
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-weight: 600;
+  color: rgb(17 24 39);
+}
+
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
+  color: rgb(243 244 246);
+}
+
 /* Inline code */
 .prose code:not(pre code) {
   color: rgb(34 36 38);
