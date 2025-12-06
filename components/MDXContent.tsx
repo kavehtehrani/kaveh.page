@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import type { ComponentType } from "react";
 import { MDXComponents } from "./MDXComponents";
 
 export function MDXContent({ content }: { content: string }) {
   const [mounted, setMounted] = useState(false);
-  const [MDXComponent, setMDXComponent] = useState<any>(null);
+  const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -24,4 +25,3 @@ export function MDXContent({ content }: { content: string }) {
 
   return <MDXComponent components={MDXComponents} />;
 }
-
