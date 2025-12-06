@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# kaveh.page
+
+Personal blog built with Next.js 16 App Router, TypeScript, and MDX. I am very aware that this is an absolute overkill for a personal blog that is fully static. This blog started originally as a playground to learn Next.js and to experiment.
+
+## Features
+
+- **Blog Posts** - MDX-powered blog posts with syntax highlighting, math support (KaTeX), and reading time
+- **Snippets** - Code snippets and system configuration notes
+- **Projects** - Showcase of personal projects
+- **Tags System** - Tag-based organization and filtering for blog posts and snippets
+- **Search** - Client-side search functionality for blog posts
+- **RSS Feed** - Auto-generated RSS feed at `/feed.xml`
+- **Sitemap** - Dynamic sitemap generation at `/sitemap.xml`
+- **Analytics** - Umami analytics integration
+- **Dark Mode** - System-aware dark mode with theme switching
+- **Responsive Design** - Mobile-first responsive layout
+- **SEO Optimized** - Metadata and Open Graph tags for all pages
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Content**: MDX with mdx-bundler
+- **Syntax Highlighting**: highlight.js
+- **Math Rendering**: KaTeX
+- **Analytics**: Umami
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the blog.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
