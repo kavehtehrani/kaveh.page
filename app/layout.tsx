@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Quantico, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
@@ -9,9 +9,10 @@ import {
   WebsiteStructuredData,
 } from "@/components/StructuredData";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const quantico = Quantico({
+  variable: "--font-quantico",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -122,10 +123,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 dark:text-gray-100`}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${quantico.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased text-gray-900 dark:text-gray-100">
         <OrganizationStructuredData />
         <WebsiteStructuredData />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

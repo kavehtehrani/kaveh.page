@@ -21,7 +21,7 @@
 
   --color-dark: #292524;
 
-  --font-sans: var(--font-geist-sans), "Outfit", ui-sans-serif, system-ui,
+  --font-sans: var(--font-quantico), "Quantico", ui-sans-serif, system-ui,
     sans-serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
 }
@@ -39,6 +39,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  font-family: var(--font-sans);
 }
 
 body {
@@ -51,6 +52,7 @@ body {
 /* Ensure prose content has proper background */
 .prose {
   background-color: transparent;
+  font-family: var(--font-sans) !important;
 }
 
 .dark .prose {
@@ -233,6 +235,24 @@ body {
 .prose li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+
+/* Ensure all prose text elements use the custom font */
+.prose p,
+.prose li,
+.prose td,
+.prose th,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose strong,
+.prose em,
+.prose blockquote,
+.prose a {
+  font-family: var(--font-sans) !important;
 }
 
 .dark .prose li {
