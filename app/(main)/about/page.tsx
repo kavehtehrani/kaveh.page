@@ -53,8 +53,10 @@ export default async function About() {
               <BlogLinks />
             </div>
           </div>
-          <div className="hidden pl-8 pt-24 md:block">
-            <ProfileCard />
+          <div className="hidden pl-8 pt-24 md:block xl:flex xl:justify-start">
+            <div className="w-full max-w-sm">
+              <ProfileCard />
+            </div>
           </div>
         </div>
       </div>

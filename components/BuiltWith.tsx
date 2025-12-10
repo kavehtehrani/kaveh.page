@@ -1,5 +1,5 @@
 import { Link } from "./Link";
-import { DevIcon } from "./DevIcon";
+import Image from "next/image";
 import { siteConfig } from "@/data/site";
 
 export function BuiltWith() {
@@ -26,9 +26,11 @@ export function BuiltWith() {
         className="flex items-center gap-1 text-gray-500 hover:underline underline-offset-4 dark:text-gray-400"
       >
         RSS
-        <img
+        <Image
           src="/icons/rss.svg"
           alt="RSS"
+          width={16}
+          height={16}
           className="h-4 w-4 opacity-70 dark:opacity-100 dark:invert"
         />
       </Link>

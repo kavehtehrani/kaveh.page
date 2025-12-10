@@ -3,7 +3,7 @@ import type { AnchorHTMLAttributes } from "react";
 
 export function Link({
   href,
-  className = "text-primary-600 no-underline hover:underline dark:text-primary-400",
+  className = "text-[#cc6600] dark:text-[#ff8800] no-underline hover:text-[#994400] dark:hover:text-[#ffaa00] hover:underline",
   ...rest
 }: AnchorHTMLAttributes<HTMLAnchorElement>) {
   if (!href) return null;

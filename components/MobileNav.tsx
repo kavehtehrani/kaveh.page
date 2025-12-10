@@ -1,46 +1,46 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { navLinks } from "@/data/nav"
-import { Link } from "./Link"
+import { useEffect } from "react";
+import { navLinks } from "@/data/nav";
+import { Link } from "./Link";
 
 interface MobileNavProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen) {
-        onClose()
+        onClose();
       }
-    }
-    window.addEventListener("keydown", handleEsc)
+    };
+    window.addEventListener("keydown", handleEsc);
     return () => {
-      window.removeEventListener("keydown", handleEsc)
-    }
-  }, [isOpen, onClose])
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [isOpen, onClose]);
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-stone-200 dark:bg-stone-700 opacity-95 transition-transform duration-300 ${
+      className={`fixed inset-0 z-50 bg-[#1a1a1a] border-l border-[#404040] opacity-95 transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
       <button
         type="button"
         aria-label="Close menu"
-        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none"
+        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none border border-[#404040] hover:border-[#ff8800]"
         onClick={onClose}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-gray-900 dark:text-gray-100"
+          className="h-8 w-8 text-[#ff8800]"
         >
           <path
             fillRule="evenodd"
@@ -51,10 +51,10 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       </button>
       <nav className="fixed mt-8">
         {navLinks.map((link) => (
-          <div key={link.title} className="px-8 py-4">
+          <div key={link.title} className="px-8 py-4 border-b border-[#404040]">
             <Link
               href={link.href}
-              className="text-2xl font-semibold tracking-wide text-gray-900 dark:text-gray-100"
+              className="text-2xl font-semibold tracking-wide text-[#ff8800] hover:text-[#ffaa00]"
               onClick={onClose}
             >
               {link.title}
@@ -63,6 +63,5 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         ))}
       </nav>
     </div>
-  )
+  );
 }
-

@@ -4,7 +4,7 @@ import { siteConfig } from "@/data/site";
 
 export const metadata = {
   title: `Projects - ${siteConfig.title}`,
-  description: "Growing list of independent projects done over the years",
+  description: "Growing list of independent personal projects done over the years",
 };
 
 export default function ProjectsPage() {
@@ -15,10 +15,10 @@ export default function ProjectsPage() {
           Personal Projects
         </h1>
         <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-          Growing list of independent projects done over the years
+          Growing list of independent personal projects done over the years
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-4 pb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 pb-8 sm:grid-cols-2 lg:grid-cols-3 xl:gap-6 xl:[grid-template-columns:repeat(4,minmax(0,1.25fr))]">
         {projectsData.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
@@ -26,4 +26,3 @@ export default function ProjectsPage() {
     </div>
   );
 }
-

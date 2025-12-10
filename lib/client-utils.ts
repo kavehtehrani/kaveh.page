@@ -1,5 +1,10 @@
 // Client-safe utility functions (no Node.js dependencies like fs)
 
+import type { BlogFrontMatter } from "@/components/PostListItem";
+import type { SnippetFrontMatter } from "./mdx";
+
+type FrontMatter = BlogFrontMatter | SnippetFrontMatter;
+
 export function kebabCase(str: string) {
   return str
     .replace(/([a-z])([A-Z])/g, "$1-$2")
@@ -25,3 +30,6 @@ export function formatSlug(slug: string) {
   return slug.replace(/\.(mdx|md)$/, "");
 }
 
+export function getDisplayTitle(item: FrontMatter): string {
+  return "heading" in item && item.heading ? item.heading : item.title;
+}

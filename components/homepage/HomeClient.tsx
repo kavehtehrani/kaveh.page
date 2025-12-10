@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { PostListItem } from "@/components/PostListItem";
 import { PostsSearch } from "@/components/PostsSearch";
+import { PostList } from "@/components/PostList";
 import { HomepageTags } from "@/components/homepage/Tags";
+import { usePostFilter } from "@/lib/usePostFilter";
 import type { BlogFrontMatter } from "@/lib/mdx";
 import type { TagsCount } from "@/lib/tags";
 
@@ -14,24 +14,14 @@ export function HomeClient({
   initialPosts: BlogFrontMatter[];
   tags: TagsCount;
 }) {
-  const [searchValue, setSearchValue] = useState("");
-
-  const filteredPosts = useMemo(() => {
-    if (!searchValue) return initialPosts;
-
-    return initialPosts.filter((post) => {
-      const searchContent =
-        post.title + " " + post.summary + " " + post.tags.join(" ");
-      return searchContent.toLowerCase().includes(searchValue.toLowerCase());
-    });
-  }, [initialPosts, searchValue]);
+  const { setSearchValue, filteredPosts } = usePostFilter(initialPosts);
 
   return (
-    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+    <div className="divide-y divide-gray-200 dark:divide-[#404040]">
       <div className="space-y-4 pb-12 pt-2 md:space-y-5">
-        <p className="text-lg text-gray-500 dark:text-gray-400">
+        <p className="text-lg text-gray-500 dark:text-[#808080]">
           I write mostly about{" "}
-          <span className="text-neutral-700 dark:text-neutral-300">
+          <span className="text-[#994400] dark:text-[#ffaa00]">
             finance, tech, and living nomadically.{" "}
           </span>
           <span>Use the tags or search below to filter content.</span>
@@ -39,13 +29,7 @@ export function HomeClient({
         <HomepageTags tags={tags} />
         <PostsSearch onChange={setSearchValue} />
       </div>
-      <ul>
-        {!filteredPosts.length && "No posts found."}
-        {filteredPosts.map((post) => (
-          <PostListItem key={post.slug} frontMatter={post} />
-        ))}
-      </ul>
+      <PostList posts={filteredPosts} />
     </div>
   );
 }
-

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
@@ -9,15 +9,11 @@ import {
   WebsiteStructuredData,
 } from "@/components/StructuredData";
 
-const inter = Inter({
-  variable: "--font-inter",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-terminal",
   subsets: ["latin"],
   display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -126,9 +122,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${geistMono.variable}`}
+      className={`${jetbrainsMono.variable}`}
     >
-      <body className="antialiased text-gray-900 dark:text-gray-100">
+      <body className="antialiased font-terminal">
         <OrganizationStructuredData />
         <WebsiteStructuredData />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

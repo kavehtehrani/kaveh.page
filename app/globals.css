@@ -6,123 +6,161 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Terminal Orange Colors */
+  --color-terminal-orange: #ff8800;
+  --color-terminal-orange-bright: #ffaa00;
+  --color-terminal-orange-dim: #cc6600;
+  --color-terminal-orange-dark: #994400;
+
+  /* Terminal Gray Colors */
+  --color-terminal-bg: #1a1a1a;
+  --color-terminal-bg-light: #2d2d2d;
+  --color-terminal-bg-lighter: #404040;
+  --color-terminal-gray: #808080;
+  --color-terminal-gray-light: #a0a0a0;
+  --color-terminal-gray-dark: #606060;
+
+  /* Legacy primary colors for compatibility */
   --color-primary-*: initial;
-  --color-primary-50: #fff7ed;
-  --color-primary-100: #ffedd5;
-  --color-primary-200: #fed7aa;
-  --color-primary-300: #fdba74;
-  --color-primary-400: #fb923c;
-  --color-primary-500: #f97316;
-  --color-primary-600: #ea580c;
-  --color-primary-700: #c2410c;
-  --color-primary-800: #9a3412;
-  --color-primary-900: #7c2d12;
-  --color-primary-950: #431407;
+  --color-primary-500: #ff8800;
+  --color-primary-600: #ff6600;
+  --color-primary-400: #ffaa00;
 
-  --color-dark: #292524;
-
-  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-terminal: var(--font-terminal), "JetBrains Mono", "Fira Code",
+    "Consolas", "Monaco", "Courier New", monospace;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --font-sans: var(--font-inter, "Inter"), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --background: #f5f5f5;
+  --foreground: #cc6600;
+  --font-sans: var(--font-terminal);
 }
 
 .dark {
-  --background: #292524;
-  --foreground: #ededed;
+  --background: #1a1a1a;
+  --foreground: #ff8800;
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  font-family: var(--font-terminal);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-/* Ensure prose content has proper background */
+/* Scale down main content by 20% (excluding header and footer) */
+/* Use zoom for simple scaling - widely supported in modern browsers */
+.content-scaled {
+  zoom: 0.8;
+  -moz-transform: scale(0.8);
+  -moz-transform-origin: top left;
+}
+
+/* Fallback for browsers that don't support zoom */
+@supports not (zoom: 1) {
+  .content-scaled {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 125%;
+    margin-left: 0;
+    margin-right: -25%;
+  }
+}
+
+/* Terminal prose styling */
 .prose {
   background-color: transparent;
+  color: #404040;
+  font-family: var(--font-terminal);
+  max-width: 100%;
 }
 
 .dark .prose {
   background-color: transparent;
-}
-
-.prose {
-  color: rgb(55 65 81);
-}
-
-.dark .prose {
-  color: rgb(209 213 219);
+  color: #a0a0a0;
 }
 
 .prose a {
-  color: rgb(249 115 22);
+  color: #cc6600;
+  text-decoration: underline;
 }
 
 .prose a:hover {
-  color: rgb(234 88 12);
+  color: #994400;
+  text-decoration: underline;
 }
 
 .dark .prose a {
-  color: rgb(251 146 60);
+  color: #ffaa00;
 }
 
 .dark .prose a:hover {
-  color: rgb(253 186 116);
+  color: #ffcc00;
 }
 
 .prose h1,
 .prose h2 {
   font-weight: 700;
-  letter-spacing: -0.025em;
-  color: rgb(17 24 39);
+  letter-spacing: 0.05em;
+  color: #cc6600;
+  border-bottom: 1px solid #c0c0c0;
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .dark .prose h1,
 .dark .prose h2 {
-  color: rgb(243 244 246);
+  color: #ff8800;
+  border-bottom-color: #808080;
 }
 
 .prose h3 {
   font-weight: 600;
-  color: rgb(17 24 39);
+  color: #994400;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .dark .prose h3 {
-  color: rgb(243 244 246);
+  color: #ffaa00;
 }
 
 .prose h4,
 .prose h5,
 .prose h6 {
   font-weight: 600;
-  color: rgb(17 24 39);
+  color: #994400;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .dark .prose h4,
 .dark .prose h5,
 .dark .prose h6 {
-  color: rgb(243 244 246);
+  color: #ffaa00;
 }
 
-/* Inline code */
+/* Inline code - terminal style */
 .prose code:not(pre code) {
-  color: rgb(34 36 38);
+  color: #994400;
   font-weight: 500;
-  background-color: rgb(229 231 235);
+  background-color: #e0e0e0;
   padding: 0.125rem 0.375rem;
-  border-radius: 0.375rem;
-  font-family: var(--font-mono);
+  border: 1px solid #c0c0c0;
+  font-family: var(--font-terminal);
   font-size: 0.9em;
 }
 
@@ -132,36 +170,42 @@ body {
 }
 
 .dark .prose code:not(pre code) {
-  color: rgb(229 231 235);
-  background-color: rgb(55 65 81);
+  color: #ffaa00;
+  background-color: #2d2d2d;
+  border-color: #404040;
 }
 
-/* Code blocks */
+/* Code blocks - terminal style */
 .prose pre {
-  background-color: #222 !important;
-  color: #e4e4e7;
-  border-radius: 0.5rem;
+  background-color: #2a2a2a !important;
+  color: #cc6600;
+  border: 1px solid #c0c0c0;
+  border-left: 3px solid #cc6600;
   padding: 1rem;
   overflow-x: auto;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  font-family: var(--font-mono);
+  font-family: var(--font-terminal);
   font-size: 0.875rem;
   line-height: 1.75;
 }
 
 .dark .prose pre {
-  background-color: #222 !important;
-  color: #e4e4e7;
+  background-color: #0d0d0d !important;
+  color: #ff8800;
+  border-color: #404040;
+  border-left-color: #ff8800;
 }
 
-/* Override highlight.js theme background to match legacy */
+/* Override highlight.js theme background to match terminal */
 .prose pre code.hljs {
-  background-color: #222 !important;
+  background-color: #0d0d0d !important;
+  color: #ff8800;
 }
 
 .dark .prose pre code.hljs {
-  background-color: #222 !important;
+  background-color: #0d0d0d !important;
+  color: #ff8800;
 }
 
 .prose pre code {
@@ -179,50 +223,69 @@ body {
 }
 
 .prose blockquote {
-  color: rgb(17 24 39);
-  border-left-color: rgb(229 231 235);
-  background: #ebebeb;
+  color: #404040;
+  border-left: 3px solid #cc6600;
+  background: #e8e8e8;
   padding: 8px 16px;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid transparent;
+  border-top: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  margin: 1.5em 0;
 }
 
 .dark .prose blockquote {
-  color: rgb(243 244 246);
-  border-left-color: rgb(55 65 81);
-  background: #363535;
+  color: #a0a0a0;
+  border-left-color: #ff8800;
+  background: #2d2d2d;
+  border-top-color: #404040;
+  border-bottom-color: #404040;
+  border-right-color: #404040;
 }
 
 .prose hr {
-  border-color: rgb(229 231 235);
+  border-color: #c0c0c0;
+  border-top: 1px solid #c0c0c0;
+  border-bottom: none;
   margin-top: 2em;
   margin-bottom: 2em;
 }
 
 .dark .prose hr {
-  border-color: rgb(55 65 81);
+  border-color: #808080;
 }
 
 .prose strong {
-  color: rgb(75 85 99);
+  color: #994400;
+  font-weight: 700;
 }
 
 .dark .prose strong {
-  color: rgb(243 244 246);
+  color: #ffaa00;
 }
 
-/* Images in prose */
-.prose img {
-  border-radius: 0.5rem;
+/* Images in prose - terminal style */
+.prose img,
+.terminal-image {
+  border: 2px solid #c0c0c0;
+  border-left: 3px solid #cc6600;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  background: #e8e8e8;
+  padding: 4px;
 }
 
-.dark .prose img {
-  opacity: 0.9;
+.dark .prose img,
+.dark .terminal-image {
+  border-color: #808080;
+  border-left-color: #ff8800;
+  background: #2d2d2d;
+  opacity: 1;
 }
 
-/* Lists in prose */
+/* Lists in prose - terminal style */
 .prose ul,
 .prose ol {
   margin-top: 1.25em;
@@ -230,16 +293,33 @@ body {
   padding-left: 1.625em;
 }
 
+.prose ul li::marker {
+  color: #cc6600;
+}
+
+.prose ol li::marker {
+  color: #cc6600;
+}
+
+.dark .prose ul li::marker {
+  color: #ff8800;
+}
+
+.dark .prose ol li::marker {
+  color: #ff8800;
+}
+
 .prose li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+  color: #ff8800;
 }
 
 .dark .prose li {
-  color: rgb(209 213 219);
+  color: #a0a0a0;
 }
 
-/* Ensure all prose text elements use Inter font */
+/* Ensure all prose text elements use terminal font */
 .prose p,
 .prose li,
 .prose td,
@@ -254,7 +334,36 @@ body {
 .prose em,
 .prose blockquote,
 .prose a {
-  font-family: var(--font-sans) !important;
+  font-family: var(--font-terminal) !important;
+}
+
+/* Body text should be muted gray */
+.prose p {
+  color: #404040;
+}
+
+.dark .prose p {
+  color: #a0a0a0;
+}
+
+/* List items should also be muted gray */
+.prose li {
+  color: #404040;
+}
+
+.dark .prose li {
+  color: #a0a0a0;
+}
+
+/* Table cells should be muted gray */
+.prose td,
+.prose th {
+  color: #404040;
+}
+
+.dark .prose td,
+.dark .prose th {
+  color: #a0a0a0;
 }
 
 /* DevIcon styling for theme-aware SVGs */
@@ -289,4 +398,24 @@ a[aria-label="View on GitHub"]:hover .dev-icon img {
   filter: brightness(0) saturate(100%) invert(27%) sepia(95%) saturate(2598%)
     hue-rotate(210deg) brightness(97%) contrast(92%);
   opacity: 1;
+}
+
+/* Keyboard navigation focus indicator */
+a.keyboard-focus {
+  outline: 2px solid #ff8800 !important;
+  outline-offset: 2px !important;
+  background-color: #2d2d2d !important;
+  border: 1px solid #ff8800 !important;
+}
+
+/* Post list item highlighting */
+.post-list-item.highlighted {
+  background-color: #f3f4f6 !important;
+  outline: 2px solid #cc6600;
+  outline-offset: -2px;
+}
+
+.dark .post-list-item.highlighted {
+  background-color: #2d2d2d !important;
+  outline-color: #ff8800;
 }
