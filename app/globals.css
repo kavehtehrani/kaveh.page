@@ -21,14 +21,14 @@
 
   --color-dark: #292524;
 
-  --font-sans: var(--font-quantico), "Quantico", ui-sans-serif, system-ui,
-    sans-serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans: var(--font-inter, "Inter"), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .dark {
@@ -39,7 +39,6 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  font-family: var(--font-sans);
 }
 
 body {
@@ -52,7 +51,6 @@ body {
 /* Ensure prose content has proper background */
 .prose {
   background-color: transparent;
-  font-family: var(--font-sans) !important;
 }
 
 .dark .prose {
@@ -237,7 +235,11 @@ body {
   margin-bottom: 0.5em;
 }
 
-/* Ensure all prose text elements use the custom font */
+.dark .prose li {
+  color: rgb(209 213 219);
+}
+
+/* Ensure all prose text elements use Inter font */
 .prose p,
 .prose li,
 .prose td,
@@ -253,10 +255,6 @@ body {
 .prose blockquote,
 .prose a {
   font-family: var(--font-sans) !important;
-}
-
-.dark .prose li {
-  color: rgb(209 213 219);
 }
 
 /* DevIcon styling for theme-aware SVGs */

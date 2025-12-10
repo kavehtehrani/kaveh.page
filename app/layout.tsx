@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Quantico, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
@@ -9,10 +9,10 @@ import {
   WebsiteStructuredData,
 } from "@/components/StructuredData";
 
-const quantico = Quantico({
-  variable: "--font-quantico",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -126,7 +126,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${quantico.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${geistMono.variable}`}
     >
       <body className="antialiased text-gray-900 dark:text-gray-100">
         <OrganizationStructuredData />
