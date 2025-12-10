@@ -8,11 +8,19 @@ function TerminalImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
 
   if (!src) return null;
 
+  // Ensure src is a string (MDX always provides string URLs)
+  const srcString = typeof src === "string" ? src : String(src);
+
   // Handle external URLs or if width/height are provided as strings
-  if (src.startsWith("http") || src.startsWith("//")) {
+  if (srcString.startsWith("http") || srcString.startsWith("//")) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={src} alt={alt || ""} className="terminal-image" {...rest} />
+      <img
+        src={srcString}
+        alt={alt || ""}
+        className="terminal-image"
+        {...rest}
+      />
     );
   }
 
@@ -22,7 +30,7 @@ function TerminalImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
 
   return (
     <Image
-      src={src}
+      src={srcString}
       alt={alt || ""}
       width={imgWidth}
       height={imgHeight}
