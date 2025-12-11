@@ -46,7 +46,7 @@ export function PostSimple({
           </header>
           <div className="pb-8 w-full">
             <div className="w-full">
-              <div className="prose prose-lg max-w-none pb-8 text-justify dark:prose-dark md:prose-xl w-full">
+              <div className="prose prose-sm max-w-none pb-8 dark:prose-dark md:prose-xl w-full">
                 <MDXContent content={content} />
               </div>
               <footer>
