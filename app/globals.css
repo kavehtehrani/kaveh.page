@@ -90,15 +90,15 @@ body {
 /* Reduce font sizes on mobile */
 @media (max-width: 768px) {
   .prose {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .prose p {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .prose a {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .prose h1 {
@@ -120,11 +120,11 @@ body {
   }
 
   .prose li {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .prose code:not(pre code) {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 
   .prose pre {
