@@ -18,7 +18,7 @@ export default function MainLayout({
   const onToggleSub = () => setSubShow((status) => !status);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#292524] px-4 transition-colors duration-300">
+    <div className="min-h-screen w-full bg-white dark:bg-[#1a1a1a] text-[#cc6600] dark:text-[#ff8800] transition-colors duration-300 px-4">
       <MobileNav isOpen={navShow} onClose={onToggleNav} />
       <SubscribeOverlay isOpen={subShow} onClose={onToggleSub} />
       <Header onToggleNav={onToggleNav} onToggleSub={onToggleSub} />
@@ -26,7 +26,7 @@ export default function MainLayout({
         <div className="flex flex-col justify-between">
           <main
             style={{ minHeight: "calc(100vh - 69px - 188px)" }}
-            className="transition-colors duration-300"
+            className="transition-colors duration-300 content-scaled"
           >
             {children}
           </main>

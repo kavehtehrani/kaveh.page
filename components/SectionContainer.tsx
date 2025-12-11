@@ -1,4 +1,7 @@
 export function SectionContainer({ children }: { children: React.ReactNode }) {
-  return <div className="divide-y divide-gray-200 dark:divide-gray-700">{children}</div>
+  return (
+    <div className="w-full divide-y divide-gray-200 dark:divide-[#404040]">
+      {children}
+    </div>
+  );
 }
-

@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Privacy() {
   return (
-    <div className="prose prose-lg max-w-none pb-8 pt-4 text-justify dark:prose-dark md:pt-10 md:prose-xl xl:pt-20">
+    <div className="prose prose-lg max-w-none pb-8 pt-4 dark:prose-dark md:pt-10 md:prose-xl xl:pt-20">
       <h1 className="text-xl text-primary-500">kaveh.page</h1>
       <p>
         This website uses <Link href="https://umami.is/">Umami</Link> for
