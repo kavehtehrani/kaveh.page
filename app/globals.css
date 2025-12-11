@@ -97,6 +97,10 @@ body {
     font-size: 0.875rem;
   }
 
+  .prose a {
+    font-size: 0.875rem;
+  }
+
   .prose h1 {
     font-size: 1.5rem;
   }
