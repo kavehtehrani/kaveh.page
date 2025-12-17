@@ -4,7 +4,9 @@ date: "2025-12-10"
 lastmod: "2025-12-10"
 tags: ["crypto", "bitcoin"]
 draft: false
-summary: "Quantum computing is not a 'bitcoin' threat. Quantum computing breaks elliptic curve cryptography, e.g. digital authentication as it currently stands."
+summary: >
+    "Quantum computing is not a 'bitcoin' threat. Quantum computing breaks elliptic curve cryptography, e.g.
+    digital authentication as it currently stands."
 authors: ["default"]
 ---
 
@@ -18,40 +20,48 @@ comes to bitcoin.
 
 ## What quantum actually breaks
 
-A large quantum computer would break [elliptic curve cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography). Bitcoin uses elliptic curves,
+A large quantum computer would break
+[elliptic curve cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography). Bitcoin uses elliptic curves,
 so yes, it would be affected.
 
 That said, don't mistake not seeing the forest for the trees.
 
-It is a problem for basically everything on the internet that uses current [prevalent way of authentication](https://en.wikipedia.org/wiki/Public-key_cryptography).
-If a cryptographically relevant quantum computer showed up tomorrow,
-you would not be able to securely log into your email, your bank, your social media accounts, etc. All your electronic devices (including your digital car keys) would be at risk. Public wifis
-overnight would effectively become plain-text communication channels.
+It is a problem for basically everything on the internet that uses current
+[prevalent way of authentication](https://en.wikipedia.org/wiki/Public-key_cryptography).
+If a cryptographically relevant quantum computer showed up tomorrow,you would not be able to securely log into your
+email, your bank, your social media accounts, etc. All your electronic devices (including your digital car keys) would
+be at risk. Public wifis overnight would effectively become plain-text communication channels.
 
 This is not a "Bitcoin" problem. It is a cryptography problem.
 
-Have you ever wondered how you can connect to a wifi spot and communicate securely with your bank's servers? All traffic on the internet is more
-or less available to anyone else. If you've connected your phone in public,
-anyone with a little bit of know-how, a cheap wifi adapter, and a packet analyzer can capture the entirely of your traffic. Encryption is the ONLY
-thing that assures your privacy and ability to communicate in public via the internet.
+Have you ever wondered how you can connect to a wifi spot and communicate securely with your bank's servers?
+All traffic on the internet is more or less available to anyone else. If you've connected your phone in public,
+anyone with a little bit of know-how, a cheap wifi adapter, and a packet analyzer can capture the entirely of your
+traffic. Encryption is the ONLY thing that assures your privacy and ability to communicate in public via the internet.
 
-Bitcoin's seminal [whitepaper](https://bitcoin.org/bitcoin.pdf) didn't invent a single new technology that did not exist before. If you've ever used an email,
-it's likely that you more or less used all the technology that is involved in getting a blockchain off the ground. The spam filter almost certainly used a variant of
-"proof of work", the message was sent encrypted via ECC. It is the combination of existing technologies that unlocked the new use case for what
-[blockchains are actually used for.](/blog/what-is-blockchain-actually-used-for)
+Bitcoin's seminal [whitepaper](https://bitcoin.org/bitcoin.pdf) didn't invent a single new technology that
+did not exist before. If you've ever used an email, it's likely that you more or less used all the technology
+that is involved in getting a blockchain off the ground. The spam filter almost certainly used a variant of
+"proof of work", the message was sent encrypted via ECC. It is the combination of existing technologies that
+unlocked the new use case for what [blockchains are actually used for.](/blog/what-is-blockchain-actually-used-for)
 
-While I am hardly an expert on the subject, I think it is safe to say that quantum machines that can break ECC are not here today.
-There is no evidence anyone has built one and if they have, it is not widely accessible and no evidence of having broken encryption en masse yet. The timeline estimates
-have been getting shorter, with some estimates as early as 2030. The threat is very real.
+While I am hardly an expert on the subject, I think it is safe to say that quantum machines that can break ECC are not
+here today. There is no evidence anyone has built one and if they have, it is not widely accessible and no evidence
+of having broken encryption en masse yet. The timeline estimates have been getting shorter, with some estimates as
+early as 2030. The threat is very real.
 
 ## What this means for Bitcoin specifically
 
-Again, quantum computing is hardly a "bitcoin" problem. It is a "crypto" problem, but the one in "cryptography", not in "cryptocurrency". There is already significant work underway for a
-["post quantum"](https://en.wikipedia.org/wiki/Post-quantum_cryptography) world.
+Again, quantum computing is hardly a "bitcoin" problem. It is a "crypto" problem, but the one in "cryptography",
+not in "cryptocurrency". There is already significant work underway for a
+[post quantum](https://en.wikipedia.org/wiki/Post-quantum_cryptography) world.
 
-Bitcoin's problem can be solvable by switching to a quantum-resistant mechanism. I am not as familiar with the Bitcoin's ecosystem and haven't come across a coordinated effort thus far
-to address this. However, in Ethereum, this research is well under way with clear tracks dedicated to it, you can read about [here](https://leanroadmap.org/).
+Bitcoin's problem can be solvable by switching to a quantum-resistant mechanism. I am not as familiar with the
+Bitcoin's ecosystem and haven't come across a coordinated effort thus far to address this. However, in Ethereum,
+this research is well under way with clear tracks dedicated to it, you can read about [here](https://leanroadmap.org/).
 
-In the end, I think quantum computing is hardly a threat to bitcoin. The likeliest path is a change in the core protocol to adopt a quantum-resistant consensus mechanism.
-It will be messy as it is require a significant change and the bitcoin crowd is heavy into the "digital gold" narrative which makes it extremely resistant to changes
-to the core protocol, but it will get done. If I had to pick the largest threat to bitcoin's existence, it would be its fixed security budget model, but that's a story for another time.
+In the end, I think quantum computing is hardly a threat to bitcoin. The likeliest path is a change in the core
+protocol to adopt a quantum-resistant consensus mechanism. It will be messy as it is require a significant change and
+the bitcoin crowd is heavy into the "digital gold" narrative which makes it extremely resistant to changes to the
+core protocol, but it will get done. If I had to pick the largest threat to bitcoin's existence, it would be
+its fixed security budget model, but that's a story for another time.

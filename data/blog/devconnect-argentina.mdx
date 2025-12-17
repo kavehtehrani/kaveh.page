@@ -1,0 +1,174 @@
+---
+title: "Devconnect Buenos Aires, Invisible Garden Residency, and winning at ETHGlobal Hackathon"
+date: "2025-12-16"
+lastmod: "2025-12-16"
+tags: ["crypto", "ethereum"]
+draft: false
+summary: >
+    'Attended a dev residency before Devconnent. Met tons of cool people. Participated in an IRL hackathon for the
+    first time (and won some prizes too!). Still dream of 🥟'
+authors: ["default"]
+---
+
+After attending last year's amazing [Devcon](/blog/devon7-sea) I knew that I would be attending this year's Devconnect.
+I was much better prepared this time around, and had planned to do some form of residency before the gathering itself.
+Last year there were several great residencies in Chiang Mai before Devcon which I was bummed out that I had missed
+out on. Lastly, I had decided to attend my first real life hackathon at ETHGlobal.
+
+I looked at a couple residencies, including [Edge City](https://www.edgecity.live/patagonia),
+[Funding the Commons](https://www.fundingthecommons.io/ba2025), and [Invisible Garden (IG)](https://invisible.garden/).
+Invisible Garden seemed like the most dev-focused of all three, so I applied and was accepted.
+
+## Invisible Garden
+
+After ~30 hours of flying from Vancouver, I finally arrived in Buenos Aires on October 27 and went straight to the IG
+venue in the heart of Palermo. Over the next three weeks, we had daily lectures by a number of mentors on
+a variety of zero-knowledge subjects, data analysis, crypto protocols, etc. There were a bunch of social gatherings
+also scheduled both within IG and with other groups in Buenos Aires that made the networking aspect of the residency
+quite valuable to me. I met a ton of interesting people and made lifelong friends for years to come. I
+opted to get my own apartment but dorm-style accommodation was also available to people who needed them to bring
+down the cost barrier.
+
+This was the second year of IG and from what I gathered from repeat participants they somewhat preferred the one the
+year before. I think a lot of it had to do with the choice of location. In Chiang Mai IG was for six weeks with a
+proper 24/7 co-work, but in Buenos Aires given the elevated prices the program was only for 3 weeks and smaller
+given that Argentina is much harder to get to and into than Thailand.
+
+Nonetheless, I think it was a worthwhile endeavor for me and the main value was meeting the other builders in web3
+which I am sure I will continue to run into and maybe even work alongside.
+
+For the final projects, my team built a [ZK-version](https://github.com/kavehtehrani/zk-ogs) of the classic
+rock-paper-scissors game. Nothing ground breaking about the game itself, but ZK tech is evolving at a rapid pace
+and I wanted to try my hands at a ZK implementation of something I am familiar with. The ZK circuit is written in
+[Noir](https://noir-lang.org/) which I found pleasant with a fairly smooth developer experience. Overall,
+it was a nice learning experience to build something familiar using new tech.
+
+## Devconnect
+
+Devcon is a top-down gathering where the Ethereum Foundation (EF) does most of the planning. Devconnect in contrast in
+usually a bottom-up loose collaboration where the EF provides a space but the vast majority of
+events are community organized. This year it was a bit different with the [ETH Day](https://ethday.devconnect.org/)
+organized which I think as result of the latest much-needed shakeup at the EF and orienting itself to be more
+product and market focused.
+
+I attended a lot of side events, including [DSS](https://defisecuritysummit.org/), FtC Day,
+[Ethereum Cypherpunk Congress](https://congress.web3privacy.info/), and [Sub0](https://sub0.gg/). You can find
+most of the talks online. The real value of attending in person is networking and soaking the incredible energy of
+other like-minded attendees.
+
+I have to say I enjoyed Devcon quite a bit more last year. I think I found the structure of Devcon and quality of
+talks higher last year, and maybe it was my volunteering experience that made it so much better. In Bangkok also
+it was far easier to make it to the events given the general proximity of venues and ease of getting around,
+but in Buenos Aires it was much harder to go from one event to another one
+which usually required almost an hour-long travel.
+
+_All talks are available on the Ethereum Foundation's
+[YouTube](https://www.youtube.com/@EthereumFoundation/playlists) page._
+
+## ETHGlobal
+
+I have long wanted to attend an in-person hackathon. When I used to work as a corporate drone, there was a blanket
+ban on any form of participation in outside activities which is one of the main reasons I don't think I can ever work
+a corporate job in tradfi again. I couldn't write a blog, contribute to open source project, or participate in community
+events even as myself, not representing my employer. It has been a breadth of fresh air to be able to participate
+in community events and go deep in open source projects and even make a
+[couple myself](https://github.com/kavehtehrani).
+
+ETHGlobal is normally right after the main Ethereum conferences and runs for just about two days giving just about
+36 hours to hack something together. You are meant to build during those 36 hours to either
+become a finalist (top 10 projects) or win some prizes from the sponsors.
+
+After I arrived at the venue, initially I was quite taken back because I realized that many people had showed up
+having worked on their projects beforehand. For instance a couple people showed up with hardware which clearly
+had taken them at least weeks to put together. Recognizing this, I realized there is no room to experiment with
+new tech if I want to have a shot at winning. I took a look at the
+[list of sponsors](https://ethglobal.com/events/buenosaires) and narrowed down which tracks I can build with.
+
+I am a huge fan of crypto payments, so after some planning, I figured combining Privy + Circle I can make some form of
+gas-sponsored payment app via one of my favorite EIPs, [EIP-7702](https://eip7702.io/) that went live earlier this year
+in Pectra. Crypto has a huge UI/UX problem and a higher barrier to entry for most people. When it comes to payments,
+one of the major issues is that you need some form of native token to spend what you already have. This is an
+unnatural experience, to say the least. It is like you wanting to spending your USD, but somehow you're required to also
+have some Euros if you want to spend it. It doesn't make sense to the average user and before Pectra
+gas sponsorship was a lot more difficult than it is now.
+
+Thus, my idea was to build a gas-sponsored payment system using USDC where your stablecoin is, you can spend it
+on any other chain, including Circle's Arc, seamlessly and without needing any native token.
+
+After two back-to-back all-nighters of solo hacking, I finished
+[ArcBeam](https://ethglobal.com/showcase/arcbeam-e0bey) and presented it to both the judging panel and the sponsor
+teams themselves.
+
+There was a six-hour gap between when you submit your projects and when the closing ceremony happens. After I
+took a two-hour power nap, I started going around and connecting with other hackers to meet them and see what
+they've been up to. I love the creativity and grit of the people I met. The energy is the room is simply infectious.
+This is what happens when the corporate horse blinders are not in place and souls haven't been crushed into
+obedience in bullshit HR training sessions and corporate bureaucracy. Just watch the projects presented
+during the [closing ceremony](https://www.youtube.com/watch?v=KYlxLZ3laew) and that should give a fair feeling for
+it. One of my favorite things I didn't know is that you were encouraged (via an additional prize) to make
+as much noise as possible if your project won. It was hilarious to watch sleep-deprived hackers yell at the top of
+their lungs which got progressively louder as the closing ceremony went on.
+
+I did win prizes from both of the sponsors I had targeted, which felt amazing at the moment. I feel like the energy
+of the other people I was hacking alongside had given me extra motivation to push through and get something viable
+going in the 36 hours that I had.
+
+_You can watch all the workshops and closing ceremonies on the
+[ETHGlobal YouTube](https://www.youtube.com/@ETHGlobal/videos) channel._
+
+
+## Buenos Aires
+
+I've stayed back in Buenos Aires till my 90-day visa is up in January and will likely head to Brazil to kick
+back on a beach and surf a bit. Argentian has a lot to offer and I think I'll be back to experience the rest of the
+country, most certainly Patagonia. That said, for now I have a lot of work on my plate and Buenos Aires has been
+fairly pleasant, so I'm enjoying it. It is a country that seems to still be in semi-crisis mode, with signs for
+20-30% discounts on cash payments everywhere. Crypto payments are fairly commonplace. Inflation that used to be
+200-300% per year is now down to 10-30%. That said, for a country that has a GDP per capita of ~ 14k USD, it is more
+expensive than the vast majority of European countries. Without getting too deep into the politics of it, it is
+an unsustainable situation where the government has propped up the peso to keep the price of its
+[imports](https://oec.world/en/profile/country/arg) under control and effectively subside the cost of living.
+I don't think that's sustainable situation with the peso overvalued by at least 2x in my opinion,
+but that's a deeper conversation for another time.
+
+
+<div>
+  <figure>
+    <img src="/static/images/2025-11-6.jpg" alt="ethglobal" />
+    <figcaption>Somehow still functional after all nighters at ETHGlobal</figcaption>
+  </figure>
+</div>
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+    <figure>
+        <img src="/static/images/2025-11-1.jpg" alt="ig"/>
+        <figcaption>
+            Three weeks of Invisible Garden Residency
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="/static/images/2025-11-2.jpg" alt="ethhouse"/>
+        <figcaption>
+            ETHHouse Argentina
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="/static/images/2025-11-3.jpg" alt="vitalik+roger"/>
+        <figcaption>
+            Two of my all time favorites at Funding the Commons Day
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="/static/images/2025-11-4.jpg" alt="ethoglobal"/>
+        <figcaption>
+            ETHGlobal Day 1
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="/static/images/2025-11-5.jpg" alt="ethoglobal"/>
+        <figcaption>
+            ETHGlobal aftermath
+        </figcaption>
+    </figure>
+
+</div>
