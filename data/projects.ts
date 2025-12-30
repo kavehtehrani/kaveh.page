@@ -37,6 +37,13 @@ export const projectsData: Project[] = [
   },
   {
     type: "work",
+    title: "CLI - Internet Speed Test",
+    description: `A CLI tool that displays network speed test results from Cloudflare's speed test service in a TUI interface.`,
+    imgSrc: "/static/images/2025-12-cloudflare-speed-cli.png",
+    url: "https://github.com/kavehtehrani/cloudflare-speed-cli",
+  },
+  {
+    type: "work",
     title: "Protein Math",
     description: `Comparison shopping tool to rank protein powders by price per gram and macro ratios.`,
     imgSrc: "/static/images/proteinmath.png",
