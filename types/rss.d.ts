@@ -17,6 +17,7 @@ declare module "rss" {
     guid?: string;
     date: Date;
     categories?: string[];
+    custom_elements?: Array<Record<string, any>>;
   }
 
   class RSS {
