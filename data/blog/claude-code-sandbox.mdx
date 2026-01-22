@@ -1,0 +1,122 @@
+---
+title: 'Sandboxing Claude Code'
+date: '2026-01-22'
+lastmod: "2026-01-22"
+tags: ['linux', 'coding']
+draft: false
+summary: 'Reducing surface area for the inevitable disaster using coding agents.'
+authors: ['default']
+---
+
+I have been using Claude Code as my primary coding agent for a couple of months by now. While it has its own
+[sandboxing](https://code.claude.com/docs/en/sandboxing), I have found this part of the sandbox to always be an absolutely
+scary thing to read for any program that has unfettered internet access:
+
+>Default read behavior: Read access to the entire computer, except certain denied directories
+
+That means CC is allowed by default to look in your ~/.ssh folder, your ~/Documents, ~/Pictures, or hell, why not just
+vacuum your entire drive for .env files? I did ask it to tell me the content of ~/.ssh folder, and I REALLY did not like
+the answer I received. It is prime for a simple context injection to say the least.
+
+Judging by the threads on Reddit and Hacker News, llms have gone awry plenty of times already and I think it's just a
+matter of time until a real disaster occurs somewhere it really matters.
+
+I am not waiting around to find out, so I have been running my coding agents in a headless VM for a couple of months now
+to completely isolate them from accessing anything on my own machine. Not bulletproof, but as good as it comes without
+hauling around another separate machine.
+
+That said, running VMs is resource intensive, and I've been running short of RAM quite a bit. So here's a
+middle-of-the-road method that would isolate your CC session using bubblewrap on linux. I came across
+[this article](https://patrickmccanna.net/a-better-way-to-limit-claude-code-and-other-coding-agents-access-to-secrets/)
+on Hacker News and got interested to try it out for myself.
+
+Put it in your `~/.local/bin` folder and instead of running `claude`, you can run `claude-sandbox.sh` and you'll be good
+to go. It will only see the current folder it's been launched in plus some of the other folders that are required for
+claude to run its binaries, but other than that you can ask it to show you what it sees in your ~/Document or ~/.ssh and
+you'll be pleased with the results.
+
+```bash
+#!/bin/bash
+
+# Claude Code Sandbox Script
+# Run this from any project directory to launch Claude in a sandboxed environment
+
+PROJECT_DIR="$(pwd)"
+CLAUDE_PATH="$(command -v claude)"
+CLAUDE_REAL_PATH="$(readlink -f "$CLAUDE_PATH")"
+CLAUDE_BIN_DIR="$(dirname "$CLAUDE_PATH")"
+CLAUDE_INSTALL_DIR="$(dirname "$(dirname "$CLAUDE_REAL_PATH")")"
+
+# Ensure directories exist
+mkdir -p "$HOME/.claude"
+mkdir -p "$HOME/.cache/claude-cli-nodejs"
+mkdir -p "$HOME/.cache/claude"
+mkdir -p "$HOME/.local/state/claude"
+
+# Build the bwrap command
+BWRAP_ARGS=(
+    # System binaries and libraries (read-only)
+    --ro-bind /usr /usr
+    --ro-bind /lib /lib
+    --ro-bind /lib64 /lib64
+    --ro-bind /bin /bin
+
+    # System config (read-only)
+    --ro-bind /etc/resolv.conf /etc/resolv.conf
+    --ro-bind /etc/hosts /etc/hosts
+    --ro-bind /etc/ssl /etc/ssl
+    --ro-bind /etc/passwd /etc/passwd
+    --ro-bind /etc/group /etc/group
+
+    # Claude installation (read-only)
+    --ro-bind "$CLAUDE_BIN_DIR" "$CLAUDE_BIN_DIR"
+    --ro-bind "$CLAUDE_INSTALL_DIR" "$CLAUDE_INSTALL_DIR"
+
+    # Claude config and state (read-write for auth/settings)
+    --bind "$HOME/.claude" "$HOME/.claude"
+    --bind "$HOME/.cache/claude-cli-nodejs" "$HOME/.cache/claude-cli-nodejs"
+    --bind "$HOME/.cache/claude" "$HOME/.cache/claude"
+    --bind "$HOME/.local/state/claude" "$HOME/.local/state/claude"
+
+    # Project directory (read-write)
+    --bind "$PROJECT_DIR" "$PROJECT_DIR"
+
+    # Temp, proc, dev
+    --tmpfs /tmp
+    --proc /proc
+    --dev /dev
+
+    # Namespacing
+    --share-net
+    --unshare-pid
+    --die-with-parent
+    --chdir "$PROJECT_DIR"
+)
+
+# Add ~/.claude.json if it exists
+if [[ -f "$HOME/.claude.json" ]]; then
+    BWRAP_ARGS+=(--bind "$HOME/.claude.json" "$HOME/.claude.json")
+fi
+
+# Add .gitconfig if it exists
+if [[ -f "$HOME/.gitconfig" ]]; then
+    BWRAP_ARGS+=(--ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig")
+fi
+
+# Add .nvm if it exists (needed for node)
+if [[ -d "$HOME/.nvm" ]]; then
+    BWRAP_ARGS+=(--ro-bind "$HOME/.nvm" "$HOME/.nvm")
+fi
+
+# Add SSH known_hosts for host verification (read-only)
+if [[ -f "$HOME/.ssh/known_hosts" ]]; then
+    BWRAP_ARGS+=(--ro-bind "$HOME/.ssh/known_hosts" "$HOME/.ssh/known_hosts")
+fi
+
+# OPTIONAL: Uncomment if you need git over SSH (exposes your SSH keys read-only)
+# if [[ -d "$HOME/.ssh" ]]; then
+#     BWRAP_ARGS+=(--ro-bind "$HOME/.ssh" "$HOME/.ssh")
+# fi
+
+exec bwrap "${BWRAP_ARGS[@]}" "$CLAUDE_PATH" "$@"
+```
