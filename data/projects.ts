@@ -63,7 +63,7 @@ export const projectsData: Project[] = [
     title: "World Flag Quiz",
     description: `Test your knowledge of world flags!`,
     imgSrc: "/static/images/danesh-app.png",
-    url: "https://www.danesh.app/worldflags",
+    url: "https://danesh-app.vercel.app/worldflags",
     repo: "",
     builtWith: ["TypeScript", "Next.js"],
   },
