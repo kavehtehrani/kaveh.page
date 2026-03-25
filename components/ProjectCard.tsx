@@ -7,7 +7,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const { title, description, imgSrc, url, repo, builtWith } = project;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-md border border-gray-400 border-opacity-60 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400 shadow-lg shadow-neutral-600 transition-all bg-white dark:bg-stone-800">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-400 border-opacity-60 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400 shadow-md shadow-neutral-400 dark:shadow-neutral-800 transition-all bg-white dark:bg-stone-800">
       <div className="relative h-56 w-full overflow-hidden bg-stone-100 dark:bg-stone-900">
         <Image
           alt={title}

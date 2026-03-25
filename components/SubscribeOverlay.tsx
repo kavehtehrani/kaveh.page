@@ -34,7 +34,7 @@ export function SubscribeOverlay({ isOpen, onClose }: SubscribeOverlayProps) {
         <button
           type="button"
           aria-label="Close modal"
-          className="absolute right-0 top-0 mx-2 h-8 w-8 cursor-auto focus:outline-none"
+          className="absolute right-0 top-0 mx-2 h-8 w-8 cursor-auto rounded focus:outline-none"
           onClick={onClose}
         >
           <svg

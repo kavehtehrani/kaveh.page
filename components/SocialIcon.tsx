@@ -16,7 +16,7 @@ export function SocialIcon({
 
   return (
     <div
-      className={`mx-auto grid aspect-square items-center border-2 ${className}`}
+      className={`mx-auto grid aspect-square items-center rounded-sm border-2 ${className}`}
     >
       <a
         href={href}

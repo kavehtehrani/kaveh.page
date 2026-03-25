@@ -36,7 +36,7 @@ export function PostListItem({
   return (
     <li
       key={slug}
-      className="py-4 border-b border-gray-200 dark:border-[#404040] last:border-b-0 hover:bg-gray-50 dark:hover:bg-[#2d2d2d] transition-colors"
+      className="py-4 px-4 border-b border-gray-200 dark:border-[#404040] last:border-b-0 rounded-lg hover:bg-gray-50 dark:hover:bg-[#2d2d2d] transition-colors"
     >
       <article>
         {/* Title and date/reading time - stacked on mobile, side by side on larger screens */}

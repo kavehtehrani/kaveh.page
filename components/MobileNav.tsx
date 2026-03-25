@@ -33,7 +33,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       <button
         type="button"
         aria-label="Close menu"
-        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none border border-[#404040] hover:border-[#ff8800]"
+        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none rounded border border-[#404040] hover:border-[#ff8800]"
         onClick={onClose}
       >
         <svg
