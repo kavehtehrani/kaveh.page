@@ -25,7 +25,7 @@ export function PostNavigation({
           <h2 className="text-xxs tracking-wide text-gray-500 dark:text-[#808080] uppercase">
             Previous {folderName === "snippets" ? "Snippet" : "Article"}
           </h2>
-          <div className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00]">
+          <div className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] transition-colors duration-150">
             <Link href={`/${prev.folderName || folderName}/${prev.slug}`}>
               {getDisplayTitle(prev)}
             </Link>
@@ -37,7 +37,7 @@ export function PostNavigation({
           <h2 className="text-xxs tracking-wide text-gray-500 dark:text-[#808080] uppercase">
             Next {folderName === "snippets" ? "Snippet" : "Article"}
           </h2>
-          <div className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00]">
+          <div className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] transition-colors duration-150">
             <Link href={`/${next.folderName || folderName}/${next.slug}`}>
               {getDisplayTitle(next)}
             </Link>

@@ -7,7 +7,7 @@ export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
 
   return (
     <Link href={`/snippets/${slug}`} title={title}>
-      <div className="mb-4 flex cursor-pointer rounded-lg shadow-sm border border-gray-300 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400 lg:mb-0">
+      <div className="mb-4 flex cursor-pointer rounded-lg shadow-sm border border-gray-300 hover:border-gray-500 hover:shadow-md dark:border-gray-600 dark:hover:border-gray-400 transition-all duration-200 lg:mb-0">
         <div className="p-3 lg:p-4">
           {type && <DevIcon type={type} />}
         </div>

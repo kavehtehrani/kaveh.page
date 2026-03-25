@@ -21,7 +21,7 @@ export function ThemeSwitcher() {
       <button
         aria-label="Toggle Dark Mode"
         type="button"
-        className="ml-1 rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 sm:ml-2"
+        className="ml-1 rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150 sm:ml-2"
       >
         <div className="h-6 w-6" />
       </button>
@@ -32,7 +32,7 @@ export function ThemeSwitcher() {
     <button
       aria-label="Toggle Dark Mode"
       type="button"
-      className="ml-1 rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 sm:ml-2"
+      className="ml-1 rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150 sm:ml-2"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       <svg

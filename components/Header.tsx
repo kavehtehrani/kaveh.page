@@ -47,7 +47,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
         <div className="flex items-center text-sm leading-5">
           <HeaderNavLinks />
           <button
-            className="ml-2 cursor-pointer text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] border border-transparent hover:border-gray-400 dark:hover:border-[#808080] px-2 py-1"
+            className="ml-2 cursor-pointer text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] border border-transparent hover:border-gray-400 dark:hover:border-[#808080] rounded-md transition-colors duration-150 px-2 py-1"
             aria-label="Toggle Menu"
             onClick={onToggleSub}
           >
@@ -56,7 +56,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
           </button>
           <ThemeSwitcher />
           <button
-            className="ml-2 mr-1 h-8 w-8 border border-gray-300 dark:border-[#404040] hover:border-[#cc6600] dark:hover:border-[#ff8800] lg:hidden text-[#cc6600] dark:text-[#ff8800]"
+            className="ml-2 mr-1 h-8 w-8 rounded-md border border-gray-300 dark:border-[#404040] hover:border-[#cc6600] dark:hover:border-[#ff8800] transition-colors duration-150 lg:hidden text-[#cc6600] dark:text-[#ff8800]"
             type="button"
             aria-label="Toggle Menu"
             onClick={onToggleNav}
