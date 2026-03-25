@@ -5,7 +5,7 @@ export function Tag({ text }: { text: string }) {
   return (
     <Link
       href={`/tags/${kebabCase(text)}`}
-      className="mr-3 text-sm font-medium text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] border border-gray-300 dark:border-[#404040] hover:border-[#cc6600] dark:hover:border-[#ff8800] px-2 py-1 rounded-md transition-colors duration-150 md:text-base"
+      className="mr-3 text-sm font-medium text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright border border-gray-300 dark:border-terminal-bg-lighter hover:border-terminal-orange-dim dark:hover:border-terminal-orange px-2 py-1 rounded-md transition-colors duration-150 md:text-base"
     >
       #{text.split(" ").join("-")}
     </Link>

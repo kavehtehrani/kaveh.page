@@ -36,7 +36,7 @@ export function PostListItem({
   return (
     <li
       key={slug}
-      className="py-4 px-4 border-b border-gray-200 dark:border-[#404040] last:border-b-0 rounded-lg hover:bg-gray-50 dark:hover:bg-[#2d2d2d] transition-colors"
+      className="py-4 px-4 border-b border-gray-200 dark:border-terminal-bg-lighter last:border-b-0 rounded-lg hover:bg-gray-50 dark:hover:bg-terminal-bg-light transition-colors"
     >
       <article>
         {/* Title and date/reading time - stacked on mobile, side by side on larger screens */}
@@ -44,14 +44,14 @@ export function PostListItem({
           <h3 className="text-2xl md:text-3xl font-bold leading-8 md:leading-9">
             <Link
               href={`/${folderName}/${slug}`}
-              className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] hover:underline"
+              className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
             >
               {title}
             </Link>
           </h3>
-          <div className="flex items-baseline gap-2 whitespace-nowrap text-sm text-gray-500 dark:text-[#808080]">
+          <div className="flex items-baseline gap-2 whitespace-nowrap text-sm text-gray-500 dark:text-terminal-gray">
             <time dateTime={date}>{formatDate(date)}</time>
-            <span className="text-gray-400 dark:text-[#404040]">|</span>
+            <span className="text-gray-400 dark:text-terminal-bg-lighter">|</span>
             <span>
               {String.fromCodePoint(0x2615).repeat(
                 Math.ceil(readingTime.minutes / 5)
@@ -62,7 +62,7 @@ export function PostListItem({
           </div>
         </div>
         {/* Summary */}
-        <div className="mt-2 text-gray-600 dark:text-[#a0a0a0] text-lg md:text-xl leading-7 md:leading-8">
+        <div className="mt-2 text-gray-600 dark:text-terminal-gray-light text-lg md:text-xl leading-7 md:leading-8">
           {summary}
         </div>
         {/* Tags on their own line */}

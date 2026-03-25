@@ -32,7 +32,7 @@ export function PostSimple({
       <KeyboardNavigation next={next} prev={prev} folderName={folderName} />
       <SectionContainer>
         <article className="w-full">
-          <header className="py-4 xl:pb-8 xl:pt-8 border-b border-gray-200 dark:border-[#404040]">
+          <header className="py-4 xl:pb-8 xl:pt-8 border-b border-gray-200 dark:border-terminal-bg-lighter">
             <div className="space-y-4">
               <BlogTags tags={tags} />
               <PageTitle>{displayTitle}</PageTitle>
@@ -51,7 +51,7 @@ export function PostSimple({
               </div>
               <footer>
                 <div className="text-sm font-medium leading-5">
-                  <h2 className="text-xs tracking-wide text-gray-500 dark:text-[#808080] uppercase">
+                  <h2 className="text-xs tracking-wide text-gray-500 dark:text-terminal-gray uppercase">
                     Tags
                   </h2>
                   <div className="mb-2 py-1">

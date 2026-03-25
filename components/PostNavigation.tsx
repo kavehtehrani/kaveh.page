@@ -19,13 +19,13 @@ export function PostNavigation({
   if (!next && !prev) return null;
 
   return (
-    <div className="block justify-between space-y-4 md:flex md:space-y-0 border-t border-gray-200 dark:border-[#404040] pt-4 mt-4">
+    <div className="block justify-between space-y-4 md:flex md:space-y-0 border-t border-gray-200 dark:border-terminal-bg-lighter pt-4 mt-4">
       {prev && (
         <div>
-          <h2 className="text-xxs tracking-wide text-gray-500 dark:text-[#808080] uppercase">
+          <h2 className="text-xxs tracking-wide text-gray-500 dark:text-terminal-gray uppercase">
             Previous {folderName === "snippets" ? "Snippet" : "Article"}
           </h2>
-          <div className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] transition-colors duration-150">
+          <div className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright transition-colors duration-150">
             <Link href={`/${prev.folderName || folderName}/${prev.slug}`}>
               {getDisplayTitle(prev)}
             </Link>
@@ -34,10 +34,10 @@ export function PostNavigation({
       )}
       {next && (
         <div>
-          <h2 className="text-xxs tracking-wide text-gray-500 dark:text-[#808080] uppercase">
+          <h2 className="text-xxs tracking-wide text-gray-500 dark:text-terminal-gray uppercase">
             Next {folderName === "snippets" ? "Snippet" : "Article"}
           </h2>
-          <div className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] transition-colors duration-150">
+          <div className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright transition-colors duration-150">
             <Link href={`/${next.folderName || folderName}/${next.slug}`}>
               {getDisplayTitle(next)}
             </Link>

@@ -18,9 +18,9 @@ export function TagClient({
   const title = tag[0] + tag.split(" ").join("-").slice(1);
 
   return (
-    <div className="divide-y divide-gray-200 dark:divide-[#404040]">
+    <div className="divide-y divide-gray-200 dark:divide-terminal-bg-lighter">
       <div className="space-y-4 pb-12 pt-2 md:space-y-5">
-        <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-[#cc6600] dark:text-[#ff8800] sm:text-3xl sm:leading-10 md:text-4xl md:leading-14 border-b border-gray-300 dark:border-[#404040] pb-2">
+        <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-terminal-orange-dim dark:text-terminal-orange sm:text-3xl sm:leading-10 md:text-4xl md:leading-14 border-b border-gray-300 dark:border-terminal-bg-lighter pb-2">
           Tag: #{title}
         </h1>
         <PostsSearch onChange={setSearchValue} />

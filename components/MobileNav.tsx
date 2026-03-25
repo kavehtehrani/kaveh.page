@@ -26,21 +26,21 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-[#1a1a1a] border-l border-[#404040] opacity-95 transition-transform duration-300 ${
+      className={`fixed inset-0 z-50 bg-terminal-bg border-l border-terminal-bg-lighter opacity-95 transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
       <button
         type="button"
         aria-label="Close menu"
-        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none rounded border border-[#404040] hover:border-[#ff8800]"
+        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none rounded border border-terminal-bg-lighter hover:border-terminal-orange"
         onClick={onClose}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-[#ff8800]"
+          className="h-8 w-8 text-terminal-orange"
         >
           <path
             fillRule="evenodd"
@@ -51,10 +51,10 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       </button>
       <nav className="fixed mt-8">
         {navLinks.map((link) => (
-          <div key={link.title} className="px-8 py-4 border-b border-[#404040]">
+          <div key={link.title} className="px-8 py-4 border-b border-terminal-bg-lighter">
             <Link
               href={link.href}
-              className="text-2xl font-semibold tracking-wide text-[#ff8800] hover:text-[#ffaa00]"
+              className="text-2xl font-semibold tracking-wide text-terminal-orange hover:text-terminal-orange-bright"
               onClick={onClose}
             >
               {link.title}

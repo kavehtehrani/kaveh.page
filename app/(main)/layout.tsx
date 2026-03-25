@@ -18,7 +18,7 @@ export default function MainLayout({
   const onToggleSub = () => setSubShow((status) => !status);
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-[#1a1a1a] text-[#cc6600] dark:text-[#ff8800] transition-colors duration-300 px-4">
+    <div className="min-h-screen w-full bg-white dark:bg-terminal-bg text-terminal-orange-dim dark:text-terminal-orange transition-colors duration-300 px-4">
       <MobileNav isOpen={navShow} onClose={onToggleNav} />
       <SubscribeOverlay isOpen={subShow} onClose={onToggleSub} />
       <Header onToggleNav={onToggleNav} onToggleSub={onToggleSub} />

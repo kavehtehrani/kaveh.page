@@ -13,13 +13,13 @@ interface HeaderProps {
 
 export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 w-full overflow-x-hidden bg-white/75 dark:bg-[#1a1a1a]/75 backdrop-blur border-b border-gray-300 dark:border-[#404040] py-2">
+    <header className="sticky top-0 z-40 w-full overflow-x-hidden bg-white/75 dark:bg-terminal-bg/75 backdrop-blur border-b border-gray-300 dark:border-terminal-bg-lighter py-2">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
         <div className="flex items-center justify-center">
           <Link
             href="/"
             aria-label="Kaveh's Blog"
-            className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00]"
+            className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright"
           >
             <div className="flex items-center justify-between">
               <div className="mr-3 flex items-center justify-center">
@@ -33,12 +33,12 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
             </div>
           </Link>
           <div className="ml-3">
-            <p className="text-sm text-gray-500 dark:text-[#808080]">
+            <p className="text-sm text-gray-500 dark:text-terminal-gray">
               Personal blog
             </p>
             <Link
               href="/about"
-              className="text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] hover:underline"
+              className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
             >
               {siteConfig.author}
             </Link>
@@ -47,7 +47,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
         <div className="flex items-center text-sm leading-5">
           <HeaderNavLinks />
           <button
-            className="ml-2 cursor-pointer text-[#cc6600] dark:text-[#ff8800] hover:text-[#994400] dark:hover:text-[#ffaa00] border border-transparent hover:border-gray-400 dark:hover:border-[#808080] rounded-md transition-colors duration-150 px-2 py-1"
+            className="ml-2 cursor-pointer text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright border border-transparent hover:border-gray-400 dark:hover:border-terminal-gray rounded-md transition-colors duration-150 px-2 py-1"
             aria-label="Toggle Menu"
             onClick={onToggleSub}
           >
@@ -56,7 +56,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
           </button>
           <ThemeSwitcher />
           <button
-            className="ml-2 mr-1 h-8 w-8 rounded-md border border-gray-300 dark:border-[#404040] hover:border-[#cc6600] dark:hover:border-[#ff8800] transition-colors duration-150 lg:hidden text-[#cc6600] dark:text-[#ff8800]"
+            className="ml-2 mr-1 h-8 w-8 rounded-md border border-gray-300 dark:border-terminal-bg-lighter hover:border-terminal-orange-dim dark:hover:border-terminal-orange transition-colors duration-150 lg:hidden text-terminal-orange-dim dark:text-terminal-orange"
             type="button"
             aria-label="Toggle Menu"
             onClick={onToggleNav}
@@ -65,7 +65,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="text-[#cc6600] dark:text-[#ff8800]"
+              className="text-terminal-orange-dim dark:text-terminal-orange"
             >
               <path
                 fillRule="evenodd"

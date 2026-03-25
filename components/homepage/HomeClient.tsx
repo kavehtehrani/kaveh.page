@@ -17,11 +17,11 @@ export function HomeClient({
   const { setSearchValue, filteredPosts } = usePostFilter(initialPosts);
 
   return (
-    <div className="divide-y divide-gray-200 dark:divide-[#404040]">
+    <div className="divide-y divide-gray-200 dark:divide-terminal-bg-lighter">
       <div className="space-y-4 pb-12 pt-2 md:space-y-5">
-        <p className="text-lg text-gray-500 dark:text-[#808080]">
+        <p className="text-lg text-gray-500 dark:text-terminal-gray">
           I write mostly about{" "}
-          <span className="text-[#994400] dark:text-[#ffaa00]">
+          <span className="text-terminal-orange-dark dark:text-terminal-orange-bright">
             finance, tech, and living nomadically.{" "}
           </span>
           <span>Use the tags or search below to filter content.</span>

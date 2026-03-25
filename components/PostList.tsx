@@ -15,7 +15,7 @@ export function PostList({
   return (
     <ul className={className}>
       {!posts.length && (
-        <li className="text-gray-500 dark:text-[#808080] py-4">
+        <li className="text-gray-500 dark:text-terminal-gray py-4">
           {emptyMessage}
         </li>
       )}
