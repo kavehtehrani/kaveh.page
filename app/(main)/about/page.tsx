@@ -3,6 +3,7 @@ import { ProfileCard } from "@/components/ProfileCard";
 import { BlogLinks } from "@/components/BlogLinks";
 import { Link } from "@/components/Link";
 import { AuthorContent } from "@/components/AuthorContent";
+import { OpenSourceContributions } from "@/components/OpenSourceContributions";
 import { siteConfig } from "@/data/site";
 import type { Metadata } from "next";
 
@@ -51,6 +52,9 @@ export default async function About() {
             </div>
             <div className="prose prose-xl mt-4 leading-8">
               <BlogLinks />
+            </div>
+            <div className="prose prose-xl mt-4 leading-8">
+              <OpenSourceContributions />
             </div>
           </div>
           <div className="hidden pl-8 pt-24 md:block xl:flex xl:justify-start">
