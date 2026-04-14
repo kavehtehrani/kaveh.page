@@ -37,13 +37,9 @@ export function ArticleStructuredData({
       url: authorUrl || siteConfig.url,
     },
     publisher: {
-      "@type": "Organization",
-      name: siteConfig.title,
+      "@type": "Person",
+      name: siteConfig.author,
       url: siteConfig.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/static/images/logo.png`,
-      },
     },
     mainEntityOfPage: {
       "@type": "WebPage",

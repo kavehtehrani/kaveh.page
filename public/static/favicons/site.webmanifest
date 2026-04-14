@@ -1,14 +1,15 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "Kaveh's Blog",
+  "short_name": "Kaveh",
   "icons": [
     {
-      "src": "/favicon-32x32.png",
-      "sizes": "72x72",
+      "src": "/static/favicons/favicon-32x32.png",
+      "sizes": "32x32",
       "type": "image/png"
     }
   ],
   "theme_color": "#000000",
   "background_color": "#000000",
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/"
 }

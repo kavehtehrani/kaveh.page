@@ -64,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Blog posts
   const blogPosts = getAllFilesFrontMatter("blog").map((post) => ({
     url: `${siteUrl}/${post.folderName || "blog"}/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.lastmod || post.date),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
