@@ -22,53 +22,53 @@ I received a message on LinkedIn from a profile with the name
 ([PDF here](https://github.com/kavehtehrani/job_interview_scam/blob/main/screenshots/AFTAB_HABIB_LinkedIn.pdf) in case of takedown)
 claiming that they're recruiting for a Portfolio Manager at [Galaxy Digital](https://www.galaxy.com/):
 
-![opening_message](/static/images/aftab-1.png)
+![LinkedIn message from scammer posing as recruiter for Galaxy Digital](/static/images/aftab-1.png)
 
 Right off that bat this seemed a bit sus. No actual job description. I check Galaxy's career section and do not see this "fully remote portfolio manager" job. Alright, let's see how far deep the rabbit hole goes.
 
 I messaged back to ask for a job description, here it is.
 
-![job_description](/static/images/aftab-2.png)
-![job_description](/static/images/aftab-3.png)
+![Fake job description for Portfolio Manager role, part 1](/static/images/aftab-2.png)
+![Fake job description for Portfolio Manager role, part 2](/static/images/aftab-3.png)
 
 Honestly that looks kind of legit! I'm sure it's lifted from elsewhere and ran through some gpt, but not too shabby!
 
 Then he sends me a message to butter me up which is clearly copy/pasted from ChatGPT where he has fed my profile.
 
-![message](/static/images/aftab-4.png)
+![Scammer sending a ChatGPT-generated flattery message with a suspicious link](/static/images/aftab-4.png)
 
 Alright, there is a link to some website called "talentpreview360.com". Head over to ICANN and look it up:
 
-![icann-talentpreview](/static/images/icann-talentpreview360.png)
+![ICANN lookup showing talentpreview360.com was recently registered via Hostinger](/static/images/icann-talentpreview360.png)
 
 Looks only a few months old. Registrar is "Hostinger Operations, UAB" which apparently is an ICANN-accredited registrar based in Lithuania. Never heard of it, but OK let's proceed.
 
 I spin up a VM and go to the link. This is what I'm greeted with:
 
-![message](/static/images/page-0.png)
-![message](/static/images/page-1.png)
+![Scam interview website landing page asking for personal details](/static/images/page-0.png)
+![Scam interview website form fields for candidate information](/static/images/page-1.png)
 
 Fill in and go to the "questions":
 
-![message](/static/images/question-1.png)
-![message](/static/images/question-2.png)
-![message](/static/images/question-3.png)
+![Fake interview question 1 on the scam website](/static/images/question-1.png)
+![Fake interview question 2 on the scam website](/static/images/question-2.png)
+![Fake interview question 3 on the scam website](/static/images/question-3.png)
 
 Honestly, for what is surely a scam at this point these questions sound kind of legitimate.
 
 And now we reach the scam part. I just didn't know it yet. There's a request for a "brief video introduction". When you hit record within 2 second it errors out. I'm confused as to what's happening. I click on "How to Fix" but nothing really stands out. I notice that right-click and keyboard shortcuts for opening the console are all disabled.
 
-![video-question](/static/images/video-question.png)
+![Video recording prompt that deliberately errors out to trigger the malicious fix](/static/images/video-question.png)
 
 I message our homeboy Aftab to see what's going on.
 
-![message](/static/images/aftab-5.png)
+![LinkedIn message to scammer asking about the video recording issue](/static/images/aftab-5.png)
 
 Alright, makes sense. I run Linux. The VM was an Ubuntu 24.04. Small market to target. Time to go to Windows.
 
 Now on Windows the "How to Fix" looks like this:
 
-![message](/static/images/how-to-fix.png)
+![Malicious How to Fix popup showing a fake driver update command on Windows](/static/images/how-to-fix.png)
 
 You see the "Need to keep the drivers to up-to-date!"?
 
@@ -93,8 +93,8 @@ That's the scam. A clipboard hijack to "fix your drivers" which would download a
 After that I tried to get him to connect a couple of times for a friendly chat but apparently our aspiring scammer only wants to
 DM and not meet IRL. I feel be a bit rejected!
 
-![message](/static/images/aftab-9.png)
-![message](/static/images/aftab-8.png)
+![Attempting to schedule a video call with the scammer who refuses to meet](/static/images/aftab-9.png)
+![Scammer dodging requests for a direct conversation on LinkedIn](/static/images/aftab-8.png)
 
 If you want to get into the weeds of what the actual attack might be, then read on below in the [Technical Details](#technical-details).
 
@@ -125,7 +125,7 @@ Both talentpreview360.com and auto-ai.online are no longer reachable. I'm impres
 
 I report the issue to LinkedIn and within 20-minutes I get the case marked as "Closed" with this nonsensical generic response:
 
-![linkedin](/static/images/linkedin-response.png)
+![LinkedIn generic automated response closing the scam report without action](/static/images/linkedin-response.png)
 
 Guess now I know why scammers thrive on LinkedIn. Great investigative job LinkedIn!
 
@@ -138,7 +138,7 @@ All the correspondence before were generic auto-responses with nonsensical instr
 I have to say it felt like LinkedIn has a trash process on purpose to intentionally sandbag reports. It should not be this hard
 to report a scam especially when there's a report on a platter handed out exactly identifying the scam.
 
-![linkedin](/static/images/linkedin-response-2.png)
+![LinkedIn finally taking action on the scam report after multiple follow-ups](/static/images/linkedin-response-2.png)
 
 ## How To Keep Yourself Safe
 
@@ -223,7 +223,7 @@ The command that gets executed on Windows systems:
 
 I loaded a VM and downloaded the payload. A screenshot of the zip file's content is below:
 
-![here](/static/images/fixed.zip.png)
+![Contents of the malicious zip payload showing VBS script and hidden executables](/static/images/fixed.zip.png)
 
 **What the VBS script does:**
 

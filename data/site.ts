@@ -1,7 +1,7 @@
 export const siteConfig = {
   title: "Kaveh's Blog",
   author: "Kaveh Tehrani",
-  description: "Personal blog - long DeFi, short JPM",
+  description: "Kaveh Tehrani's blog on quantitative finance, crypto, and life as a digital nomad",
   url: "https://kaveh.page",
   language: "en-us",
   email: "",
