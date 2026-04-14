@@ -1,0 +1,46 @@
+---
+title: 'Open Source Software Is Fucking Awesome'
+date: '2026-04-13'
+lastmod: "2026-04-13"
+tags: ['linux', 'coding']
+draft: false
+summary: 'Thanks to OSS, I finally have a file manager with persistent tabs in Linux!'
+authors: ['default']
+---
+
+I think it is to safe persistent tabs (e.g. session restore) is an essential feature of any web browser. Most
+people likely would have a hard time managing without one.
+
+I have been puzzled by the scarcity of
+[file managers with persistent tabs](https://github.com/pop-os/cosmic-files/issues/1219)
+in the Linux ecosystem. Nautilus, the default file manager in GNOME, is likely the one most people new to Linux experience given
+the popularity of Ubuntu and Fedora. Nautilus has had a [feature request](https://gitlab.gnome.org/GNOME/nautilus/-/issues/1196) for
+17 years (!) and still no support for persistent tabs.
+
+The only viable file manager I have found with session restore has been Dolphin, but installing it would pull in a crapload of
+dependencies and basically the entire KDE core which makes it janky on Ubuntu (my main driver) and doesn't quite look like it belongs.
+
+Last year I decided that complaining won't get me anywhere and went on a thorough hunt for how to make it happen. First I
+thought maybe I make my own file explorer, but decided against it when I discovered
+[Nemo](https://github.com/linuxmint/nemo) from
+Cinnamon. I figured this would be the perfect file manager had it had persistent tabs.
+
+I went through two of the previous issues ([2832](https://github.com/linuxmint/nemo/issues/2832)
+and [3240](https://github.com/linuxmint/nemo/issues/3240) with the same feature request and saw the maintainers
+had concluded this is a non-core feature and not worth implementation due to resource constraints.
+
+I honestly don't know how people live without persistent tabs in file managers, so I disagree with that being a
+non-core feature. I took a quick look at nemo's code on github and found it pleasantly easy to follow. C is the
+first programming language I ever learned, and even though it's no longer in my daily tools, I can still hold my
+ground. With some help from Claude Code to navigate the code base, I implemented the tabs in my fork and within a
+weekend I had my own custom file manager with tabs!
+
+After a couple weeks of working out small issues that popped up, I submitted a
+[PR](https://github.com/linuxmint/nemo/pull/3661)) and after four months, viola! Now nemo has tabs, and I have my
+well-deserved tabs in my favorite file manager!
+
+All of this was possible because of the power of
+open-source software, and a robust ecosystem that encourage contributions and productive discourse. After all,
+open-source software is the sum of all our contributions.
+
+![nemo-with-tabs](/static/images/nemo-with-tabs.png)
