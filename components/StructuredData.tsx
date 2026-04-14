@@ -28,7 +28,7 @@ export function ArticleStructuredData({
     "@type": "BlogPosting",
     headline: title,
     description,
-    image: image || `${siteConfig.url}/static/images/og-image.png`,
+    ...(image && { image }),
     datePublished: publishedTime,
     dateModified: modifiedTime || publishedTime,
     author: {

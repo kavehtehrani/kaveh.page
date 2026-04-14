@@ -57,13 +57,13 @@ export async function generateMetadata({
       : [frontMatter.images]
     : [];
 
-  // Use first image if available, otherwise fallback to default OG image
+  // Use first image if available
   const ogImage =
     images.length > 0
       ? images[0].startsWith("http")
         ? images[0]
         : `${siteConfig.url}${images[0]}`
-      : `${siteConfig.url}/static/images/og-image.png`;
+      : null;
 
   return {
     title: frontMatter.title,
@@ -84,24 +84,26 @@ export async function generateMetadata({
       modifiedTime,
       authors: [author.frontMatter.name || siteConfig.author],
       tags: frontMatter.tags,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: frontMatter.title,
-        },
-      ],
+      ...(ogImage && {
+        images: [
+          {
+            url: ogImage,
+            width: 1200,
+            height: 630,
+            alt: frontMatter.title,
+          },
+        ],
+      }),
       siteName: siteConfig.title,
     },
     twitter: {
-      card: "summary_large_image",
+      card: ogImage ? "summary_large_image" : "summary",
       title: frontMatter.title,
       description: frontMatter.summary,
       creator:
         siteConfig.social.twitter?.replace("https://twitter.com/", "@") ||
         undefined,
-      images: [ogImage],
+      ...(ogImage && { images: [ogImage] }),
     },
     robots: {
       index: !frontMatter.draft,
@@ -172,7 +174,7 @@ export default async function BlogPost({
       ? images[0].startsWith("http")
         ? images[0]
         : `${siteConfig.url}${images[0]}`
-      : `${siteConfig.url}/static/images/og-image.png`;
+      : undefined;
 
   return (
     <>

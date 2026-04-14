@@ -47,23 +47,14 @@ export const metadata: Metadata = {
     siteName: siteConfig.title,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: `${siteConfig.url}/static/images/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.title,
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: siteConfig.title,
     description: siteConfig.description,
     creator:
       siteConfig.social.twitter?.replace("https://twitter.com/", "@") ||
       undefined,
-    images: [`${siteConfig.url}/static/images/og-image.png`],
   },
   robots: {
     index: true,
