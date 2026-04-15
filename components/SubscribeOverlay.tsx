@@ -25,23 +25,28 @@ export function SubscribeOverlay({ isOpen, onClose }: SubscribeOverlayProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-start bg-stone-200 opacity-95 transition-transform duration-300 dark:bg-stone-800 ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      }`}
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      onClick={onClose}
     >
-      <div className="h-[50%] w-full bg-stone-600"></div>
-      <div className="relative my-2 w-full">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      {/* Modal */}
+      <div
+        className="relative mx-4 w-full max-w-md rounded-xl bg-white p-6 shadow-xl dark:bg-stone-800"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           aria-label="Close modal"
-          className="absolute right-0 top-0 mx-2 h-8 w-8 cursor-auto rounded focus:outline-none"
+          className="absolute right-3 top-3 rounded p-1 text-gray-400 transition-colors hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-200"
           onClick={onClose}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="h-8 w-8 text-gray-900 dark:text-gray-100 hover:scale-[1.5] hover:text-primary-700"
+            className="h-5 w-5"
           >
             <path
               fillRule="evenodd"
@@ -50,12 +55,13 @@ export function SubscribeOverlay({ isOpen, onClose }: SubscribeOverlayProps) {
             />
           </svg>
         </button>
-        <div className="my-12 flex flex-row items-center justify-center rounded-2xl lg:scale-150">
-          <ButtonDown />
-        </div>
+
+        <h3 className="mb-4 text-center text-lg font-medium text-gray-900 dark:text-gray-100">
+          Subscribe to updates
+        </h3>
+
+        <ButtonDown />
       </div>
-      <div className="h-[50%] w-full bg-stone-600"></div>
     </div>
   )
 }
-

@@ -30,7 +30,7 @@ export default async function SnippetsPage() {
           Little code snippets / system config stuff I have found useful
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6">
         {snippets.map((snippet) => (
           <SnippetCard key={snippet.slug} snippet={snippet} />
         ))}
