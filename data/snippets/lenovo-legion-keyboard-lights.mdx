@@ -1,0 +1,151 @@
+---
+heading: 'Legion Keyboard RGB Lights on Linux'
+title: 'Fixing Realtek drivers in Ubuntu'
+date: '2026-04-15'
+type: 'Linux'
+draft: false
+summary: 'Control the 4-zone RGB keyboard on Lenovo Legion laptops without Lenovo Vantage'
+tags: [linux]
+---
+
+# Legion Keyboard RGB on Linux
+
+Control the 4-zone RGB keyboard on Lenovo Legion laptops without Lenovo Vantage.
+
+## Find Your Device
+
+```bash
+lsusb | grep 048d
+```
+You'll see something like `048d:c985`. Note the product ID (c985 in this case).
+
+## Allow User Access
+
+Create a udev rule so you don't need sudo:
+
+```bash
+sudo tee /etc/udev/rules.d/99-legion-keyboard.rules << 'EOF'
+SUBSYSTEM=="usb", ATTR{idVendor}=="048d", ATTR{idProduct}=="c985", MODE="0666"
+EOF
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
+## Install pyusb
+
+```bash
+pip install pyusb
+```
+
+## The Script
+
+Save as `legion_kb_rgb.py`:
+
+```python
+#!/usr/bin/env python3
+import sys
+import usb.core
+
+VENDOR_ID = 0x048d
+PRODUCT_ID = 0xc985  # change if yours differs
+
+COLORS = {
+    'red':    (255, 0, 0),
+    'green':  (0, 255, 0),
+    'blue':   (0, 0, 255),
+    'white':  (255, 255, 255),
+    'orange': (255, 128, 0),
+    'purple': (128, 0, 255),
+    'cyan':   (0, 255, 255),
+    'yellow': (255, 255, 0),
+}
+
+EFFECTS = {
+    'static': 0x01,
+    'breath': 0x03,
+    'wave':   0x04,
+    'hue':    0x06,
+}
+
+def parse_color(s):
+    if s.lower() in COLORS:
+        return COLORS[s.lower()]
+    s = s.lstrip('#')
+    return (int(s[0:2], 16), int(s[2:4], 16), int(s[4:6], 16))
+
+def send_command(effect, speed, brightness, colors):
+    dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID)
+    if dev is None:
+        print("Device not found")
+        sys.exit(1)
+    try:
+        if dev.is_kernel_driver_active(0):
+            dev.detach_kernel_driver(0)
+    except Exception:
+        pass
+
+    # pad to 4 zones
+    while len(colors) < 4:
+        colors.append(colors[-1] if colors else (0, 0, 0))
+
+    packet = [0xCC, 0x16, effect, speed, brightness]
+    for r, g, b in colors[:4]:
+        packet += [r, g, b]
+    packet += [0] * (32 - len(packet))
+
+    dev.ctrl_transfer(0x21, 0x09, 0x03CC, 0, bytes(packet))
+    print("Done")
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print("Usage: legion_kb_rgb.py <effect|color> [colors...]")
+        print("Effects: off, static, breath, wave, hue")
+        print("Colors: red, green, blue, cyan, purple, orange, yellow, white, or hex")
+        sys.exit(0)
+
+    cmd = sys.argv[1].lower()
+
+    if cmd == 'off':
+        send_command(EFFECTS['static'], 1, 1, [(0, 0, 0)])
+    elif cmd == 'wave':
+        send_command(EFFECTS['wave'], 2, 2, [(0, 0, 0)])
+    elif cmd == 'hue':
+        send_command(EFFECTS['hue'], 2, 2, [(0, 0, 0)])
+    elif cmd == 'breath':
+        colors = [parse_color(c) for c in sys.argv[2:]] or [(255, 0, 0)]
+        send_command(EFFECTS['breath'], 2, 2, colors)
+    elif cmd == 'static':
+        colors = [parse_color(c) for c in sys.argv[2:]] or [(255, 255, 255)]
+        send_command(EFFECTS['static'], 1, 2, colors)
+    else:
+        # assume it's a color for static mode
+        send_command(EFFECTS['static'], 1, 2, [parse_color(cmd)])
+```
+
+## Usage
+
+```bash
+python legion_kb_rgb.py red
+python legion_kb_rgb.py ff00ff
+python legion_kb_rgb.py off
+python legion_kb_rgb.py wave
+python legion_kb_rgb.py hue
+python legion_kb_rgb.py breath cyan
+python legion_kb_rgb.py static ff0000 00ff00 0000ff ffffff  # 4 zones
+```
+
+## How It Works
+
+The keyboard uses an ITE controller that accepts USB HID SET_REPORT commands. The packet format is:
+
+- Bytes 0-1: Header (`0xCC 0x16`)
+- Byte 2: Effect (`0x01`=static, `0x03`=breath, `0x04`=wave, `0x06`=hue)
+- Byte 3: Speed (1-4)
+- Byte 4: Brightness (1-2)
+- Bytes 5+: RGB values for each of the 4 zones
+
+## See Also
+
+- [LegionAura](https://github.com/nivedck/LegionAura) - full-featured GUI/CLI if you want more effects
+- [L5P-Keyboard-RGB](https://github.com/4JX/L5P-Keyboard-RGB) - cross-platform Rust app
