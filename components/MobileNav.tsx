@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { navLinks } from "@/data/nav";
 import { Link } from "./Link";
 
@@ -10,6 +10,8 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+  const menuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen) {
@@ -22,44 +24,39 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-terminal-bg border-l border-terminal-bg-lighter opacity-95 transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      }`}
+      ref={menuRef}
+      className="fixed right-2 top-14 z-50 w-56 rounded-md border border-gray-300 dark:border-terminal-bg-lighter bg-white dark:bg-terminal-bg shadow-lg"
     >
-      <button
-        type="button"
-        aria-label="Close menu"
-        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none rounded border border-terminal-bg-lighter hover:border-terminal-orange"
-        onClick={onClose}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="h-8 w-8 text-terminal-orange"
-        >
-          <path
-            fillRule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-      <nav className="fixed mt-8">
+      <nav className="py-1">
         {navLinks.map((link) => (
-          <div key={link.title} className="px-8 py-4 border-b border-terminal-bg-lighter">
-            <Link
-              href={link.href}
-              className="text-2xl font-semibold tracking-wide text-terminal-orange hover:text-terminal-orange-bright"
-              onClick={onClose}
-            >
-              {link.title}
-            </Link>
-          </div>
+          <Link
+            key={link.title}
+            href={link.href}
+            className="block px-4 py-3 text-base font-medium text-gray-700 dark:text-terminal-orange hover:bg-gray-100 dark:hover:bg-terminal-bg-lighter transition-colors"
+            onClick={onClose}
+          >
+            {link.title}
+          </Link>
         ))}
       </nav>
     </div>
