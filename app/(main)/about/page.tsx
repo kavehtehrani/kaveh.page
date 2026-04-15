@@ -25,11 +25,11 @@ export default async function About() {
   const authorData = await getAuthorData();
 
   return (
-    <div className="divide-y divide-gray-200 dark:divide-gray-700">
-      <div className="mt-8 divide-y divide-gray-200 dark:divide-gray-700 dark:text-gray-100 md:mt-16 md:pb-0">
+    <div className="divide-y divide-gray-200 dark:divide-terminal-bg-lighter">
+      <div className="mt-8 divide-y divide-gray-200 dark:divide-terminal-bg-lighter dark:text-gray-100 md:mt-16 md:pb-0">
         <div className="flex flex-row space-y-2 md:my-4 md:space-y-5 md:pb-8 md:pt-6 xl:grid xl:grid-cols-3">
           <div className="md:pr-8 xl:col-span-2">
-            <div className="mb-8 bg-clip-text text-4xl font-extrabold leading-[60px] tracking-tight text-primary-600 dark:text-primary-400 md:text-5xl md:leading-[86px]">
+            <div className="mb-8 bg-clip-text text-4xl font-extrabold leading-[60px] tracking-tight text-gray-900 dark:text-gray-100 md:text-5xl md:leading-[86px]">
               Hi, I&apos;m Kaveh! &#128075;
             </div>
             <div className="prose prose-xl space-y-3 leading-8 text-gray-700 dark:text-stone-200">

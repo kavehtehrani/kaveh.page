@@ -22,12 +22,12 @@ export function DonateCard({ donate }: { donate: Donate }) {
   return (
     <div className="md p-4 md:w-1/2" style={{ maxWidth: "544px" }}>
       <div
-        className="flex h-full flex-col overflow-hidden rounded-lg border border-b-4 border-amber-900 border-opacity-60 shadow-md shadow-gray-600 hover:border-gray-500 dark:border-amber-900 dark:hover:border-gray-400"
+        className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-300 dark:border-terminal-bg-lighter hover:border-gray-500 dark:hover:border-gray-400 shadow-sm hover:shadow-md transition-all duration-200"
       >
         <Image
           alt={title}
           src={imgSrc}
-          className="rounded-t-lg border-b-4 border-amber-700"
+          className="rounded-t-lg border-b border-gray-300 dark:border-terminal-bg-lighter"
           width={1088}
           height={612}
         />

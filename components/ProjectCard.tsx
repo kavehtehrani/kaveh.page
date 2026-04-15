@@ -7,7 +7,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const { title, description, imgSrc, url, repo, builtWith } = project;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-400 border-opacity-60 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400 shadow-md shadow-neutral-400 dark:shadow-neutral-800 transition-all duration-200 hover:-translate-y-0.5 bg-white dark:bg-stone-800">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-400 border-opacity-60 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400 shadow-md shadow-neutral-400 dark:shadow-neutral-800 transition-all duration-200 hover:-translate-y-0.5 bg-white dark:bg-terminal-bg">
       <div className="relative h-56 w-full overflow-hidden bg-stone-100 dark:bg-stone-900">
         <Image
           alt={title}
@@ -24,7 +24,7 @@ export function ProjectCard({ project }: { project: Project }) {
               <Link
                 href={url}
                 aria-label={`Link to ${title}`}
-                className="hover:text-primary-600 dark:hover:text-primary-400"
+                className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
               >
                 {title}
               </Link>
@@ -58,7 +58,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {url && !repo && (
             <Link
               href={url}
-              className="text-base text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+              className="text-base text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
             >
               Visit →
             </Link>

@@ -4,7 +4,7 @@ import { SocialIcon } from "./SocialIcon";
 
 export function ProfileCard() {
   return (
-    <div className="z-10 w-full max-w-sm scale-100 rounded-lg border-2 bg-stone-100 shadow-lg shadow-stone-900/50 transition-all duration-200 ease-out hover:z-50 hover:scale-[1.05] dark:bg-neutral-800 dark:shadow-amber-300/50">
+    <div className="z-10 w-full max-w-sm scale-100 rounded-lg border-2 bg-stone-100 shadow-lg shadow-stone-900/50 transition-all duration-200 ease-out hover:z-50 hover:scale-[1.05] dark:bg-terminal-bg-light dark:shadow-amber-300/50">
       <div className="justiy-end align-bottom mb-8 ml-10 mr-10 mt-10 rounded-full border-2 bg-stone-200 shadow-lg shadow-stone-500/50 dark:bg-amber-100 dark:shadow-amber-200/50">
         <Image
           src="/static/images/logo.png"
@@ -21,10 +21,10 @@ export function ProfileCard() {
         />
       </div>
       <div className="block text-center">
-        <h3 className="mx-4 text-2xl font-semibold text-gray-800 dark:text-white lg:text-3xl">
+        <h3 className="mx-4 text-2xl font-semibold text-gray-800 dark:text-gray-100 lg:text-3xl">
           {siteConfig.author}
         </h3>
-        <h5 className="mx-4 py-2 text-l text-gray-700 dark:text-gray-400 lg:text-xl">
+        <h5 className="mx-4 py-2 text-l text-gray-700 dark:text-terminal-gray lg:text-xl">
           Quantitative Finance
         </h5>
         <div className="flex flex-row pt-4">
