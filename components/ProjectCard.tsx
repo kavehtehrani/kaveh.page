@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Link } from "./Link";
 import { DevIcon } from "./DevIcon";
 import type { Project } from "@/data/projects";
+import { LINK_CLASS } from "@/lib/styles";
 
 export function ProjectCard({ project }: { project: Project }) {
   const { title, description, imgSrc, url, repo, builtWith } = project;
@@ -24,7 +25,7 @@ export function ProjectCard({ project }: { project: Project }) {
               <Link
                 href={url}
                 aria-label={`Link to ${title}`}
-                className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
+                className={LINK_CLASS}
               >
                 {title}
               </Link>
@@ -58,7 +59,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {url && !repo && (
             <Link
               href={url}
-              className="text-base text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
+              className={`text-base ${LINK_CLASS}`}
             >
               Visit →
             </Link>
