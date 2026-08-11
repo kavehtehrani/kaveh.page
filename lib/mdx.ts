@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { CONTENT_TYPES } from "@/data/constants";
+import { rehypeImageDimensions } from "@/lib/rehype-image-dimensions";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -75,6 +76,9 @@ export async function getAuthorData(): Promise<AuthorData> {
         ...(Array.isArray(options.rehypePlugins) ? options.rehypePlugins : []),
         rehypeKatex,
         rehypeHighlight,
+        // Stamps real intrinsic dimensions onto local images so they reserve
+        // the correct space and do not shift the layout on load.
+        rehypeImageDimensions,
       ];
       return options;
     },
@@ -124,6 +128,9 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
         ...(Array.isArray(options.rehypePlugins) ? options.rehypePlugins : []),
         rehypeKatex,
         rehypeHighlight,
+        // Stamps real intrinsic dimensions onto local images so they reserve
+        // the correct space and do not shift the layout on load.
+        rehypeImageDimensions,
       ];
       return options;
     },

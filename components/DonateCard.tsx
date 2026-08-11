@@ -46,7 +46,7 @@ export function DonateCard({ donate }: { donate: Donate }) {
               )}
             </h2>
             <div className="max-w-none space-y-2 break-all whitespace-pre-line text-justify text-gray-500 dark:text-gray-400">
-              <p id="description" className="inline">
+              <p className="inline">
                 {description}
               </p>
               {description ? (
