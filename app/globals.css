@@ -20,11 +20,17 @@
   --color-terminal-gray-light: #a0a0a0;
   --color-terminal-gray-dark: #606060;
 
-  /* Legacy primary colors for compatibility */
+  /* Primary (terminal amber) scale.
+     `initial` clears Tailwind's default palette, so every shade used anywhere in
+     the codebase must be redefined here — otherwise the utility compiles to
+     nothing and the element silently falls back to its inherited colour.
+     200 and 700 were previously used but undefined. */
   --color-primary-*: initial;
+  --color-primary-200: #ffd899;
+  --color-primary-400: #ffaa00;
   --color-primary-500: #ff8800;
   --color-primary-600: #ff6600;
-  --color-primary-400: #ffaa00;
+  --color-primary-700: #cc5200;
 
   --font-terminal: var(--font-terminal), "JetBrains Mono", "Fira Code",
     "Consolas", "Monaco", "Courier New", monospace;
@@ -60,22 +66,29 @@ body {
   line-height: 1.6;
 }
 
-/* Scale down main content by 20% (excluding header and footer) */
-/* Use zoom for simple scaling - widely supported in modern browsers */
-.content-scaled {
-  zoom: 0.8;
-  -moz-transform: scale(0.8);
-  -moz-transform-origin: top left;
+/* Scale down main content by 20% (excluding header and footer).
+   Dropped the -moz-transform pair: Firefox unprefixed `transform` in v16, so it
+   was dead code, and on any engine that honoured both it compounded with zoom.
+
+   Not applied on small screens — 14px base at 0.8 gives ~11.2px effective body
+   text, below the size mobile usability checks expect and hard to read. */
+@media (min-width: 640px) {
+  .content-scaled {
+    zoom: 0.8;
+  }
 }
 
-/* Fallback for browsers that don't support zoom */
-@supports not (zoom: 1) {
-  .content-scaled {
-    transform: scale(0.8);
-    transform-origin: top left;
-    width: 125%;
-    margin-left: 0;
-    margin-right: -25%;
+/* Fallback for browsers that don't support zoom. Scoped to the same breakpoint
+   as the zoom rule so mobile is never scaled down by either path. */
+@media (min-width: 640px) {
+  @supports not (zoom: 1) {
+    .content-scaled {
+      transform: scale(0.8);
+      transform-origin: top left;
+      width: 125%;
+      margin-left: 0;
+      margin-right: -25%;
+    }
   }
 }
 
@@ -480,13 +493,14 @@ a[aria-label="View on GitHub"]:hover .dev-icon img {
   opacity: 1;
 }
 
-/* Keyboard navigation focus indicator */
-a.keyboard-focus {
-  outline: 2px solid #ff8800 !important;
-  outline-offset: 2px !important;
-  background-color: #2d2d2d !important;
-  border: 1px solid #ff8800 !important;
-  border-radius: 4px;
+/* Keyboard focus indicator.
+   Replaces a former .keyboard-focus class that JS toggled while Tab was
+   preventDefault()-ed, which meant nothing was ever really focused and
+   assistive tech had nothing to announce. This uses real focus. */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Post list item highlighting */

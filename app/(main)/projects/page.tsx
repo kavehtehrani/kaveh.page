@@ -1,11 +1,15 @@
+import type { Metadata } from "next";
+import { ROUTES } from "@/data/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 import { projectsData } from "@/data/projects";
 import { ProjectCard } from "@/components/ProjectCard";
-import { siteConfig } from "@/data/site";
 
-export const metadata = {
-  title: `Projects - ${siteConfig.title}`,
-  description: "Growing list of independent personal projects done over the years",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Projects",
+  description:
+    "Growing list of independent personal projects done over the years",
+  path: ROUTES.projects,
+});
 
 export default function ProjectsPage() {
   return (

@@ -1,3 +1,5 @@
+import { cache } from "react";
+import { CONTENT_TYPES } from "@/data/constants";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -17,7 +19,8 @@ export interface AuthorData {
   };
 }
 
-export interface BlogFrontMatter {
+/** Fields shared by every content type under data/. */
+export interface BaseFrontMatter {
   slug: string;
   date: string;
   lastmod?: string;
@@ -36,22 +39,12 @@ export interface BlogFrontMatter {
   folderName?: string;
 }
 
-export interface SnippetFrontMatter {
-  slug: string;
-  date: string;
-  title: string;
+export type BlogFrontMatter = BaseFrontMatter;
+
+export interface SnippetFrontMatter extends BaseFrontMatter {
+  /** Snippets show a short heading in listings, distinct from the title. */
   heading: string;
-  summary: string;
-  tags: string[];
   type?: string;
-  readingTime: {
-    text: string;
-    minutes: number;
-  };
-  fileName: string;
-  draft?: boolean;
-  layout?: string;
-  folderName?: string;
 }
 
 export interface BlogPost {
@@ -166,124 +159,105 @@ export async function getFileBySlug(type: string, slug: string): Promise<Post> {
   };
 }
 
-export function getAllFilesFrontMatter(
-  ...folderNames: string[]
-): BlogFrontMatter[] {
-  const root = process.cwd();
-  const allFrontMatter: BlogFrontMatter[] = [];
+/**
+ * Walks one content folder and returns the front matter of every publishable
+ * document in it.
+ *
+ * getAllFilesFrontMatter and getAllSnippetsFrontMatter were ~55 lines of
+ * copy-paste that differed only in which fields they required and how they
+ * derived the title. That difference is now the `normalise` callback.
+ */
+function collectFrontMatter<T extends BaseFrontMatter>(
+  folder: string,
+  normalise: (
+    data: Record<string, unknown>,
+    fileName: string
+  ) => Partial<T> | null
+): T[] {
+  const prefixPath = path.join(process.cwd(), "data", folder);
+  if (!fs.existsSync(prefixPath)) return [];
 
-  for (const folder of folderNames) {
-    const prefixPaths = path.join(root, "data", folder);
-    const files = getAllFilesRecursively(prefixPaths);
+  const collected: T[] = [];
 
-    files.forEach((file) => {
-      const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, "/");
-      if (!fileName.endsWith(".md") && !fileName.endsWith(".mdx")) {
-        return;
-      }
-
-      const source = fs.readFileSync(file, "utf8");
-      const { data } = matter(source);
-      const readingTimeData = readingTime(source);
-
-      if (data.draft !== true) {
-        const formattedSlug = formatSlug(fileName);
-        if (!formattedSlug) {
-          console.warn(`Warning: Empty slug for file: ${fileName}`);
-          return; // Skip files with empty slugs
-        }
-
-        // Validate required fields
-        if (
-          !data.date ||
-          !data.title ||
-          !data.summary ||
-          !data.tags ||
-          !Array.isArray(data.tags)
-        ) {
-          console.warn(
-            `Warning: Skipping file ${fileName} - missing required fields. ` +
-              `Required: date, title, summary, tags (array). ` +
-              `Found: date=${!!data.date}, title=${!!data.title}, summary=${!!data.summary}, tags=${
-                !!data.tags && Array.isArray(data.tags)
-              }`
-          );
-          return;
-        }
-
-        allFrontMatter.push({
-          ...data,
-          slug: formattedSlug, // Ensure slug is set after spreading data
-          readingTime: {
-            text: readingTimeData.text,
-            minutes: readingTimeData.minutes,
-          },
-          folderName: folder,
-          fileName: fileName,
-        } as BlogFrontMatter);
-      }
-    });
-  }
-
-  return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date));
-}
-
-export function getAllSnippetsFrontMatter(): SnippetFrontMatter[] {
-  const root = process.cwd();
-  const allFrontMatter: SnippetFrontMatter[] = [];
-  const prefixPaths = path.join(root, "data", "snippets");
-  const files = getAllFilesRecursively(prefixPaths);
-
-  files.forEach((file) => {
-    const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, "/");
-    if (!fileName.endsWith(".md") && !fileName.endsWith(".mdx")) {
-      return;
-    }
+  for (const file of getAllFilesRecursively(prefixPath)) {
+    const fileName = file.slice(prefixPath.length + 1).replace(/\\/g, "/");
+    if (!fileName.endsWith(".md") && !fileName.endsWith(".mdx")) continue;
 
     const source = fs.readFileSync(file, "utf8");
     const { data } = matter(source);
-    const readingTimeData = readingTime(source);
+    if (data.draft === true) continue;
 
-    if (data.draft !== true) {
-      const formattedSlug = formatSlug(fileName);
-      if (!formattedSlug) {
-        console.warn(`Warning: Empty slug for file: ${fileName}`);
-        return;
-      }
-
-      // Snippets require: date, title or heading, summary, tags
-      const hasTitle = data.title || data.heading;
-      if (
-        !data.date ||
-        !hasTitle ||
-        !data.summary ||
-        !data.tags ||
-        !Array.isArray(data.tags)
-      ) {
-        console.warn(
-          `Warning: Skipping snippet ${fileName} - missing required fields. ` +
-            `Required: date, title/heading, summary, tags (array). ` +
-            `Found: date=${!!data.date}, title/heading=${!!hasTitle}, summary=${!!data.summary}, tags=${
-              !!data.tags && Array.isArray(data.tags)
-            }`
-        );
-        return;
-      }
-
-      allFrontMatter.push({
-        ...data,
-        slug: formattedSlug,
-        title: data.title || data.heading, // Use title if available, otherwise heading
-        heading: data.heading || data.title, // Use heading if available, otherwise title
-        readingTime: {
-          text: readingTimeData.text,
-          minutes: readingTimeData.minutes,
-        },
-        folderName: "snippets",
-        fileName: fileName,
-      } as SnippetFrontMatter);
+    const slug = formatSlug(fileName);
+    if (!slug) {
+      console.warn(`Warning: empty slug for file: ${fileName}`);
+      continue;
     }
-  });
 
-  return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date));
+    if (!data.date || !data.summary || !Array.isArray(data.tags)) {
+      console.warn(
+        `Warning: skipping ${folder}/${fileName} - required front matter missing. ` +
+          `Needs date, summary and tags[]. ` +
+          `Found date=${!!data.date}, summary=${!!data.summary}, tags=${Array.isArray(data.tags)}`
+      );
+      continue;
+    }
+
+    const extra = normalise(data, fileName);
+    if (!extra) continue;
+
+    const readingTimeData = readingTime(source);
+    collected.push({
+      ...data,
+      ...extra,
+      slug,
+      readingTime: {
+        text: readingTimeData.text,
+        minutes: readingTimeData.minutes,
+      },
+      folderName: folder,
+      fileName,
+    } as unknown as T);
+  }
+
+  return collected.sort((a, b) => dateSortDesc(a.date, b.date));
 }
+
+export function getAllFilesFrontMatter(
+  ...folderNames: string[]
+): BlogFrontMatter[] {
+  const all = folderNames.flatMap((folder) =>
+    collectFrontMatter<BlogFrontMatter>(folder, (data, fileName) => {
+      if (!data.title) {
+        console.warn(`Warning: skipping ${folder}/${fileName} - no title`);
+        return null;
+      }
+      return {};
+    })
+  );
+  return all.sort((a, b) => dateSortDesc(a.date, b.date));
+}
+
+export function getAllSnippetsFrontMatter(): SnippetFrontMatter[] {
+  return collectFrontMatter<SnippetFrontMatter>(
+    CONTENT_TYPES.snippets,
+    (data, fileName) => {
+      const title = (data.title || data.heading) as string | undefined;
+      const heading = (data.heading || data.title) as string | undefined;
+      if (!title || !heading) {
+        console.warn(
+          `Warning: skipping snippets/${fileName} - needs a title or heading`
+        );
+        return null;
+      }
+      return { title, heading };
+    }
+  );
+}
+
+/**
+ * Request-scoped memoisation. generateMetadata() and the page component both
+ * need the same document; without this, esbuild bundles every post twice per
+ * render.
+ */
+export const getCachedFileBySlug = cache(getFileBySlug);
+export const getCachedAuthorData = cache(getAuthorData);

@@ -1,6 +1,6 @@
 import { Link } from "@/components/Link";
 import { getDisplayTitle } from "@/lib/client-utils";
-import type { BlogFrontMatter } from "@/components/PostListItem";
+import type { BlogFrontMatter } from "@/lib/mdx";
 import type { SnippetFrontMatter } from "@/lib/mdx";
 
 type FrontMatter = BlogFrontMatter | SnippetFrontMatter;

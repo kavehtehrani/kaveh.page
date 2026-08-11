@@ -3,6 +3,8 @@ import { JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
+import { absoluteUrl, twitterHandle } from "@/lib/metadata";
+import { ROUTES } from "@/data/constants";
 import { Analytics } from "@/components/analytics";
 import {
   OrganizationStructuredData,
@@ -49,12 +51,10 @@ export const metadata: Metadata = {
     description: siteConfig.description,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    creator:
-      siteConfig.social.twitter?.replace("https://twitter.com/", "@") ||
-      undefined,
+    creator: twitterHandle,
   },
   robots: {
     index: true,
@@ -90,11 +90,13 @@ export const metadata: Metadata = {
     shortcut: "/static/favicons/favicon-32x32.png",
   },
   manifest: "/static/favicons/site.webmanifest",
+  // No `canonical` here. Metadata is inherited down the segment tree, so a
+  // site-wide canonical makes every page that omits its own declare itself a
+  // duplicate of the homepage. Each route sets its own via buildPageMetadata().
   alternates: {
-    canonical: siteConfig.url,
     types: {
       "application/rss+xml": [
-        { url: `${siteConfig.url}/feed.xml`, title: siteConfig.title },
+        { url: absoluteUrl(ROUTES.feed), title: siteConfig.title },
       ],
     },
   },

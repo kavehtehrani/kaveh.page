@@ -1,28 +1,45 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
-  getFileBySlug,
+  getCachedFileBySlug,
   getAllSnippetsFrontMatter,
   type SnippetFrontMatter,
 } from "@/lib/mdx";
 import { PostSimple } from "@/layouts/PostSimple";
-import { PageTitle } from "@/components/PageTitle";
 import { siteConfig } from "@/data/site";
-import type { Metadata } from "next";
+import { CONTENT_TYPES, ROUTES } from "@/data/constants";
+import {
+  absoluteUrl,
+  buildPageMetadata,
+  joinSlug,
+  resolveOgImage,
+} from "@/lib/metadata";
+import {
+  ArticleStructuredData,
+  BreadcrumbStructuredData,
+} from "@/components/StructuredData";
 
 export async function generateStaticParams() {
-  const snippets = getAllSnippetsFrontMatter();
-  const validSnippets = snippets.filter(
-    (snippet) =>
-      snippet.slug && snippet.slug !== "undefined" && snippet.slug.trim() !== ""
-  );
+  return getAllSnippetsFrontMatter()
+    .filter((s) => s.slug && s.slug !== "undefined" && s.slug.trim() !== "")
+    .map((s) => ({ slug: s.slug.split("/") }));
+}
 
-  return validSnippets.map((snippet) => {
-    const slugParts = snippet.slug.includes("/")
-      ? snippet.slug.split("/")
-      : [snippet.slug];
-    return {
-      slug: slugParts,
-    };
-  });
+/**
+ * Resolves a snippet, returning null instead of throwing so callers can render
+ * a proper 404 rather than a 500.
+ */
+async function loadSnippet(slugParts: string[] | undefined) {
+  const slug = joinSlug(slugParts);
+  if (!slug || slug === "undefined") return null;
+
+  const snippet = await getCachedFileBySlug(CONTENT_TYPES.snippets, slug).catch(
+    () => null
+  );
+  if (!snippet || snippet.frontMatter.folderName !== CONTENT_TYPES.snippets) {
+    return null;
+  }
+  return { slug, frontMatter: snippet.frontMatter as SnippetFrontMatter, mdxSource: snippet.mdxSource };
 }
 
 export async function generateMetadata({
@@ -30,49 +47,22 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const slug = Array.isArray(resolvedParams.slug)
-    ? resolvedParams.slug.join("/")
-    : resolvedParams.slug;
+  const snippet = await loadSnippet((await params).slug);
+  if (!snippet) return {};
 
-  if (!slug || slug === "undefined" || slug.trim() === "") {
-    throw new Error("Invalid slug parameter for metadata");
-  }
+  const { slug, frontMatter } = snippet;
+  const title = frontMatter.heading || frontMatter.title;
 
-  const snippet = await getFileBySlug("snippets", slug);
-
-  if (snippet.frontMatter.folderName !== "snippets") {
-    throw new Error("Invalid snippet");
-  }
-
-  const snippetFrontMatter = snippet.frontMatter as SnippetFrontMatter;
-  const url = `${siteConfig.url}/snippets/${slug}`;
-  const title = snippetFrontMatter.heading || snippetFrontMatter.title;
-
-  return {
+  return buildPageMetadata({
     title,
-    description: snippetFrontMatter.summary,
-    keywords: snippetFrontMatter.tags,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      url,
-      title,
-      description: snippetFrontMatter.summary,
-      type: "article",
-      tags: snippetFrontMatter.tags,
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description: snippetFrontMatter.summary,
-    },
-    robots: {
-      index: !snippetFrontMatter.draft,
-      follow: !snippetFrontMatter.draft,
-    },
-  };
+    description: frontMatter.summary,
+    path: `${ROUTES.snippets}/${slug}`,
+    type: "article",
+    ogEyebrow: "Snippet",
+    keywords: frontMatter.tags,
+    image: resolveOgImage(frontMatter.images),
+    noIndex: Boolean(frontMatter.draft),
+  });
 }
 
 export default async function SnippetPost({
@@ -80,55 +70,49 @@ export default async function SnippetPost({
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
-  const resolvedParams = await params;
+  const snippet = await loadSnippet((await params).slug);
+  if (!snippet || snippet.frontMatter.draft) notFound();
 
-  if (
-    !resolvedParams?.slug ||
-    (Array.isArray(resolvedParams.slug) && resolvedParams.slug.length === 0)
-  ) {
-    throw new Error("Invalid slug parameter");
-  }
-
-  const slug = Array.isArray(resolvedParams.slug)
-    ? resolvedParams.slug.join("/")
-    : resolvedParams.slug;
-
-  if (!slug || slug === "undefined" || slug.trim() === "") {
-    throw new Error(`Invalid slug: ${slug}`);
-  }
-
-  const snippet = await getFileBySlug("snippets", slug);
-
-  if (snippet.frontMatter.folderName !== "snippets") {
-    throw new Error("Invalid snippet");
-  }
-
-  const snippetFrontMatter = snippet.frontMatter as SnippetFrontMatter;
-
-  if (snippetFrontMatter.draft) {
-    return (
-      <div className="mt-24 text-center">
-        <PageTitle>
-          Under Construction{" "}
-          <span role="img" aria-label="roadwork sign">
-            🚧
-          </span>
-        </PageTitle>
-      </div>
-    );
-  }
+  const { slug, frontMatter, mdxSource } = snippet;
+  const title = frontMatter.heading || frontMatter.title;
+  const url = absoluteUrl(`${ROUTES.snippets}/${slug}`);
+  const publishedTime = new Date(frontMatter.date).toISOString();
 
   const allSnippets = getAllSnippetsFrontMatter();
-  const snippetIndex = allSnippets.findIndex((s) => s.slug === slug);
-  const prev = allSnippets[snippetIndex + 1] || null;
-  const next = allSnippets[snippetIndex - 1] || null;
+  const index = allSnippets.findIndex((s) => s.slug === slug);
+  const prev = allSnippets[index + 1] || null;
+  const next = allSnippets[index - 1] || null;
 
   return (
-    <PostSimple
-      frontMatter={snippetFrontMatter}
-      content={snippet.mdxSource}
-      next={next}
-      prev={prev}
-    />
+    <>
+      <ArticleStructuredData
+        title={title}
+        description={frontMatter.summary}
+        url={url}
+        publishedTime={publishedTime}
+        modifiedTime={
+          frontMatter.lastmod
+            ? new Date(frontMatter.lastmod).toISOString()
+            : publishedTime
+        }
+        authorName={siteConfig.author}
+        authorUrl={siteConfig.url}
+        image={resolveOgImage(frontMatter.images)}
+        tags={frontMatter.tags}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Snippets", url: absoluteUrl(ROUTES.snippets) },
+          { name: title, url },
+        ]}
+      />
+      <PostSimple
+        frontMatter={frontMatter}
+        content={mdxSource}
+        next={next}
+        prev={prev}
+      />
+    </>
   );
 }

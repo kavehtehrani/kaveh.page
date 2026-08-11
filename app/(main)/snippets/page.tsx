@@ -1,21 +1,14 @@
+import { ROUTES } from "@/data/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 import { getAllSnippetsFrontMatter } from "@/lib/mdx";
 import { SnippetCard } from "@/components/SnippetCard";
-import { siteConfig } from "@/data/site";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Snippets",
   description: "Little code snippets / system config stuff I have found useful",
-  alternates: {
-    canonical: `${siteConfig.url}/snippets`,
-  },
-  openGraph: {
-    url: `${siteConfig.url}/snippets`,
-    title: `Snippets - ${siteConfig.title}`,
-    description:
-      "Little code snippets / system config stuff I have found useful",
-  },
-};
+  path: ROUTES.snippets,
+});
 
 export default async function SnippetsPage() {
   const snippets = getAllSnippetsFrontMatter();

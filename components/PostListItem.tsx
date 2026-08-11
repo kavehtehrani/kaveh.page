@@ -1,22 +1,7 @@
 import { formatDate } from "@/lib/client-utils";
 import { Link } from "./Link";
 import { Tag } from "./Tag";
-
-export interface BlogFrontMatter {
-  slug: string;
-  date: string;
-  title: string;
-  summary: string;
-  tags: string[];
-  readingTime: {
-    text: string;
-    minutes: number;
-  };
-  folderName?: string;
-  fileName?: string;
-  draft?: boolean;
-  layout?: string;
-}
+import type { BlogFrontMatter } from "@/lib/mdx";
 
 export function PostListItem({
   frontMatter,

@@ -3,7 +3,7 @@ import { DevIcon } from "./DevIcon";
 import type { SnippetFrontMatter } from "@/lib/mdx";
 
 export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
-  const { type, heading, summary, title, slug } = snippet;
+  const { type, heading, summary, slug } = snippet;
 
   return (
     <div className="flex rounded-lg shadow-sm border border-gray-300 hover:border-gray-500 hover:shadow-md hover:bg-gray-50 dark:border-gray-600 dark:hover:border-gray-400 dark:hover:bg-terminal-bg-light transition-all duration-200">

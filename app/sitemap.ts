@@ -1,94 +1,82 @@
 import { MetadataRoute } from "next";
-import { getAllFilesFrontMatter } from "@/lib/mdx";
-import { getAllSnippetsFrontMatter } from "@/lib/mdx";
+import { getAllFilesFrontMatter, getAllSnippetsFrontMatter } from "@/lib/mdx";
 import { getAllTags } from "@/lib/tags";
-import { siteConfig } from "@/data/site";
 import { kebabCase } from "@/lib/client-utils";
+import { absoluteUrl } from "@/lib/metadata";
+import { CONTENT_TYPES, ROUTES, SITEMAP } from "@/data/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = siteConfig.url;
-  const currentDate = new Date();
+  const posts = getAllFilesFrontMatter(CONTENT_TYPES.blog).filter(
+    (post) => !post.draft
+  );
+  const snippets = getAllSnippetsFrontMatter().filter(
+    (snippet) => !snippet.draft
+  );
 
-  // Static pages
+  /**
+   * Newest content date, used as lastModified for the listing pages. Previously
+   * every static page reported `new Date()` at build time, so all of them
+   * claimed to have changed on every deploy — a signal crawlers learn to ignore.
+   */
+  const latest = (dates: (string | undefined)[]) => {
+    const times = dates
+      .filter((d): d is string => Boolean(d))
+      .map((d) => new Date(d).getTime())
+      .filter((t) => !Number.isNaN(t));
+    return times.length ? new Date(Math.max(...times)) : new Date();
+  };
+
+  const postDates = posts.map((p) => p.lastmod || p.date);
+  const snippetDates = snippets.map((s) => s.lastmod || s.date);
+  const newestPost = latest(postDates);
+  const newestSnippet = latest(snippetDates);
+  const newestAny = latest([...postDates, ...snippetDates]);
+
   const staticPages: MetadataRoute.Sitemap = [
+    { url: absoluteUrl(ROUTES.home), lastModified: newestAny, ...SITEMAP.home },
+    { url: absoluteUrl(ROUTES.blog), lastModified: newestPost, ...SITEMAP.blog },
     {
-      url: siteUrl,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 1,
+      url: absoluteUrl(ROUTES.snippets),
+      lastModified: newestSnippet,
+      ...SITEMAP.snippets,
+    },
+    { url: absoluteUrl(ROUTES.tags), lastModified: newestAny, ...SITEMAP.tags },
+    {
+      url: absoluteUrl(ROUTES.projects),
+      lastModified: newestAny,
+      ...SITEMAP.projects,
+    },
+    { url: absoluteUrl(ROUTES.about), lastModified: newestAny, ...SITEMAP.about },
+    {
+      url: absoluteUrl(ROUTES.donate),
+      lastModified: newestAny,
+      ...SITEMAP.donate,
     },
     {
-      url: `${siteUrl}/blog`,
-      lastModified: currentDate,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/snippets`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/projects`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${siteUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${siteUrl}/tags`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${siteUrl}/privacy`,
-      lastModified: currentDate,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${siteUrl}/donate`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.5,
+      url: absoluteUrl(ROUTES.privacy),
+      lastModified: newestAny,
+      ...SITEMAP.privacy,
     },
   ];
 
-  // Blog posts
-  const blogPosts = getAllFilesFrontMatter("blog").map((post) => ({
-    url: `${siteUrl}/${post.folderName || "blog"}/${post.slug}`,
+  const blogPosts: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: absoluteUrl(`/${post.folderName || CONTENT_TYPES.blog}/${post.slug}`),
     lastModified: new Date(post.lastmod || post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
+    ...SITEMAP.blogPost,
   }));
 
-  // Snippets
-  const snippets = getAllSnippetsFrontMatter().map((snippet) => ({
-    url: `${siteUrl}/snippets/${snippet.slug}`,
-    lastModified: new Date(snippet.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
+  const snippetPages: MetadataRoute.Sitemap = snippets.map((snippet) => ({
+    url: absoluteUrl(`${ROUTES.snippets}/${snippet.slug}`),
+    lastModified: new Date(snippet.lastmod || snippet.date),
+    ...SITEMAP.snippetPost,
   }));
 
-  // Tag pages
-  const tags = getAllTags("blog", "snippets");
-  const tagPages = Object.keys(tags).map((tag) => ({
-    url: `${siteUrl}/tags/${kebabCase(tag)}`,
-    lastModified: currentDate,
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
+  const tags = getAllTags(CONTENT_TYPES.blog, CONTENT_TYPES.snippets);
+  const tagPages: MetadataRoute.Sitemap = Object.keys(tags).map((tag) => ({
+    url: absoluteUrl(`${ROUTES.tags}/${kebabCase(tag)}`),
+    lastModified: newestAny,
+    ...SITEMAP.tagPage,
   }));
 
-  return [...staticPages, ...blogPosts, ...snippets, ...tagPages];
+  return [...staticPages, ...blogPosts, ...snippetPages, ...tagPages];
 }
-
-
-
-

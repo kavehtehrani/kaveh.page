@@ -1,22 +1,16 @@
+import { ROUTES } from "@/data/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 import { Link } from "@/components/Link";
 import { Tag } from "@/components/Tag";
 import { getAllTags } from "@/lib/tags";
-import { siteConfig } from "@/data/site";
 import { kebabCase } from "@/lib/client-utils";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Tags",
   description: "Browse blog posts and snippets by tags - Things I blog about",
-  alternates: {
-    canonical: `${siteConfig.url}/tags`,
-  },
-  openGraph: {
-    url: `${siteConfig.url}/tags`,
-    title: `Tags - ${siteConfig.title}`,
-    description: "Browse blog posts and snippets by tags",
-  },
-};
+  path: ROUTES.tags,
+});
 
 export default function Tags() {
   const tags = getAllTags("blog", "snippets");

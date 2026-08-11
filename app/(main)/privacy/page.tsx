@@ -1,10 +1,13 @@
+import type { Metadata } from "next";
+import { ROUTES } from "@/data/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 import { Link } from "@/components/Link";
-import { siteConfig } from "@/data/site";
 
-export const metadata = {
-  title: `Privacy - ${siteConfig.title}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Privacy",
   description: "Privacy policy for kaveh.page",
-};
+  path: ROUTES.privacy,
+});
 
 export default function Privacy() {
   return (

@@ -1,37 +1,22 @@
-"use client";
-
-import { useState } from "react";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { MobileNav } from "@/components/MobileNav";
-import { SubscribeOverlay } from "@/components/SubscribeOverlay";
+import { SiteChrome } from "@/components/SiteChrome";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [navShow, setNavShow] = useState(false);
-  const [subShow, setSubShow] = useState(false);
-
-  const onToggleNav = () => setNavShow((status) => !status);
-  const onToggleSub = () => setSubShow((status) => !status);
-
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-terminal-bg text-terminal-orange-dim dark:text-terminal-orange transition-colors duration-300 px-4">
-      <MobileNav isOpen={navShow} onClose={onToggleNav} />
-      <SubscribeOverlay isOpen={subShow} onClose={onToggleSub} />
-      <Header onToggleNav={onToggleNav} onToggleSub={onToggleSub} />
-      <div className="mx-auto max-w-3xl px-3 sm:px-6 xl:max-w-5xl xl:px-0">
-        <div className="flex flex-col justify-between">
-          <main
-            style={{ minHeight: "calc(100vh - 69px - 188px)" }}
-            className="transition-colors duration-300 content-scaled"
-          >
-            {children}
-          </main>
-          <Footer />
-        </div>
+    // Flex column + flex-1 on <main> keeps the footer at the bottom. This
+    // replaces a `calc(100vh - 69px - 188px)` inline style whose hardcoded
+    // header/footer pixel heights nothing kept in sync.
+    <div className="flex min-h-screen w-full flex-col bg-white dark:bg-terminal-bg text-terminal-orange-dim dark:text-terminal-orange transition-colors duration-300 px-4">
+      <SiteChrome />
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-3 sm:px-6 xl:max-w-5xl xl:px-0">
+        <main className="flex-1 transition-colors duration-300 content-scaled">
+          {children}
+        </main>
+        <Footer />
       </div>
     </div>
   );
