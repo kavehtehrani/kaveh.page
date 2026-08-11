@@ -6,7 +6,7 @@ import { MDXContent } from "@/components/MDXContent";
 import { KeyboardNavigation } from "@/components/KeyboardNavigation";
 import { PostNavigation } from "@/components/PostNavigation";
 import { getDisplayTitle } from "@/lib/client-utils";
-import type { BlogFrontMatter } from "@/components/PostListItem";
+import type { BlogFrontMatter } from "@/lib/mdx";
 import type { SnippetFrontMatter } from "@/lib/mdx";
 
 type FrontMatter = BlogFrontMatter | SnippetFrontMatter;

@@ -34,9 +34,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         onClose();
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    // "click", not "mousedown": mousedown fires before the header toggle's
+    // click handler, which would immediately reopen the menu.
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [isOpen, onClose]);
 
@@ -45,6 +47,10 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   return (
     <div
       ref={menuRef}
+      id="mobile-nav"
+      role="dialog"
+      aria-modal="false"
+      aria-label="Site navigation"
       className="fixed right-2 top-14 z-50 w-56 rounded-md border border-gray-300 dark:border-terminal-bg-lighter bg-white dark:bg-terminal-bg shadow-lg"
     >
       <nav className="py-1">

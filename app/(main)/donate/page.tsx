@@ -1,12 +1,15 @@
+import type { Metadata } from "next";
+import { ROUTES } from "@/data/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 import { DonateCard } from "@/components/DonateCard";
 import { donateData } from "@/data/donate";
-import { siteConfig } from "@/data/site";
 
-export const metadata = {
-  title: `Donate - ${siteConfig.author}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "Donate",
   description:
     "If you have found my writings helpful, donations are always appreciated but never expected. Thank you for your support 🍻",
-};
+  path: ROUTES.donate,
+});
 
 export default function Donate() {
   const description =

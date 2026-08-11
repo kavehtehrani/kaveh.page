@@ -20,25 +20,38 @@
   --color-terminal-gray-light: #a0a0a0;
   --color-terminal-gray-dark: #606060;
 
-  /* Legacy primary colors for compatibility */
+  /* Primary (terminal amber) scale.
+     `initial` clears Tailwind's default palette, so every shade used anywhere in
+     the codebase must be redefined here — otherwise the utility compiles to
+     nothing and the element silently falls back to its inherited colour.
+     200 and 700 were previously used but undefined. */
   --color-primary-*: initial;
+  --color-primary-200: #ffd899;
+  --color-primary-400: #ffaa00;
   --color-primary-500: #ff8800;
   --color-primary-600: #ff6600;
-  --color-primary-400: #ffaa00;
+  --color-primary-700: #cc5200;
 
   --font-terminal: var(--font-terminal), "JetBrains Mono", "Fira Code",
     "Consolas", "Monaco", "Courier New", monospace;
+
+  /* Surface/border shades that were previously repeated as raw hex. */
+  --color-terminal-border: #c0c0c0;
+  --color-terminal-bg-deep: #0d0d0d;
+  --color-terminal-bg-darker: #2a2a2a;
+  --color-surface-muted: #e8e8e8;
+  --color-surface-subtle: #e0e0e0;
 }
 
 :root {
   --background: #f5f5f5;
-  --foreground: #cc6600;
+  --foreground: var(--color-terminal-orange-dim);
   --font-sans: var(--font-terminal);
 }
 
 .dark {
-  --background: #1a1a1a;
-  --foreground: #ff8800;
+  --background: var(--color-terminal-bg);
+  --foreground: var(--color-terminal-orange);
 }
 
 html {
@@ -60,29 +73,36 @@ body {
   line-height: 1.6;
 }
 
-/* Scale down main content by 20% (excluding header and footer) */
-/* Use zoom for simple scaling - widely supported in modern browsers */
-.content-scaled {
-  zoom: 0.8;
-  -moz-transform: scale(0.8);
-  -moz-transform-origin: top left;
+/* Scale down main content by 20% (excluding header and footer).
+   Dropped the -moz-transform pair: Firefox unprefixed `transform` in v16, so it
+   was dead code, and on any engine that honoured both it compounded with zoom.
+
+   Not applied on small screens — 14px base at 0.8 gives ~11.2px effective body
+   text, below the size mobile usability checks expect and hard to read. */
+@media (min-width: 640px) {
+  .content-scaled {
+    zoom: 0.8;
+  }
 }
 
-/* Fallback for browsers that don't support zoom */
-@supports not (zoom: 1) {
-  .content-scaled {
-    transform: scale(0.8);
-    transform-origin: top left;
-    width: 125%;
-    margin-left: 0;
-    margin-right: -25%;
+/* Fallback for browsers that don't support zoom. Scoped to the same breakpoint
+   as the zoom rule so mobile is never scaled down by either path. */
+@media (min-width: 640px) {
+  @supports not (zoom: 1) {
+    .content-scaled {
+      transform: scale(0.8);
+      transform-origin: top left;
+      width: 125%;
+      margin-left: 0;
+      margin-right: -25%;
+    }
   }
 }
 
 /* Terminal prose styling */
 .prose {
   background-color: transparent;
-  color: #404040;
+  color: var(--color-terminal-bg-lighter);
   font-family: var(--font-terminal);
   max-width: 100%;
 }
@@ -134,21 +154,21 @@ body {
 
 .dark .prose {
   background-color: transparent;
-  color: #a0a0a0;
+  color: var(--color-terminal-gray-light);
 }
 
 .prose a {
-  color: #cc6600;
+  color: var(--color-terminal-orange-dim);
   text-decoration: underline;
 }
 
 .prose a:hover {
-  color: #994400;
+  color: var(--color-terminal-orange-dark);
   text-decoration: underline;
 }
 
 .dark .prose a {
-  color: #ffaa00;
+  color: var(--color-terminal-orange-bright);
 }
 
 .dark .prose a:hover {
@@ -159,8 +179,8 @@ body {
 .prose h2 {
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #cc6600;
-  border-bottom: 1px solid #c0c0c0;
+  color: var(--color-terminal-orange-dim);
+  border-bottom: 1px solid var(--color-terminal-border);
   padding-bottom: 0.5rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -169,27 +189,27 @@ body {
 
 .dark .prose h1,
 .dark .prose h2 {
-  color: #ff8800;
-  border-bottom-color: #808080;
+  color: var(--color-terminal-orange);
+  border-bottom-color: var(--color-terminal-gray);
 }
 
 .prose h3 {
   font-weight: 600;
-  color: #994400;
+  color: var(--color-terminal-orange-dark);
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
   text-align: left;
 }
 
 .dark .prose h3 {
-  color: #ffaa00;
+  color: var(--color-terminal-orange-bright);
 }
 
 .prose h4,
 .prose h5,
 .prose h6 {
   font-weight: 600;
-  color: #994400;
+  color: var(--color-terminal-orange-dark);
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
   text-align: left;
@@ -198,16 +218,16 @@ body {
 .dark .prose h4,
 .dark .prose h5,
 .dark .prose h6 {
-  color: #ffaa00;
+  color: var(--color-terminal-orange-bright);
 }
 
 /* Inline code - terminal style */
 .prose code:not(pre code) {
-  color: #994400;
+  color: var(--color-terminal-orange-dark);
   font-weight: 500;
-  background-color: #e0e0e0;
+  background-color: var(--color-surface-subtle);
   padding: 0.125rem 0.375rem;
-  border: 1px solid #c0c0c0;
+  border: 1px solid var(--color-terminal-border);
   border-radius: 4px;
   font-family: var(--font-terminal);
   font-size: 0.9em;
@@ -219,17 +239,17 @@ body {
 }
 
 .dark .prose code:not(pre code) {
-  color: #ffaa00;
-  background-color: #2d2d2d;
-  border-color: #404040;
+  color: var(--color-terminal-orange-bright);
+  background-color: var(--color-terminal-bg-light);
+  border-color: var(--color-terminal-bg-lighter);
 }
 
 /* Code blocks - terminal style */
 .prose pre {
-  background-color: #2a2a2a !important;
-  color: #cc6600;
-  border: 1px solid #c0c0c0;
-  border-left: 3px solid #cc6600;
+  background-color: var(--color-terminal-bg-darker) !important;
+  color: var(--color-terminal-orange-dim);
+  border: 1px solid var(--color-terminal-border);
+  border-left: 3px solid var(--color-terminal-orange-dim);
   border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
@@ -241,21 +261,21 @@ body {
 }
 
 .dark .prose pre {
-  background-color: #0d0d0d !important;
-  color: #ff8800;
-  border-color: #404040;
-  border-left-color: #ff8800;
+  background-color: var(--color-terminal-bg-deep) !important;
+  color: var(--color-terminal-orange);
+  border-color: var(--color-terminal-bg-lighter);
+  border-left-color: var(--color-terminal-orange);
 }
 
 /* Override highlight.js theme background to match terminal */
 .prose pre code.hljs {
-  background-color: #0d0d0d !important;
-  color: #ff8800;
+  background-color: var(--color-terminal-bg-deep) !important;
+  color: var(--color-terminal-orange);
 }
 
 .dark .prose pre code.hljs {
-  background-color: #0d0d0d !important;
-  color: #ff8800;
+  background-color: var(--color-terminal-bg-deep) !important;
+  color: var(--color-terminal-orange);
 }
 
 .prose pre code {
@@ -273,59 +293,59 @@ body {
 }
 
 .prose blockquote {
-  color: #404040;
-  border-left: 3px solid #cc6600;
-  background: #e8e8e8;
+  color: var(--color-terminal-bg-lighter);
+  border-left: 3px solid var(--color-terminal-orange-dim);
+  background: var(--color-surface-muted);
   padding: 8px 16px;
-  border-top: 1px solid #c0c0c0;
-  border-bottom: 1px solid #c0c0c0;
-  border-right: 1px solid #c0c0c0;
+  border-top: 1px solid var(--color-terminal-border);
+  border-bottom: 1px solid var(--color-terminal-border);
+  border-right: 1px solid var(--color-terminal-border);
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
   margin: 1.5em 0;
 }
 
 .dark .prose blockquote {
-  color: #a0a0a0;
-  border-left-color: #ff8800;
-  background: #2d2d2d;
-  border-top-color: #404040;
-  border-bottom-color: #404040;
-  border-right-color: #404040;
+  color: var(--color-terminal-gray-light);
+  border-left-color: var(--color-terminal-orange);
+  background: var(--color-terminal-bg-light);
+  border-top-color: var(--color-terminal-bg-lighter);
+  border-bottom-color: var(--color-terminal-bg-lighter);
+  border-right-color: var(--color-terminal-bg-lighter);
 }
 
 .prose hr {
-  border-color: #c0c0c0;
-  border-top: 1px solid #c0c0c0;
+  border-color: var(--color-terminal-border);
+  border-top: 1px solid var(--color-terminal-border);
   border-bottom: none;
   margin-top: 2em;
   margin-bottom: 2em;
 }
 
 .dark .prose hr {
-  border-color: #808080;
+  border-color: var(--color-terminal-gray);
 }
 
 .prose strong {
-  color: #994400;
+  color: var(--color-terminal-orange-dark);
   font-weight: 700;
 }
 
 .dark .prose strong {
-  color: #ffaa00;
+  color: var(--color-terminal-orange-bright);
 }
 
 /* Images in prose - terminal style */
 .prose img,
 .terminal-image {
-  border: 2px solid #c0c0c0;
+  border: 2px solid var(--color-terminal-border);
   border-radius: 6px;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   max-width: 100%;
   height: auto;
   display: block;
-  background: #e8e8e8;
+  background: var(--color-surface-muted);
   padding: 4px;
 }
 
@@ -336,7 +356,7 @@ body {
 }
 
 .prose figure img {
-  border: 2px solid #c0c0c0 !important;
+  border: 2px solid var(--color-terminal-border) !important;
   margin-top: 0;
   margin-bottom: 0.5em;
 }
@@ -352,13 +372,13 @@ body {
 }
 
 .dark .prose figure img {
-  border-color: #808080 !important;
+  border-color: var(--color-terminal-gray) !important;
 }
 
 .dark .prose img,
 .dark .terminal-image {
-  border-color: #808080;
-  background: #2d2d2d;
+  border-color: var(--color-terminal-gray);
+  background: var(--color-terminal-bg-light);
   opacity: 1;
 }
 
@@ -371,29 +391,24 @@ body {
 }
 
 .prose ul li::marker {
-  color: #cc6600;
+  color: var(--color-terminal-orange-dim);
 }
 
 .prose ol li::marker {
-  color: #cc6600;
+  color: var(--color-terminal-orange-dim);
 }
 
 .dark .prose ul li::marker {
-  color: #ff8800;
+  color: var(--color-terminal-orange);
 }
 
 .dark .prose ol li::marker {
-  color: #ff8800;
+  color: var(--color-terminal-orange);
 }
 
 .prose li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  color: #ff8800;
-}
-
-.dark .prose li {
-  color: #a0a0a0;
 }
 
 /* Ensure all prose text elements use terminal font */
@@ -416,34 +431,34 @@ body {
 
 /* Body text should be muted gray */
 .prose p {
-  color: #404040;
+  color: var(--color-terminal-bg-lighter);
   text-align: left;
 }
 
 .dark .prose p {
-  color: #a0a0a0;
+  color: var(--color-terminal-gray-light);
 }
 
 /* List items should also be muted gray */
 .prose li {
-  color: #404040;
+  color: var(--color-terminal-bg-lighter);
   text-align: left;
 }
 
 .dark .prose li {
-  color: #a0a0a0;
+  color: var(--color-terminal-gray-light);
 }
 
 /* Table cells should be muted gray */
 .prose td,
 .prose th {
-  color: #404040;
+  color: var(--color-terminal-bg-lighter);
   text-align: left;
 }
 
 .dark .prose td,
 .dark .prose th {
-  color: #a0a0a0;
+  color: var(--color-terminal-gray-light);
 }
 
 /* DevIcon styling for theme-aware SVGs */
@@ -480,23 +495,24 @@ a[aria-label="View on GitHub"]:hover .dev-icon img {
   opacity: 1;
 }
 
-/* Keyboard navigation focus indicator */
-a.keyboard-focus {
-  outline: 2px solid #ff8800 !important;
-  outline-offset: 2px !important;
-  background-color: #2d2d2d !important;
-  border: 1px solid #ff8800 !important;
-  border-radius: 4px;
+/* Keyboard focus indicator.
+   Replaces a former .keyboard-focus class that JS toggled while Tab was
+   preventDefault()-ed, which meant nothing was ever really focused and
+   assistive tech had nothing to announce. This uses real focus. */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Post list item highlighting */
 .post-list-item.highlighted {
   background-color: #f3f4f6 !important;
-  outline: 2px solid #cc6600;
+  outline: 2px solid var(--color-terminal-orange-dim);
   outline-offset: -2px;
 }
 
 .dark .post-list-item.highlighted {
-  background-color: #2d2d2d !important;
-  outline-color: #ff8800;
+  background-color: var(--color-terminal-bg-light) !important;
+  outline-color: var(--color-terminal-orange);
 }

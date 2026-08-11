@@ -1,34 +1,45 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
-  getFileBySlug,
+  getCachedFileBySlug,
+  getCachedAuthorData,
   getAllFilesFrontMatter,
-  getAuthorData,
   type BlogPost,
 } from "@/lib/mdx";
 import { PostSimple } from "@/layouts/PostSimple";
-import { PageTitle } from "@/components/PageTitle";
 import { siteConfig } from "@/data/site";
+import { CONTENT_TYPES, ROUTES } from "@/data/constants";
+import {
+  absoluteUrl,
+  buildPageMetadata,
+  joinSlug,
+  resolveOgImage,
+} from "@/lib/metadata";
 import {
   ArticleStructuredData,
   BreadcrumbStructuredData,
 } from "@/components/StructuredData";
-import type { Metadata } from "next";
 
 export async function generateStaticParams() {
-  const posts = getAllFilesFrontMatter("blog");
-  const validPosts = posts.filter(
-    (post) => post.slug && post.slug !== "undefined" && post.slug.trim() !== ""
-  );
+  return getAllFilesFrontMatter(CONTENT_TYPES.blog)
+    .filter((p) => p.slug && p.slug !== "undefined" && p.slug.trim() !== "")
+    .map((p) => ({ slug: p.slug.split("/") }));
+}
 
-  return validPosts.map((post) => {
-    // post.slug is already formatted (no .mdx extension)
-    // For catch-all routes, we need to return slug as an array
-    const slugParts = post.slug.includes("/")
-      ? post.slug.split("/")
-      : [post.slug];
-    return {
-      slug: slugParts,
-    };
-  });
+/**
+ * Resolves a post, returning null instead of throwing so callers can render a
+ * proper 404 rather than a 500.
+ */
+async function loadPost(slugParts: string[] | undefined) {
+  const slug = joinSlug(slugParts);
+  if (!slug || slug === "undefined") return null;
+
+  const post = (await getCachedFileBySlug(CONTENT_TYPES.blog, slug).catch(
+    () => null
+  )) as BlogPost | null;
+  if (!post) return null;
+
+  return { slug, frontMatter: post.frontMatter, mdxSource: post.mdxSource };
 }
 
 export async function generateMetadata({
@@ -36,80 +47,27 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const slug = Array.isArray(resolvedParams.slug)
-    ? resolvedParams.slug.join("/")
-    : resolvedParams.slug;
-  const post = (await getFileBySlug("blog", slug)) as BlogPost;
-  const frontMatter = post.frontMatter;
-  const author = await getAuthorData();
+  const post = await loadPost((await params).slug);
+  if (!post) return {};
 
-  const url = `${siteConfig.url}/blog/${slug}`;
-  const publishedTime = new Date(frontMatter.date).toISOString();
-  const modifiedTime = frontMatter.lastmod
-    ? new Date(frontMatter.lastmod).toISOString()
-    : publishedTime;
+  const { slug, frontMatter } = post;
+  const author = await getCachedAuthorData();
 
-  // Handle images - support both string and array formats
-  const images = frontMatter.images
-    ? Array.isArray(frontMatter.images)
-      ? frontMatter.images
-      : [frontMatter.images]
-    : [];
-
-  // Use first image if available
-  const ogImage =
-    images.length > 0
-      ? images[0].startsWith("http")
-        ? images[0]
-        : `${siteConfig.url}${images[0]}`
-      : null;
-
-  return {
+  return buildPageMetadata({
     title: frontMatter.title,
     description: frontMatter.summary,
+    path: `${ROUTES.blog}/${slug}`,
+    type: "article",
+    ogEyebrow: "Blog",
     keywords: frontMatter.tags,
-    authors: [{ name: author.frontMatter.name || siteConfig.author }],
-    creator: author.frontMatter.name || siteConfig.author,
-    publisher: author.frontMatter.name || siteConfig.author,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      type: "article",
-      url,
-      title: frontMatter.title,
-      description: frontMatter.summary,
-      publishedTime,
-      modifiedTime,
-      authors: [author.frontMatter.name || siteConfig.author],
-      tags: frontMatter.tags,
-      ...(ogImage && {
-        images: [
-          {
-            url: ogImage,
-            width: 1200,
-            height: 630,
-            alt: frontMatter.title,
-          },
-        ],
-      }),
-      siteName: siteConfig.title,
-    },
-    twitter: {
-      card: ogImage ? "summary_large_image" : "summary",
-      title: frontMatter.title,
-      description: frontMatter.summary,
-      creator:
-        siteConfig.social.twitter?.replace("https://twitter.com/", "@") ||
-        undefined,
-      ...(ogImage && { images: [ogImage] }),
-    },
-    robots: {
-      index: !frontMatter.draft,
-      follow: !frontMatter.draft,
-    },
-  };
+    image: resolveOgImage(frontMatter.images),
+    noIndex: Boolean(frontMatter.draft),
+    authors: [author.frontMatter.name || siteConfig.author],
+    publishedTime: new Date(frontMatter.date).toISOString(),
+    modifiedTime: frontMatter.lastmod
+      ? new Date(frontMatter.lastmod).toISOString()
+      : undefined,
+  });
 }
 
 export default async function BlogPost({
@@ -117,64 +75,19 @@ export default async function BlogPost({
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
-  const resolvedParams = await params;
+  const post = await loadPost((await params).slug);
+  if (!post || post.frontMatter.draft) notFound();
 
-  if (
-    !resolvedParams?.slug ||
-    (Array.isArray(resolvedParams.slug) && resolvedParams.slug.length === 0)
-  ) {
-    throw new Error("Invalid slug parameter");
-  }
+  const { slug, frontMatter, mdxSource } = post;
+  const author = await getCachedAuthorData();
 
-  const slug = Array.isArray(resolvedParams.slug)
-    ? resolvedParams.slug.join("/")
-    : resolvedParams.slug;
-
-  if (!slug || slug === "undefined") {
-    throw new Error(`Invalid slug: ${slug}`);
-  }
-
-  const post = (await getFileBySlug("blog", slug)) as BlogPost;
-  const frontMatter = post.frontMatter;
-
-  if (frontMatter.draft) {
-    return (
-      <div className="mt-24 text-center">
-        <PageTitle>
-          Under Construction{" "}
-          <span role="img" aria-label="roadwork sign">
-            🚧
-          </span>
-        </PageTitle>
-      </div>
-    );
-  }
-
-  const allPosts = getAllFilesFrontMatter("blog");
-  const postIndex = allPosts.findIndex((p) => p.slug === slug);
-  const prev = allPosts[postIndex + 1] || null;
-  const next = allPosts[postIndex - 1] || null;
-
-  const author = await getAuthorData();
-  const url = `${siteConfig.url}/blog/${slug}`;
+  const url = absoluteUrl(`${ROUTES.blog}/${slug}`);
   const publishedTime = new Date(frontMatter.date).toISOString();
-  const modifiedTime = frontMatter.lastmod
-    ? new Date(frontMatter.lastmod).toISOString()
-    : publishedTime;
 
-  // Handle images - support both string and array formats
-  const images = frontMatter.images
-    ? Array.isArray(frontMatter.images)
-      ? frontMatter.images
-      : [frontMatter.images]
-    : [];
-
-  const ogImage =
-    images.length > 0
-      ? images[0].startsWith("http")
-        ? images[0]
-        : `${siteConfig.url}${images[0]}`
-      : undefined;
+  const allPosts = getAllFilesFrontMatter(CONTENT_TYPES.blog);
+  const index = allPosts.findIndex((p) => p.slug === slug);
+  const prev = allPosts[index + 1] || null;
+  const next = allPosts[index - 1] || null;
 
   return (
     <>
@@ -183,22 +96,26 @@ export default async function BlogPost({
         description={frontMatter.summary}
         url={url}
         publishedTime={publishedTime}
-        modifiedTime={modifiedTime}
+        modifiedTime={
+          frontMatter.lastmod
+            ? new Date(frontMatter.lastmod).toISOString()
+            : publishedTime
+        }
         authorName={author.frontMatter.name || siteConfig.author}
         authorUrl={siteConfig.url}
-        image={ogImage}
+        image={resolveOgImage(frontMatter.images)}
         tags={frontMatter.tags}
       />
       <BreadcrumbStructuredData
         items={[
           { name: "Home", url: siteConfig.url },
-          { name: "Blog", url: `${siteConfig.url}/blog` },
+          { name: "Blog", url: absoluteUrl(ROUTES.blog) },
           { name: frontMatter.title, url },
         ]}
       />
       <PostSimple
         frontMatter={frontMatter}
-        content={post.mdxSource}
+        content={mdxSource}
         next={next}
         prev={prev}
       />

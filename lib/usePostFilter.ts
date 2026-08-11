@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import type { BlogFrontMatter } from "@/components/PostListItem";
+import type { BlogFrontMatter } from "@/lib/mdx";
 
 export function usePostFilter(posts: BlogFrontMatter[]) {
   const [searchValue, setSearchValue] = useState("");

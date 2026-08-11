@@ -1,22 +1,8 @@
 import { formatDate } from "@/lib/client-utils";
 import { Link } from "./Link";
 import { Tag } from "./Tag";
-
-export interface BlogFrontMatter {
-  slug: string;
-  date: string;
-  title: string;
-  summary: string;
-  tags: string[];
-  readingTime: {
-    text: string;
-    minutes: number;
-  };
-  folderName?: string;
-  fileName?: string;
-  draft?: boolean;
-  layout?: string;
-}
+import type { BlogFrontMatter } from "@/lib/mdx";
+import { LINK_CLASS } from "@/lib/styles";
 
 export function PostListItem({
   frontMatter,
@@ -44,7 +30,7 @@ export function PostListItem({
           <h3 className="text-2xl md:text-3xl font-bold leading-8 md:leading-9">
             <Link
               href={`/${folderName}/${slug}`}
-              className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
+              className={LINK_CLASS}
             >
               {title}
             </Link>

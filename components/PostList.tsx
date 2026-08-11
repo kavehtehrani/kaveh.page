@@ -1,5 +1,5 @@
 import { PostListItem } from "@/components/PostListItem";
-import type { BlogFrontMatter } from "@/components/PostListItem";
+import type { BlogFrontMatter } from "@/lib/mdx";
 
 interface PostListProps {
   posts: BlogFrontMatter[];

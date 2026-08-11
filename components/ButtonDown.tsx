@@ -1,3 +1,5 @@
+"use client";
+
 import { siteConfig } from "@/data/site"
 
 export function ButtonDown() {

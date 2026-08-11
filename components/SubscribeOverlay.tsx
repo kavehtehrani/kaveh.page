@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { ButtonDown } from "./ButtonDown"
 
 interface SubscribeOverlayProps {
@@ -9,6 +9,49 @@ interface SubscribeOverlayProps {
 }
 
 export function SubscribeOverlay({ isOpen, onClose }: SubscribeOverlayProps) {
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const previouslyFocused = useRef<HTMLElement | null>(null)
+
+  // Move focus into the dialog on open, trap Tab inside it, and restore focus
+  // to the trigger on close. Without this the dialog is announced as ordinary
+  // page content and keyboard users can tab out behind the backdrop.
+  useEffect(() => {
+    if (!isOpen) return
+    previouslyFocused.current = document.activeElement as HTMLElement | null
+    document.body.style.overflow = "hidden"
+
+    const focusables = () =>
+      Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      )
+
+    focusables()[0]?.focus()
+
+    const handleTab = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return
+      const items = focusables()
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener("keydown", handleTab)
+    return () => {
+      document.removeEventListener("keydown", handleTab)
+      document.body.style.overflow = ""
+      previouslyFocused.current?.focus()
+    }
+  }, [isOpen])
+
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen) {
@@ -33,6 +76,10 @@ export function SubscribeOverlay({ isOpen, onClose }: SubscribeOverlayProps) {
 
       {/* Modal */}
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="subscribe-heading"
         className="relative mx-4 w-full max-w-md rounded-xl bg-white p-6 shadow-xl dark:bg-stone-800"
         onClick={(e) => e.stopPropagation()}
       >
@@ -56,7 +103,7 @@ export function SubscribeOverlay({ isOpen, onClose }: SubscribeOverlayProps) {
           </svg>
         </button>
 
-        <h3 className="mb-4 text-center text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h3 id="subscribe-heading" className="mb-4 text-center text-lg font-medium text-gray-900 dark:text-gray-100">
           Subscribe to updates
         </h3>
 

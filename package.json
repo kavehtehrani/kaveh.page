@@ -1,12 +1,24 @@
 {
-  "name": "new_from_scratch",
+  "name": "kaveh-page",
   "version": "0.1.0",
   "private": true,
+  "description": "Personal blog of Kaveh Tehrani - quantitative finance, crypto, and digital nomad life",
+  "author": "Kaveh Tehrani",
+  "license": "MIT",
+  "homepage": "https://kaveh.page",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kavehtehrani/kaveh.page.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.112.3",

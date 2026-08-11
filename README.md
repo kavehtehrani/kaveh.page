@@ -20,7 +20,7 @@ Personal blog built with Next.js 16, TypeScript, and MDX. I am very aware that t
 - **Analytics** - Umami analytics integration
 - **Dark Mode** - System-aware dark mode with theme switching
 - **Responsive Design** - Mobile-first responsive layout
-- **SEO Optimized** - Metadata and Open Graph tags for all pages
+- **SEO Optimized** - Canonical URLs, metadata and generated Open Graph cards for every page, JSON-LD structured data, RSS feed and sitemap
 
 ## Tech Stack
 

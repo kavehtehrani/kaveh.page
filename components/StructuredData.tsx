@@ -1,5 +1,15 @@
 import { siteConfig } from "@/data/site";
 
+/**
+ * Serialises JSON-LD for injection into a <script> tag.
+ *
+ * `<` is escaped because a title containing "</script>" would otherwise close
+ * the tag early and let the remainder be parsed as markup.
+ */
+function jsonLd(data: unknown): string {
+  return JSON.stringify(data, null, 2).replace(/</g, "\\u003c");
+}
+
 interface ArticleStructuredDataProps {
   title: string;
   description: string;
@@ -36,23 +46,19 @@ export function ArticleStructuredData({
       name: authorName,
       url: authorUrl || siteConfig.url,
     },
-    publisher: {
-      "@type": "Person",
-      name: siteConfig.author,
-      url: siteConfig.url,
-    },
+    publisher: { "@id": `${siteConfig.url}#person` },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url,
     },
-    keywords: tags?.join(", "),
+    ...(tags?.length ? { keywords: tags.join(", ") } : {}),
   };
 
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData, null, 2),
+        __html: jsonLd(structuredData),
       }}
     />
   );
@@ -62,6 +68,7 @@ export function OrganizationStructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${siteConfig.url}#person`,
     name: siteConfig.author,
     url: siteConfig.url,
     sameAs: [
@@ -78,7 +85,7 @@ export function OrganizationStructuredData() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData, null, 2),
+        __html: jsonLd(structuredData),
       }}
     />
   );
@@ -88,13 +95,11 @@ export function WebsiteStructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteConfig.url}#website`,
     name: siteConfig.title,
     url: siteConfig.url,
     description: siteConfig.description,
-    publisher: {
-      "@type": "Person",
-      name: siteConfig.author,
-    },
+    publisher: { "@id": `${siteConfig.url}#person` },
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -109,7 +114,7 @@ export function WebsiteStructuredData() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData, null, 2),
+        __html: jsonLd(structuredData),
       }}
     />
   );
@@ -135,7 +140,7 @@ export function BreadcrumbStructuredData({
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData, null, 2),
+        __html: jsonLd(structuredData),
       }}
     />
   );

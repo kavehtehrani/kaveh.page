@@ -1,3 +1,5 @@
+import { ROUTES } from "@/data/constants";
+import { buildPageMetadata } from "@/lib/metadata";
 import { getAuthorData } from "@/lib/mdx";
 import { ProfileCard } from "@/components/ProfileCard";
 import { BlogLinks } from "@/components/BlogLinks";
@@ -7,19 +9,12 @@ import { OpenSourceContributions } from "@/components/OpenSourceContributions";
 import { siteConfig } from "@/data/site";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: `About - ${siteConfig.author}`,
+export const metadata: Metadata = buildPageMetadata({
+  title: "About",
   description: `About ${siteConfig.author} - ${siteConfig.description}`,
-  alternates: {
-    canonical: `${siteConfig.url}/about`,
-  },
-  openGraph: {
-    url: `${siteConfig.url}/about`,
-    title: `About - ${siteConfig.author}`,
-    description: `About ${siteConfig.author} - ${siteConfig.description}`,
-    type: "profile",
-  },
-};
+  path: ROUTES.about,
+  type: "profile",
+});
 
 export default async function About() {
   const authorData = await getAuthorData();
@@ -29,9 +24,9 @@ export default async function About() {
       <div className="mt-8 divide-y divide-gray-200 dark:divide-terminal-bg-lighter dark:text-gray-100 md:mt-16 md:pb-0">
         <div className="flex flex-row space-y-2 md:my-4 md:space-y-5 md:pb-8 md:pt-6 xl:grid xl:grid-cols-3">
           <div className="md:pr-8 xl:col-span-2">
-            <div className="mb-8 bg-clip-text text-4xl font-extrabold leading-[60px] tracking-tight text-terminal-orange-dim dark:text-terminal-orange md:text-5xl md:leading-[86px]">
+            <h1 className="mb-8 bg-clip-text text-4xl font-extrabold leading-[60px] tracking-tight text-terminal-orange-dim dark:text-terminal-orange md:text-5xl md:leading-[86px]">
               Hi, I&apos;m Kaveh! &#128075;
-            </div>
+            </h1>
             <div className="prose prose-xl space-y-3 leading-8 text-gray-700 dark:text-stone-200">
               <p>
                 I work as a quantitative portfolio manager focused mostly on

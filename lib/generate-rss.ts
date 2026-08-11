@@ -1,5 +1,6 @@
 import RSS from "rss";
 import { siteConfig } from "@/data/site";
+import { resolveOgImage } from "@/lib/metadata";
 import { type BlogFrontMatter } from "@/lib/mdx";
 import { remark } from "remark";
 import remarkMath from "remark-math";
@@ -10,6 +11,23 @@ import rehypeStringify from "rehype-stringify";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+
+type RssItemOptions = Parameters<RSS["item"]>[0];
+
+const IMAGE_MIME_TYPES: Record<string, string> = {
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  gif: "image/gif",
+  webp: "image/webp",
+  avif: "image/avif",
+  svg: "image/svg+xml",
+};
+
+function mimeTypeFor(url: string): string {
+  const ext = url.split("?")[0].split(".").pop()?.toLowerCase() ?? "";
+  return IMAGE_MIME_TYPES[ext] ?? "image/png";
+}
 
 function makeUrlsAbsolute(html: string): string {
   // Make image src attributes absolute
@@ -33,6 +51,13 @@ async function convertMdxToHtml(slug: string, folderName: string): Promise<strin
     const source = fs.readFileSync(filePath, "utf8");
     const { content } = matter(source);
 
+    // Strip MDX-only syntax. remark parses plain markdown, so ESM statements and
+    // JSX elements would otherwise reach subscribers as literal text.
+    const markdown = content
+      .replace(/^\s*(import|export)\s.+$/gm, "")
+      .replace(/<\/?[A-Z][\w.]*(\s[^>]*)?\/?>/g, "")
+      .trim();
+
     // Process the markdown content to HTML
     const result = await remark()
       .use(remarkMath)
@@ -40,7 +65,7 @@ async function convertMdxToHtml(slug: string, folderName: string): Promise<strin
       .use(rehypeKatex)
       .use(rehypeHighlight)
       .use(rehypeStringify, { allowDangerousHtml: true })
-      .process(content);
+      .process(markdown);
 
     return makeUrlsAbsolute(String(result));
   } catch (error) {
@@ -83,7 +108,7 @@ export async function generateRss(posts: BlogFrontMatter[]): Promise<string> {
   for (const { post, htmlContent } of processedPosts) {
     const postUrl = `${siteConfig.url}/${post.folderName || "blog"}/${post.slug}`;
 
-    const itemOptions: any = {
+    const itemOptions: RssItemOptions = {
       title: post.title,
       description: post.summary,
       url: postUrl,
@@ -94,16 +119,9 @@ export async function generateRss(posts: BlogFrontMatter[]): Promise<string> {
     };
 
     // Add featured image as enclosure if available
-    const images = post.images
-      ? Array.isArray(post.images)
-        ? post.images
-        : [post.images]
-      : [];
-    if (images.length > 0) {
-      const imageUrl = images[0].startsWith("http")
-        ? images[0]
-        : `${siteConfig.url}${images[0]}`;
-      itemOptions.enclosure = { url: imageUrl, type: "image/png" };
+    const imageUrl = resolveOgImage(post.images);
+    if (imageUrl) {
+      itemOptions.enclosure = { url: imageUrl, type: mimeTypeFor(imageUrl) };
     }
 
     // Add full content if available

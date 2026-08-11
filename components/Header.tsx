@@ -5,13 +5,21 @@ import { siteConfig } from "@/data/site";
 import { Link } from "./Link";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { HeaderNavLinks } from "./HeaderNavLinks";
+import { LINK_CLASS } from "@/lib/styles";
 
 interface HeaderProps {
   onToggleNav: () => void;
   onToggleSub: () => void;
+  navOpen: boolean;
+  subOpen: boolean;
 }
 
-export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
+export function Header({
+  onToggleNav,
+  onToggleSub,
+  navOpen,
+  subOpen,
+}: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full overflow-x-hidden bg-white/75 dark:bg-terminal-bg/75 backdrop-blur border-b border-gray-300 dark:border-terminal-bg-lighter py-2">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
@@ -38,7 +46,7 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
             </p>
             <Link
               href="/about"
-              className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
+              className={LINK_CLASS}
             >
               {siteConfig.author}
             </Link>
@@ -48,7 +56,9 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
           <HeaderNavLinks />
           <button
             className="ml-2 cursor-pointer text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright border border-transparent hover:border-gray-400 dark:hover:border-terminal-gray rounded-md transition-colors duration-150 px-2 py-1"
-            aria-label="Toggle Menu"
+            aria-label="Subscribe to updates"
+            aria-expanded={subOpen}
+            aria-haspopup="dialog"
             onClick={onToggleSub}
           >
             <span className="hidden md:inline">✉️ Subscribe </span>
@@ -58,7 +68,8 @@ export function Header({ onToggleNav, onToggleSub }: HeaderProps) {
           <button
             className="ml-2 mr-1 h-8 w-8 rounded-md border border-gray-300 dark:border-terminal-bg-lighter hover:border-terminal-orange-dim dark:hover:border-terminal-orange transition-colors duration-150 lg:hidden text-terminal-orange-dim dark:text-terminal-orange"
             type="button"
-            aria-label="Toggle Menu"
+            aria-label="Toggle navigation menu"
+            aria-expanded={navOpen}
             onClick={onToggleNav}
           >
             <svg

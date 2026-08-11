@@ -1,6 +1,17 @@
-import { Link } from "./Link";
+"use client";
+
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import CorrChart from "@/data/blog/charts/CorrelationChart";
+import { Link } from "./Link";
+import { MDX_IMAGE_FALLBACK } from "@/data/constants";
+
+// Loaded on demand so chart.js stays out of the shared bundle for the other
+// 49 MDX documents. The chart is a canvas with no crawlable content, so
+// skipping SSR costs nothing.
+const CorrChart = dynamic(() => import("@/components/charts/CorrelationChart"), {
+  ssr: false,
+  loading: () => <div className="terminal-chart-placeholder" aria-hidden="true" />,
+});
 
 // Terminal-styled image component for MDX
 function TerminalImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
@@ -15,18 +26,13 @@ function TerminalImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   if (srcString.startsWith("http") || srcString.startsWith("//")) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={srcString}
-        alt={alt || ""}
-        className="terminal-image"
-        {...rest}
-      />
+      <img src={srcString} alt={alt || ""} className="terminal-image" {...rest} />
     );
   }
 
   // Handle local images with Next.js Image
-  const imgWidth = width ? Number(width) : 800;
-  const imgHeight = height ? Number(height) : 600;
+  const imgWidth = width ? Number(width) : MDX_IMAGE_FALLBACK.width;
+  const imgHeight = height ? Number(height) : MDX_IMAGE_FALLBACK.height;
 
   return (
     <Image
@@ -44,5 +50,5 @@ function TerminalImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
 export const MDXComponents = {
   a: Link,
   img: TerminalImage,
-  CorrChart: CorrChart,
+  CorrChart,
 };

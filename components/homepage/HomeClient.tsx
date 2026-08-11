@@ -1,9 +1,8 @@
 "use client";
 
-import { PostsSearch } from "@/components/PostsSearch";
-import { PostList } from "@/components/PostList";
+import { PostBrowser } from "@/components/PostBrowser";
 import { HomepageTags } from "@/components/homepage/Tags";
-import { usePostFilter } from "@/lib/usePostFilter";
+import { siteConfig } from "@/data/site";
 import type { BlogFrontMatter } from "@/lib/mdx";
 import type { TagsCount } from "@/lib/tags";
 
@@ -14,22 +13,21 @@ export function HomeClient({
   initialPosts: BlogFrontMatter[];
   tags: TagsCount;
 }) {
-  const { setSearchValue, filteredPosts } = usePostFilter(initialPosts);
-
   return (
-    <div className="divide-y divide-gray-200 dark:divide-terminal-bg-lighter">
-      <div className="space-y-4 pb-12 pt-2 md:space-y-5">
-        <p className="text-lg text-gray-500 dark:text-terminal-gray">
+    <PostBrowser
+      heading={siteConfig.title}
+      posts={initialPosts}
+      intro={
+        <>
           I write mostly about{" "}
           <span className="text-terminal-orange-dark dark:text-terminal-orange-bright">
             finance, tech, and living nomadically.{" "}
           </span>
           <span>Use the tags or search below to filter content.</span>
-        </p>
-        <HomepageTags tags={tags} />
-        <PostsSearch onChange={setSearchValue} />
-      </div>
-      <PostList posts={filteredPosts} />
-    </div>
+        </>
+      }
+    >
+      <HomepageTags tags={tags} />
+    </PostBrowser>
   );
 }

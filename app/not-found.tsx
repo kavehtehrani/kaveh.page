@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Link } from "@/components/Link";
+
+// 404 bodies should never be indexed, and must not inherit a canonical.
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (
@@ -13,7 +20,7 @@ export default function NotFound() {
           </p>
           <Link href="/">
             <button
-              className="mt-12 inline rounded-lg border border-transparent bg-stone-600 px-4 py-2 text-lg font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue dark:hover:bg-blue-500"
+              className="mt-12 inline rounded-lg border border-transparent bg-stone-600 px-4 py-2 text-lg font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-blue-700 dark:hover:bg-blue-500"
             >
               Back to homepage
             </button>

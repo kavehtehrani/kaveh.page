@@ -1,7 +1,11 @@
-export const metadata = {
-  title: "Maintenance - kaveh.page",
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
+export const metadata: Metadata = buildPageMetadata({
+  title: "Maintenance",
   description: "This section is under maintenance",
-};
+  path: "/maintenance",
+  noIndex: true,
+});
 
 export default function Maintenance() {
   return (
