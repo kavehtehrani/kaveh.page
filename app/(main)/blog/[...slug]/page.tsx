@@ -108,8 +108,8 @@ export default async function BlogPost({
       />
       <BreadcrumbStructuredData
         items={[
-          { name: "Home", url: siteConfig.url },
-          { name: "Blog", url: absoluteUrl(ROUTES.blog) },
+          // The blog listing is the homepage, so this is a two-level trail.
+          { name: "Blog", url: siteConfig.url },
           { name: frontMatter.title, url },
         ]}
       />

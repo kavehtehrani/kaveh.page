@@ -25,16 +25,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       .filter((t) => !Number.isNaN(t));
     return times.length ? new Date(Math.max(...times)) : new Date();
   };
-
   const postDates = posts.map((p) => p.lastmod || p.date);
   const snippetDates = snippets.map((s) => s.lastmod || s.date);
-  const newestPost = latest(postDates);
   const newestSnippet = latest(snippetDates);
   const newestAny = latest([...postDates, ...snippetDates]);
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: absoluteUrl(ROUTES.home), lastModified: newestAny, ...SITEMAP.home },
-    { url: absoluteUrl(ROUTES.blog), lastModified: newestPost, ...SITEMAP.blog },
     {
       url: absoluteUrl(ROUTES.snippets),
       lastModified: newestSnippet,

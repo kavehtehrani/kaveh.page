@@ -28,6 +28,16 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // The post listing lives at "/" (see data/nav.ts, where the "Blog" nav
+      // item points there). /blog rendered the same listing at a second URL,
+      // so both were self-canonical duplicates competing in the index.
+      // Permanent so the URL leaves the index and any equity consolidates.
+      // Exact match only: /blog/<slug> is untouched.
+      {
+        source: "/blog",
+        destination: "/",
+        permanent: true,
+      },
       // Referenced from a published post but never a real route.
       {
         source: "/digital_nomad",
