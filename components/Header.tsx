@@ -5,6 +5,7 @@ import { siteConfig } from "@/data/site";
 import { Link } from "./Link";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { HeaderNavLinks } from "./HeaderNavLinks";
+import { LINK_CLASS } from "@/lib/styles";
 
 interface HeaderProps {
   onToggleNav: () => void;
@@ -45,7 +46,7 @@ export function Header({
             </p>
             <Link
               href="/about"
-              className="text-terminal-orange-dim dark:text-terminal-orange hover:text-terminal-orange-dark dark:hover:text-terminal-orange-bright hover:underline"
+              className={LINK_CLASS}
             >
               {siteConfig.author}
             </Link>

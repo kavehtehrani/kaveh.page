@@ -15,7 +15,9 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-terminal",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  // 800 is required by the font-extrabold page headings; without it the browser
+  // synthesises a faux bold. All five weights are genuinely used in the design.
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
