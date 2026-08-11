@@ -23,8 +23,8 @@ interface PostBrowserProps {
 /**
  * Searchable post listing.
  *
- * Replaces HomeClient, BlogClient and TagClient, which were the same
- * search-and-filter component three times over with different headings.
+ * Replaces HomeClient and TagClient (and the former BlogClient), which were the same
+ * search-and-filter component several times over with different headings.
  */
 export function PostBrowser({
   heading,
