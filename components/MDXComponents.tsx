@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Link } from "./Link";
-import { MDX_IMAGE_FALLBACK } from "@/data/constants";
+import { MDX_IMAGE_FALLBACK, MDX_IMAGE_MAX_WIDTH } from "@/data/constants";
 
 // Loaded on demand so chart.js stays out of the shared bundle for the other
 // 49 MDX documents. The chart is a canvas with no crawlable content, so
@@ -31,8 +31,13 @@ function TerminalImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   }
 
   // Handle local images with Next.js Image
-  const imgWidth = width ? Number(width) : MDX_IMAGE_FALLBACK.width;
-  const imgHeight = height ? Number(height) : MDX_IMAGE_FALLBACK.height;
+  const intrinsicWidth = width ? Number(width) : MDX_IMAGE_FALLBACK.width;
+  const intrinsicHeight = height ? Number(height) : MDX_IMAGE_FALLBACK.height;
+
+  // Clamp to the column width, keeping the aspect ratio so layout stays stable.
+  const scale = Math.min(1, MDX_IMAGE_MAX_WIDTH / intrinsicWidth);
+  const imgWidth = Math.round(intrinsicWidth * scale);
+  const imgHeight = Math.round(intrinsicHeight * scale);
 
   return (
     <Image
