@@ -32,6 +32,14 @@ export const ROUTES = {
  */
 export const MDX_IMAGE_FALLBACK = { width: 800, height: 600 } as const;
 
+/**
+ * Widest an MDX image is ever displayed, in CSS px: the article column's
+ * `xl:max-w-5xl` (64rem) in app/(main)/layout.tsx. next/image sizes its 1x/2x
+ * srcset from the `width` prop, so passing a photo's raw 4000px width made
+ * every visitor download the 3840w variant.
+ */
+export const MDX_IMAGE_MAX_WIDTH = 1024;
+
 /** Open Graph card dimensions, per the OG spec's recommended 1.91:1. */
 export const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
 
