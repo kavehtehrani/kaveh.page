@@ -1,0 +1,128 @@
+---
+title: "Curing My Laptop's Insomnia with Claude Code"
+date: '2026-11-03'
+lastmod: "2026-11-03"
+tags: ['linux', 'coding']
+draft: false
+summary: 'Two bugs, a dead GNOME setting, and a GPIO pin that kept waking my laptop up.'
+authors: ['default']
+---
+
+My laptop has an AMD iGPU plus an RTX 4060, runs Ubuntu with GNOME, and spends most of the day plugged into an external
+monitor over HDMI. With the monitor connected, closing the lid did absolutely nothing. Fine, I thought, I'll just hit
+suspend. It went to sleep, and a few seconds later it woke right back up.
+
+Linux power management is the kind of rabbit hole I would normally put off for months. So this time I handed the whole
+thing to Claude Code and played the role of hands on the keyboard.
+
+## Claude Code Was Flying Blind
+
+I run Claude Code inside a [bubblewrap sandbox](/blog/claude-code-sandbox), and for this kind of problem that sandbox is
+a wall. It couldn't see `/sys`, `/etc/systemd` or the system journal, which is exactly where all the answers live.
+
+So we settled into a loop. Claude wrote small read-only diagnostic scripts into a folder it could reach, I ran them in a
+normal terminal, and they dumped everything into a file Claude could read back. Anything that needed sudo, it told me why
+and I ran it myself. Slower than giving it free rein, but I saw every single command that touched my system, and I'd
+take that trade again.
+
+## Bug One: The Lid
+
+When you close the lid, the kernel tells systemd-logind, and logind decides what to do. Turns out two separate things
+were telling it to do nothing.
+
+First, logind treats any machine with an external display as "docked", and the default lid action when docked is
+`ignore`. That one is a drop-in file:
+
+```ini
+# /etc/systemd/logind.conf.d/50-lid-docked.conf
+[Login]
+HandleLidSwitchDocked=suspend
+```
+
+Second, GNOME's `gsd-power` grabs a `handle-lid-switch` inhibitor lock whenever an external monitor is attached, which
+tells logind to keep its hands off the lid. `systemd-inhibit --list` showed it plain as day.
+
+GNOME has a setting called `lid-close-suspend-with-external-monitor` whose description promises exactly what I wanted.
+Claude had me set it to `true`. I rebooted, and the lock was still there.
+
+This is the part that impressed me. Instead of trying the next forum suggestion, Claude grepped the `gsd-power` binary
+for the setting's name and got zero matches. The key still sits in the schema with a nice description, but no code
+reads it anymore. The binary did contain the actual rule as a debug string: *"no external monitors or session inactive
+for a while; uninhibiting lid close"*. With a monitor attached, GNOME never lets go of the lid, and no setting changes
+that.
+
+The workaround is to go around GNOME. Its lock only stops logind from reacting to the lid. A direct suspend request goes
+through just fine. So a tiny user service listens for UPower's lid signal and suspends when logind says we're docked
+(trimmed version):
+
+```bash
+#!/usr/bin/env bash
+# Suspend on lid close while an external monitor is attached, since GNOME won't.
+is_docked() {
+  [ "$(busctl get-property org.freedesktop.login1 /org/freedesktop/login1 \
+       org.freedesktop.login1.Manager Docked)" = "b true" ]
+}
+
+stdbuf -oL gdbus monitor --system --dest org.freedesktop.UPower \
+    --object-path /org/freedesktop/UPower |
+  while IFS= read -r line; do
+    case "$line" in
+      *"'LidIsClosed': <true>"*) is_docked && systemctl suspend ;;
+    esac
+  done
+```
+
+It runs as a `systemd --user` service tied to `graphical-session.target`. Without a monitor it does nothing and GNOME
+handles the lid like it always has.
+
+## Bug Two: Waking Up
+
+The lid fix was useless while suspend kept bouncing back, so this was the real problem. Claude went through three
+theories, and I liked that each test was built to kill a theory rather than confirm a favorite.
+
+1. **NVIDIA fails to suspend and the kernel aborts.** The kernel log disagreed. It entered S3, then woke from S3, with
+   no failures in between. The laptop really did sleep, and something woke it.
+2. **The NVIDIA GPU wakes it over its PCIe port.** `/sys/power/pm_wakeup_irq` said IRQ 7, and `/proc/interrupts` showed
+   IRQ 7 belongs to `pinctrl_amd`, the AMD GPIO controller. A PCIe wake would have come in through the ACPI interrupt
+   on IRQ 9.
+3. **A single GPIO pin.** Claude rewrote the test script to snapshot `/proc/interrupts` right before suspending and
+   again after waking, then diff the two:
+
+```text
+26:_amd_gpio_4_ACPI:Event: 1 -> 2
+7:_IR-IO-APIC_7-fasteoi_pinctrl_amd: 20 -> 21
+```
+
+One GPIO interrupt in the whole window, and it was pin 4. Across two test runs, pin 4 fired exactly once per suspend
+and never otherwise.
+
+What is pin 4? Honestly, I still don't know. My monitor runs off the NVIDIA card, so the best guess is that when the
+monitor loses signal and drops into standby, a hotplug line wired to that pin flips and the firmware treats it as a
+wake event. Proving it means decompiling the ACPI tables, and I didn't bother because the fix is the same either way.
+The kernel has a parameter for exactly this:
+
+```bash
+# /etc/default/grub.d/90-ignore-gpio4-wake.cfg
+GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT gpiolib_acpi.ignore_wake=AMDI0030:00@4"
+```
+
+`sudo update-grub`, reboot, and the laptop stayed asleep. The power button and opening the lid still wake it, which
+was the one thing I was worried about.
+
+## Where Claude Code Fumbled
+
+It wasn't flawless. The first lid fix was half wrong because it trusted GNOME's documentation, though to its credit it
+said so plainly once the binary told a different story. Later it wrote the systemd unit file to a path that looked
+writable but was actually a throwaway tmpfs inside my sandbox. The tool reported success, and `systemctl` on my end
+said the unit didn't exist. Claude ran `findmnt`, worked out that only one folder in its world was real disk, and saved
+a note to its memory so it won't make that mistake on this machine again. Partly my fault for sandboxing it so hard,
+but still.
+
+## Afterthoughts
+
+The part I'll remember is how it worked through the problem. It never threw a fix at the wall and moved on. Each step
+came with a theory, a test that could prove the theory wrong, and evidence from my own machine. When it was wrong, the
+evidence said so and it changed course.
+
+I also picked up a few tricks I'm keeping: `systemd-inhibit --list` to see who is blocking what, `busctl` to ask
+logind whether it thinks you're docked, and diffing `/proc/interrupts` around a suspend to find out what woke you up.
